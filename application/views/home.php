@@ -10,7 +10,7 @@
     <div class="navbar">
       <div class="navbar-inner">
         <div class="container">
-        <a class="brand" href="#">订单管理系统</a>
+        <a class="brand" href="#">订单管理系统1</a>
         <div class="navbar-content">
           <ul class="nav pull-right">
               <li class="span2 offset2"><a href="#">Logout</a></li>
