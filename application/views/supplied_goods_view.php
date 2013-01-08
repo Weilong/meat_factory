@@ -52,6 +52,7 @@
             <table class="table table-striped table-hover">
                 <thead>
                     <tr>
+                        <th><input type="checkbox"></th>
                         <th>产品名</th>
                         <th>供应商</th>
                         <th>单价</th>
@@ -59,10 +60,12 @@
                         <th>单位</th>
                         <th>总价</th>
                         <th>进货日期</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td><input type="checkbox"></td>
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
@@ -70,8 +73,10 @@
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
+                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
                     </tr>
                     <tr>
+                        <td><input type="checkbox"></td>
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
@@ -79,8 +84,10 @@
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
+                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
                     </tr>
                     <tr>
+                        <td><input type="checkbox"></td>
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
@@ -88,12 +95,13 @@
                         <td>n/a</td>
                         <td>n/a</td>
                         <td>n/a</td>
+                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="span4 offset8">
-            <button type="submit" class="btn btn-primary">修改</button>
+            <!--<button type="submit" class="btn btn-primary">修改</button> -->
             <button type="submit" class="btn btn-danger">删除</button>
         </div>
     </div>
