@@ -4,11 +4,19 @@ class Page extends CI_Controller {
 
 	public function index()
 	{
-
-		$page = $this->input->get('page');
 		$this->load->view('includes/header');
 		$this->load->view('includes/navigation');
-		$this->load->view($page);
+		
+		if ($this->input->get('page'))
+		{
+			$page = $this->input->get('page');
+			$this->load->view($page);
+		}
+		else
+		{
+			$this->load->view('includes/main');
+		}
+
 		$this->load->view('includes/footer');
 	}
 }
