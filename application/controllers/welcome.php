@@ -19,14 +19,11 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		//$this->load->view('index');
-		//$this->load->view('Order_Management');
-		//$this->load->view('Delivery_View');
-		//$this->load->view('Supplier_Management');
-		//$this->load->view('Product_Management');
-		//$this->load->view('Income_View');
-		//$this->load->view('Client_Management');
-		$this->load->view('Accountant_Management');
+
+		$this->load->view('includes/header');
+		$this->load->view('includes/navigation');
+		$this->load->view('includes/main');
+		$this->load->view('includes/footer');
 	}
 }
 
