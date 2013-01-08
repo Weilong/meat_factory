@@ -11,7 +11,8 @@
             <li class="divider"></li>
             <li><a href="#">客户管理</a></li>
             <li class="divider"></li>
-            <li><a href="#">供应商管理</a></li>
+            <!--Call page controller to load supplier management view -->
+            <li><a href=<?php echo base_url().'page?page=test' ?>>供应商管理</a></li>
             <li class="divider"></li>
             <li><a href="#">商品管理</a></li>
             <li class="divider"></li>
