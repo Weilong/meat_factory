@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <!-- Bootstrap -->
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap-responsive.css">
+    <script src="./asset/js/jquery-1.7.2.js"></script>
+	<script src="./asset/js/bootstrap.min.js"></script>
+    </head>
+    <style>
+		body{
+			margin:auto 0px;
+		}
+		.content{
+			width:100%;
+			height:auto;
+		}
+		.span10
+		{
+			width:83%;
+		}
+	</style>
+  <body>
+     <div class="content">
+         <div class = "row" >
+            <div class = "span2">
+              <div class="navbar">
+                <div class="navbar-inner" style="width:120px;">
+                  <ul class="nav nav-stacked">
+                    <li><a href="#">订单管理</a>
+                    	<ul>
+                        	<li><a href="#">添加新订单</a></li>
+                            <li><a href="#">订单查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">进货管理</a>
+                    	<ul>
+                        	<li><a href="#">送货信息查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">账目管理</a>
+                    	<ul>
+                        	<li><a href="#">账目信息查询</a></li>
+                            <li><a href="#">成本添加</a></li>
+                            <li><a href="#">余额查询</a></li>
+                        </ul>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">客户管理</a>
+                    	<ul>
+                        	<li><a href="#">添加新客户</a></li>
+                            <li><a href="#">客户详细信息</a></li>
+                            <li><a href="#">欠费预览</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">供应商管理</a>
+                    	<ul>
+                        	<li><a href="#">添加新供应商</a></li>
+                            <li><a href="#">供应商详细信息</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">商品管理</a>
+                    	<ul>
+                        	<li><a href="#">入库商品管理</a></li>
+                            <li><a href="#">添加新商品</a></li>
+                            <li><a href="#">管理商品</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="#">报表查看</a>
+                    	<ul>
+                        	<li><a href="#">账目信息查询</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class = "span10">
+            	<div class="">
+                </div>
+            </div>
+         </div>
+         
+     </div>
+  </body>
+</html>
