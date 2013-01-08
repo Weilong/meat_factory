@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Home</title>
+    <title>accountant management</title>
     <!-- Page for account_check, add_cost, and Balance_check -->
     <!-- Bootstrap -->
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
