@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Home</title>
+    <!-- Page for add_Supplier and Supplier_detail -->
     <!-- Bootstrap -->
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
     <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap.css">
