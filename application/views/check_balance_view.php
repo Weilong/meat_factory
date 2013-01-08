@@ -1,0 +1,51 @@
+<div class = "span10">
+<div>
+  <form>
+  <fieldset>
+    <legend>余额查询</legend>
+    <label>公司</label>
+    <select>
+    	<option>test1</option>
+    	<option>test2<option>
+    </select><br />
+    <button type="submit" class="btn btn-primary">查询</button>
+  </fieldset>
+</form>
+</div>
+<div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>公司名</th>
+            <th>描述</th>
+            <th>余额</th>
+            <th>注释</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+        </tr>
+        <tr>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+        </tr>
+        <tr>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+            <td>n/a</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
