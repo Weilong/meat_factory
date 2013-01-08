@@ -1,6 +1,6 @@
 .footer 
 {
-	position:absolute; 
+	position:relative; 
 	bottom:0; 
 	left:0; 
 	right:0;
@@ -10,4 +10,18 @@
 .footer p
 {
 	text-align: center;
+}
+
+.left-nav
+{
+	float: left;
+	width: 160px;
+}
+
+.main-content
+{
+	float: center;
+	margin-left: 220px;
+	margin-right: auto;
+	width: 960px;
 }

@@ -1,4 +1,4 @@
-<div class = "span10">
+<div class = "main-content">
   <form>
   <fieldset>
     <legend>添加成本</legend>

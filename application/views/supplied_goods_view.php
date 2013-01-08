@@ -1,4 +1,4 @@
-<div class = "span10">
+<div class="main-content">
     <div>
       <form>
           <fieldset>
@@ -100,7 +100,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="span4 offset8">
+        <div>
             <!--<button type="submit" class="btn btn-primary">修改</button> -->
             <button type="submit" class="btn btn-danger">删除</button>
         </div>
