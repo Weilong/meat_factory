@@ -7,9 +7,9 @@
     <link href="./asset/css/bootstrap.min.css" rel="stylesheet" media="screen">
   </head>
   <body>
-    <div class="navbar">
-      <div class="navbar-inner">
-        <div class="container">
+  <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
         <a class="brand" href="#">订单管理系统</a>
         <div class="navbar-content">
           <ul class="nav pull-right">
