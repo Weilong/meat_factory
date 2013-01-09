@@ -1,29 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Home</title>
-    <!-- Page for add_Order and Order_check -->
-    <!-- Bootstrap -->
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap-responsive.css">
-    <script src="./asset/js/jquery-1.7.2.js"></script>
-	<script src="./asset/js/bootstrap.min.js"></script>
-    </head>
-    <style>
-		body{
-			margin:auto 0px;
-		}
-		.content{
-			width:100%;
-			height:auto;
-		}
-		.span10
-		{
-			width:83%;
-		}
-	</style>
-  <body>
+
      <div class="content">
          <div class = "row" >
             <div class = "span2">
@@ -32,8 +7,8 @@
                   <ul class="nav nav-stacked">
                     <li><a href="#">订单管理</a>
                         <ul>
-                        	<li><a href="#">添加新订单</a></li>
-                            <li><a href="#">订单查询</a></li>
+                        	<li><a href="#" id='add_order'>添加新订单</a></li>
+                            <li><a href="#" id='order_view'>订单查询</a></li>
                         </ul>
                     </li>
                     
@@ -54,11 +29,43 @@
               </div>
             </div>
             <div class = "span10">
-            	<div class="">
+            	<div class="add_order">
+                	<form method="post">
+                    	<table>
+                            <tr><td>公司 <select name="client_name"></select></td><td width="20" rowspan="4"></td>
+                                <td>地区 <input type="text" name="region" readonly></td>
+                            </tr>
+                            <tr><td>送货日期 <input type="date" ></td><td>邮箱 <input type="text" name="email" readonly></td></tr>
+                            <tr><td>产品分类 <select name="product_category"></select></td><td>送货地址 <input type="text" name="address" readonly></td></tr>
+                            <tr><td>备注 <textarea name="comments" rows="10" cols="10"></textarea></td><td>
+                                <table>
+                                    <tr><td>订单汇总</td></tr>
+                                    <tr><td>总数量 <input type="text" name="Qty" readonly></td></tr>
+                                    <tr><td>总价格 <input type="text" name="Amount" readonly></td></tr>
+                                    <tr><td><input type="button" value="查看订单细节"> <input type="button" value="下单"></td></tr>
+                                </table>
+                            </td></tr>
+                        </table>
+                    </form>
                 </div>
+                <div class="order_view">
+                	<form metho="post"> 
+                    	
+                    </form>
+                </div>
+                 <script language="javascript" type="text/javascript">
+					$(document).ready(function(e) {
+                        $('#add_order').click(function(e) {
+							$('.order_view').animate({height:'0px'},"fast");
+						   	$('.add_order').animate({height:'100%'},"slow");					
+                        });
+						$('#order_view').click(function(e) {
+                            $('.add_order').animate({height:'0px'},"fast");
+							$('.order_view').animate({height:'100%'},"slow");
+                        });
+                    });
+				</script>
             </div>
          </div>
          
      </div>
-  </body>
-</html>

@@ -1,54 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Home</title>
-    <!-- Page for add_Client, Client_pay_detail, and Client_detail -->
-    <!-- Bootstrap -->
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="./asset/css/bootstrap-responsive.css">
-    <script src="./asset/js/jquery-1.7.2.js"></script>
-	<script src="./asset/js/bootstrap.min.js"></script>
-    </head>
-    <style>
-		body{
-			margin:auto 0px;
-		}
-		.content{
-			width:100%;
-			height:auto;
-			position:absolute;
-			top:50px;
-			left:0px;
-		}
-		.span10
-		{
-			width:83%;
-		}
-		/* add new client form, client detail form, client payment detail form */
-		.add_new_client, .client_detail, .client_payment_detail
-		{
-			width:100%;
-			height:auto;
-			top:0px;
-			left:0px;
-            overflow:hidden;
-		}
-		 .client_detail, .client_payment_detail
-		 {
-			 height:0px;
-		 }
-		 /* delivery address style */
-		 .delivery_address
-		 {
-			 width:100%;
-			 height:auto;
-			 overflow:hidden;
-			 padding-right:20px;
-		 }
-	</style>
-  <body>
-     <div class="content">
+<div class="content">
          <div class = "row" >
             <div class = "span2">
               <div class="navbar">
@@ -92,7 +42,7 @@
                             	<tr><td>公司全称：<input type="text" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" name="short_name"></td></tr>
                                 <tr><td>手机：<input type="text" name="mobile"></td><td>客户类型：<input type="text" name="member_type" readonly value="Client"></td></tr>
                                 <tr><td>传真：<input type="text" name="fax_number"></td><td>座机：<input type="text" name="phone"></td></tr>
-                                <tr><td colspan="3">电子邮箱：<input type="text" name="email_address"></td>
+                                <tr><td colspan="3">电子邮箱：<input type="text" name="email_address"></td></tr>
                             </table>
                         </div>
                         <p><h5>客户地址</h5></p>
@@ -127,9 +77,27 @@
                         <input type="reset" value="重填">
                     </form>
                 </div>
-                <div class="client_detail">2
+                <div class="client_detail">
+                	<form method="post">
+                    	所属地区<select name="client_region">
+                        </select>
+                        <input type="submit" value="查询">
+                    </form>
+                    <form method="post">
+                    <table class='client_name'>
+                    	
+                    </table>
+                    	<input type="button" value="更新送货区域"><input type="button" value="删除所选">
+                    </form>
                 </div>
-                <div class="client_payment_detail">3
+                <div class="client_payment_detail">
+                	<form method="post">
+                    	<select name="client_name">
+                        </select>
+                        <input type="button" value="查询">
+                    </form>
+                    <table class="client_payment_list">
+                    </table>
                 </div>
                 <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
@@ -148,11 +116,18 @@
 							$('.client_detail').animate({height:'0px'},"fast");
                             $('.client_payment_detail').animate({height:'100%'},"slow");
                         });
-						
+						$('#check_delivery_address').click(function(e) {
+                            if($('#check_delivery_address').attr('checked'))
+							{
+								$('.delivery_address').animate({height:'0px'},'fast');
+							}
+							else if(!$('#check_delivery_address').attr('checked'))
+							{
+								$('.delivery_address').animate({height:'100%'},'fast');
+							}
+                        });
                     });
 				</script>
             </div>
          </div>
-     </div>
-  </body>
-</html>
+</div>
