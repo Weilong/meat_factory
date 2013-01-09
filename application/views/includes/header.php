@@ -18,8 +18,8 @@
 		.content{
 			width:100%;
 			height:auto;
-			position:absolute;
-			top:50px;
+			position:relative;
+			top:0px;
 			left:0px;
 		}
 		.span10

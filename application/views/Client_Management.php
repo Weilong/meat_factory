@@ -7,9 +7,9 @@
                     <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">进货管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view' ?>">进货管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">账目管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a></li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>
                     	<ul>
@@ -22,19 +22,18 @@
                     <li><a href="<?php echo base_url().'page?page=supplier_management' ?>">供应商管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">商品管理</a>
+                    <li><a href="<?php echo base_url().'page?page=product_management' ?>">商品管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">报表查看</a>
+                    <li><a href="<?php echo base_url().'page?page=income_view' ?>">报表查看</a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class = "span10">
-            	<div class="title_label"><h3>添加新客户</h3>
-                </div>
             	<div class="add_new_client">
+                	<p><h3>添加新客户</h3></p>
                 	<p><h5>客户联系信息</h5></p>
                 	<form method="post">
                     	<div class="connect_detail">
@@ -78,7 +77,8 @@
                     </form>
                 </div>
                 <div class="client_detail">
-                	<form method="post">
+                	<p><h3>客户信息</h3></p>
+                    <form method="post">
                     	所属地区<select name="client_region">
                         </select>
                         <input type="submit" value="查询">
@@ -91,6 +91,7 @@
                     </form>
                 </div>
                 <div class="client_payment_detail">
+                	<p><h3>客户付款/欠费情况</h3></p>
                 	<form method="post">
                     	<select name="client_name">
                         </select>

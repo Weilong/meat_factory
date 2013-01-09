@@ -7,7 +7,7 @@
                     <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">进货管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view' ?>">进货管理</a></li>
                     <li class="divider"></li>
                     <li><a href="#">账目管理</a></li>
                     <li class="divider"></li>
@@ -21,19 +21,18 @@
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">商品管理</a>
+                    <li><a href="<?php echo base_url().'page?page=product_management' ?>">商品管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">报表查看</a>
+                    <li><a href="<?php echo base_url().'page?page=income_view' ?>">报表查看</a>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             <div class = "span10">
-            	<div class="title_label"><h3>添加新客户</h3>
-                </div>
             	<div class="add_new_supplier">
+                	<p><h3>添加新供应商</h3></p>
                 	<p><h5>供应商联系信息</h5></p>
                 	<form method="post">
                     	<div class="connect_detail">
@@ -64,7 +63,8 @@
                     </form>
                 </div>
                 <div class="supplier_detail">
-                	<form method="post">
+                	<p><h3>供应商信息</h3></p>
+                    <form method="post">
                     	所属地区<select name="client_region">
                         </select>
                         <input type="submit" value="查询">

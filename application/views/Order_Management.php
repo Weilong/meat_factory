@@ -13,17 +13,17 @@
                     </li>
                     
                     <li class="divider"></li>
-                    <li><a href="#">进货管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view' ?>">送货管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">账目管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a></li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a></li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=supplier_management' ?>">供应商管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">商品管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=product_management' ?>">商品管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">报表查看</a></li>
+                    <li><a href="<?php echo base_url().'page?page=income_view' ?>">报表查看</a></li>
                   </ul>
                 </div>
               </div>
