@@ -5,7 +5,7 @@
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
-                    <li><a href="#">订单管理</a>
+                    <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                         <ul>
                         	<li><a href="#" id='add_order'>添加新订单</a></li>
                             <li><a href="#" id='order_view'>订单查询</a></li>
@@ -17,9 +17,9 @@
                     <li class="divider"></li>
                     <li><a href="#">账目管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">客户管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">供应商管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=supplier_management' ?>">供应商管理</a></li>
                     <li class="divider"></li>
                     <li><a href="#">商品管理</a></li>
                     <li class="divider"></li>
@@ -50,7 +50,10 @@
                 </div>
                 <div class="order_view">
                 	<form metho="post"> 
-                    	
+                    	<table>
+                        	<tr><td>下单日期 <input type="date" name="start"> 到 <input type="date" name="end"></td><td rowspan="2"><input type="button" value="查询"></td></tr>
+                            <tr><td>公司 <select name="order_company"></select>  状态<select name="status"></select></td></tr>
+                        </table>
                     </form>
                 </div>
                  <script language="javascript" type="text/javascript">
@@ -67,5 +70,4 @@
 				</script>
             </div>
          </div>
-         
      </div>

@@ -77,12 +77,12 @@
     <div class="navbar navbar-inverse">
       <div class="navbar-inner">
         <div class="container">
-        <a class="brand" href="#">订单管理系统</a>
-        <div class="navbar-content">
-          <ul class="nav pull-right">
-              <li class="span2 offset2"><a href="#">Logout</a></li>
-          </ul>
-        </div>
+        	<a class="brand" href="#">订单管理系统</a>
+       		<div class="navbar-content">
+          		<ul class="nav pull-right">
+              		<li class="span2 offset2"><a href="#">Logout</a></li>
+          		</ul>
+       		</div>
+      	</div>
       </div>
     </div>
-  </div>

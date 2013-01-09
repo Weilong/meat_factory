@@ -4,17 +4,17 @@
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
-                    <li><a href="#">订单管理</a>
+                    <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="#">进货管理</a></li>
                     <li class="divider"></li>
                     <li><a href="#">账目管理</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">客户管理</a>
+                    <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="#">供应商管理</a>
+                    <li><a href="<?php echo base_url().'page?page=supplier_management' ?>">供应商管理</a>
                     	<ul>
                         	<li><a href="#" id="add_new_supplier">添加新供应商</a></li>
                             <li><a href="#" id="supplier_detail">供应商详细信息</a></li>
@@ -71,7 +71,7 @@
                     </form>
                     <form method="post">
                     <table class='client_name'>
-                    	
+                    	test
                     </table>
                     	<input type="button" value="更新送货区域"><input type="button" value="删除所选">
                     </form>
