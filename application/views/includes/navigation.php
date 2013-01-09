@@ -1,4 +1,4 @@
-<div class = "span2">
+<div class="left-nav">
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav nav-stacked">

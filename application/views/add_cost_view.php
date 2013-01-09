@@ -1,4 +1,4 @@
-<div class = "span10">
+<div class = "main-content">
   <form>
   <fieldset>
     <legend>添加成本</legend>
@@ -13,7 +13,7 @@
     <label>描述</label>
     <textarea rows="5"></textarea><br />
     <button type="submit" class="btn btn-primary">确认</button>
-    <button type="submit" class="btn btn-warning">清空</button>
+    <button type="submit" class="btn">清空</button>
   </fieldset>
 </form>
 </div>

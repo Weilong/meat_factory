@@ -1,4 +1,4 @@
-<div class = "span10">
+<div class = "main-content">
 <div>
   <form>
   <fieldset>
