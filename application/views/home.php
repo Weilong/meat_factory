@@ -1,29 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Home</title>
-    <!-- Bootstrap -->
-    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
-   <!-- <link href="file:///C|/xampp/htdocs/MeatFactory/asset/css/bootstrap.min.css" rel="stylesheet" media="screen"> -->
-    <link href="./asset/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="./asset/css/bootstrap-responsive.css" rel="stylesheet" media="screen">
-  </head>
-  <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-        <a class="brand" href="#">订单管理系统</a>
-        <div class="navbar-content">
-          <ul class="nav pull-right">
-              <li class="span2 offset2"><a href="#">Logout</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container" style="position:relative; top:70px;">
+  <div class="content">
       <div class = "row" >
-        <div class = "span2">
+        <div class = "left-nav">
           <div class="navbar">
             <div class="navbar-inner" style="width:120px;">
               <ul class="nav nav-stacked">
@@ -44,11 +21,7 @@
             </div>
           </div>
         </div>
-        <div class = "span10">
+        <div class = "main-content">
         </div>
       </div>
   </div>
-    <script src="http://code.jquery.com/jquery-latest.js"></script>
-    <script src="./asset/js/bootstrap.min.js"></script>
-  </body>
-</html>

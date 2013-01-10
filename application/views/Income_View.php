@@ -1,6 +1,6 @@
 	<div class="content">
          <div class = "row" >
-            <div class = "span2">
+            <div class = "left-nav">
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
@@ -31,7 +31,7 @@
                 </div>
               </div>
             </div>
-            <div class = "span10">
+            <div class = "main-content">
             	<p><h3>公司收入支出账目信息查询</h3></p>
             	<div class="incomeview">
                 	<form method="post">

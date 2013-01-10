@@ -1,6 +1,6 @@
 <div class="content">
          <div class = "row" >
-            <div class = "span2">
+            <div class = "left-nav">
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
@@ -31,7 +31,7 @@
                 </div>
               </div>
             </div>
-            <div class = "span10">
+            <div class = "main-content">
             	<div class="add_new_client">
                 	<p><h3>添加新客户</h3></p>
                 	<p><h5>客户联系信息</h5></p>

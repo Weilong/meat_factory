@@ -1,6 +1,6 @@
      <div class="content">
          <div class = "row" >
-            <div class = "span2">
+            <div class = "left-nav">
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
@@ -37,7 +37,7 @@
                 </div>
               </div>
             </div>
-            <div class = "span10">
+            <div class = "main-content">
             	<div class="viewpayment">
                 	<p><h3>客户账户信息</h3></p>
                 	<div class="titlebar">

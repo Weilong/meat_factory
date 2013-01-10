@@ -1,6 +1,6 @@
      <div class="content">
          <div class = "row" >
-            <div class = "span2">
+            <div class = "left-nav">
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
@@ -35,7 +35,7 @@
                 </div>
               </div>
             </div>
-            <div class = "span10">
+            <div class = "main-content">
             	<div class="delivery_view">
                 	<p><h3>送货情况预览</h3></p>
                     <form method="post">

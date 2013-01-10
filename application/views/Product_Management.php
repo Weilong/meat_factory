@@ -1,6 +1,6 @@
      <div class="content">
          <div class = "row" >
-            <div class = "span2">
+            <div class = "left-nav">
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
@@ -37,7 +37,7 @@
                 </div>
               </div>
             </div>
-            <div class = "span10">
+            <div class = "main-content">
             	<div class="intoproduct">
                 	<p><h3>入库商品管理</h3></p>
                 	<div>
@@ -83,9 +83,9 @@
                                 <label>进货日期</label>
                                 <!-- the input for date needs to be improved so that user can 
                                 select date from a drop-down calendar straight away -->
-                                <input type="text" placeholder="起始日期">
+                                <input type="date" placeholder="起始日期">
                                 到
-                                <input type="text" placeholder="截止日期">
+                                <input type="date" placeholder="截止日期">
                                 <button type="submit" class="btn btn-primary">搜索</button>
                             </form>
                         </div>
