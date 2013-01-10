@@ -1,7 +1,3 @@
-
-    <style>
-		
-	</style>
      <div class="content">
          <div class = "row" >
             <div class = "span2">
@@ -41,7 +37,7 @@
             </div>
             <div class = "span10">
             	<div class="delivery_view">
-                	<p><h5>送货情况预览</h5></p>
+                	<p><h3>送货情况预览</h3></p>
                     <form method="post">
                     	<table>
                         	<tr><td>送货日期  <input type="date" name="delivery_date" /></td></tr>

@@ -131,6 +131,13 @@
 		 {
 			 height:0px;
 		 }
+		 /* company debit and credit control */
+		.incomeview,.searchresultview
+		{
+			width:100%;
+			height:auto;
+			overflow:hidden;
+		}
 	</style>
   <body>
     <div class="navbar navbar-inverse">
