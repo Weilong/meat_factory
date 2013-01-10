@@ -72,6 +72,53 @@
 			 overflow:hidden;
 			 padding-right:20px;
 		 }
+		 /* view payment, viewbalance, cost */
+		.viewpayment,.costpayment,.viewbalance
+		{
+			width:100%;
+			height:auto;
+			overflow:hidden;
+		}
+		.costpayment,.viewbalance
+		{
+			height:0px;
+		}
+		.titlebar
+		{
+			width:100%;
+			height:40px;
+		}
+		.company,.retail
+		{
+			line-height:20px;
+			width:40px;
+			float:left;
+			margin-left:10px;
+			padding-left:12px;
+			background:#000;
+			color:#FFF;
+			cursor:pointer;
+		}
+		.retail
+		{
+			background:#fff;
+			color:#000;
+		}
+		.paymentcontrol, .viewpaymentlist, .companypayment, .retailpayment
+		{
+			width:100%;
+			height:auto;
+			overflow:hidden;
+			margin-top:5px;
+		}
+		.paymentcontrol
+		{
+			height:226px;
+		}
+		.retailpayment
+		{
+			height:0px;
+		}
 	</style>
   <body>
     <div class="navbar navbar-inverse">
