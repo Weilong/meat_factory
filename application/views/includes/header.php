@@ -119,6 +119,18 @@
 		{
 			height:0px;
 		}
+		/* product management style */
+		/* intoproduct, addnewproduct, productmanagement */
+		.intoproduct, .addnewproduct,.productmanagement
+		{
+			width:100%;
+			height:auto;
+			overflow:hidden;
+		}
+		 .addnewproduct,.productmanagement
+		 {
+			 height:0px;
+		 }
 	</style>
   <body>
     <div class="navbar navbar-inverse">
