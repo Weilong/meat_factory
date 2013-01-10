@@ -30,6 +30,7 @@
             </div>
             <div class = "span10">
             	<div class="add_order">
+                	<p><h3>添加新订单</h3></p>
                 	<form method="post">
                     	<table>
                             <tr><td>公司 <select name="client_name"></select></td><td width="20" rowspan="4"></td>
@@ -49,6 +50,7 @@
                     </form>
                 </div>
                 <div class="order_view">
+                	<p><h3>订单查询</h3></p>
                 	<form metho="post"> 
                     	<table>
                         	<tr><td>下单日期 <input type="date" name="start"> 到 <input type="date" name="end"></td><td rowspan="2"><input type="button" value="查询"></td></tr>
