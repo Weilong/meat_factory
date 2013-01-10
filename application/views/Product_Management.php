@@ -149,9 +149,50 @@
                 </div>
                 <div class="addnewproduct">
                 	<p><h3>添加新商品</h3></p>
+                    <form method="post">
+                    	<table>
+                        	<tr><td>产品名称 <input type="text" name="newproductname" /></td></tr>
+                            <tr><td>产品描述 <input type="text" name="productintro" /></td></tr>
+                            <tr><td>库存 <input type="number" name="qty" /></td></tr>
+                            <tr><td>单位 <input type="text" name="unit" /></td></tr>
+                            <tr><td>单价 <input type="text" name="price" /></td></tr>
+                            <tr><td>分类 <select name="category">
+                            				<option vlaue="0"></option>
+                            				<option value="1">Beef</option>
+                                            <option value="2">Chicken</option>
+                                            <option value="3">Lamb</option>
+                                            <option value="4">Duck</option>
+                                            <option value="5">Pork</option>
+                                            <option value="6">Stock</option>
+                                            <option value="7">Other</option>
+                                        </select></td></tr>
+                            <tr><td align="right"><input type="reset" value="清空" /> <input type="submit" value="入库" /></td></tr>
+                        </table>
+                    </form>
                 </div>
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
+                    <div class="productview">
+                    	<form metho="post">
+                        	<p>产品名：<select name="productname"></select> <input type="button" value="查询" />
+                            </p>
+                      
+                        <table>
+                        	<tr><th>产品名称</th><th width="10"></th>
+                                <th>产品描述</th><th width="10"></th>
+                                <th>单位</th><th width="10"></th>
+                                <th>单价</th><th width="10"></th>
+                                <th>类别</th>
+                            </tr>
+                            <?php ?>
+                            <tr><td colspan="9" align="right">
+                            	<input type="button" id="updatebutton" value="更新"/>
+                                <input type="button" id="deletebutton" value="删除"/>
+                                </td></tr>
+                            
+                        </table>
+                          </form>
+                    </div>
                 </div>
             </div>
             <script language="javascript" type="text/javascript">
