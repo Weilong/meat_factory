@@ -158,7 +158,6 @@
                 	<p><h3>成本预算</h3></p>
                     <form>
                       <fieldset>
-                        <legend>添加成本</legend>
                         <label>成本类型</label>
                         <select>
                             <option>Salary</option>
@@ -176,6 +175,54 @@
                 </div>
                 <div class="viewbalance">
                 	<p><h3>客户账户余额查询</h3></p>
+                    <div>
+                     <form>
+                      <fieldset>
+                       <label><h5>公司</h5></label>
+                        <select>
+                            <option>test1</option>
+                            <option>test2<option>
+                        </select><br />
+                        <button type="submit" class="btn btn-primary">查询</button>
+                      </fieldset>
+                    </form>
+                    </div>
+                    <div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>公司名</th>
+                                <th>描述</th>
+                                <th>余额</th>
+                                <th>注释</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                            </tr>
+                            <tr>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                            </tr>
+                            <tr>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
                 </div>
             </div>
              <script language="javascript" type="text/javascript">
