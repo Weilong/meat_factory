@@ -177,7 +177,7 @@
                         	<p>产品名：<select name="productname"></select> <input type="button" class="btn btn-primary" value="查询" />
                             </p>
                       
-                        <table>
+                        <table class="table-striped table-hover">
                         	<tr><th>产品名称</th><th width="10"></th>
                                 <th>产品描述</th><th width="10"></th>
                                 <th>单位</th><th width="10"></th>

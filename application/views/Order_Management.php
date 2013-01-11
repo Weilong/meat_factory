@@ -56,6 +56,16 @@
                     <tr><td>公司 <select name="order_company"></select>  状态<select name="status"></select></td></tr>
                 </table>
             </form>
+            <table class="table table-striped">
+            	<tr><th>订单号</th><th width="10"></th>
+                	<th>下单日期</th><th width="10"></th>
+                    <th>公司名字</th><th width="10"></th>
+                    <th>送货日期</th><th width="10"></th>
+                    <th>送货进程</th><th width="10"></th>
+                    <th>总价</th><th width="10"></th>
+                    <th>备注</th>
+                </tr>
+            </table>
         </div>
          <script language="javascript" type="text/javascript">
 			$(document).ready(function(e) {

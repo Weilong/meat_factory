@@ -84,8 +84,16 @@
                         <input type="submit" value="查询">
                     </form>
                     <form method="post">
-                    <table class='client_name'>
-                    	  test
+                    <table class='client_name table table-striped table-hover'>
+                    	  <tr><th>公司简称</th><th width="10"></th>
+                          		<th>公司全称</th><th width="10"></th>
+                                <th>公司地址</th><th width="10"></th>
+                                <th>地区</th><th width="10"></th>
+                                <th>电话</th><th width="10"></th>
+                                <th>手机</th><th width="10"></th>
+                                <th>送货区域</th><th width="10"></th>
+                                <th>详细</th>
+                          </tr>
                     </table>
                     	<input type="button" class="btn btn-primary" value="更新送货区域">   <input type="button" class="btn btn-danger" value="删除所选">
                     </form>
@@ -97,7 +105,15 @@
                         </select>
                         <input type="button" class="btn btn-primary" value="查询">
                     </form>
-                    <table class="client_payment_list">
+                    <table class="client_payment_list table table-striped table-hover">
+                    	<tr><th>公司名</th><th width="10">
+                        	<th>3个月前（90天）</th><th width="10">
+                            <th>2个月前（60-90天）</th><th width="10">
+                            <th>1个月前（30-60天）</th><th width="10">
+                            <th>本月（今天-30天)</th><th width="10">
+                            <th>今日</th><th width="10">
+                            <th>总计</th>
+                        </tr>
                     </table>
                 </div>
                 <script language="javascript" type="text/javascript">

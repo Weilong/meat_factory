@@ -70,8 +70,15 @@
                         <input type="submit" value="查询">
                     </form>
                     <form method="post">
-                    <table class='client_name'>
-                    	test
+                    <table class='client_name table table-striped table-hover'>
+                    	  <tr><th>公司简称</th><th width="10"></th>
+                          		<th>公司全称</th><th width="10"></th>
+                                <th>公司地址</th><th width="10"></th>
+                                <th>地区</th><th width="10"></th>
+                                <th>电话</th><th width="10"></th>
+                                <th>手机</th><th width="10"></th>
+                                <th>详细</th>
+                          </tr>
                     </table>
                     	<input type="button" class="btn btn-primary" value="更新送货区域">   <input type="button" class="btn btn-danger" value="删除所选">
                     </form>
