@@ -72,8 +72,8 @@
                                         <option value="">VIC</option>
                                 	</select>
                         </div>
-                        <input type="button" id="submit_button" value="保存">
-                        <input type="reset" value="重填">
+                        <input type="button" class="btn btn-primary" id="submit_button" value="保存">
+                        <input type="reset" class="btn btn-danger" value="重填">
                     </form>
                 </div>
                 <div class="client_detail">
@@ -87,7 +87,7 @@
                     <table class='client_name'>
                     	  test
                     </table>
-                    	<input type="button" value="更新送货区域"><input type="button" value="删除所选">
+                    	<input type="button" class="btn btn-primary" value="更新送货区域">   <input type="button" class="btn btn-danger" value="删除所选">
                     </form>
                 </div>
                 <div class="client_payment_detail">
@@ -95,7 +95,7 @@
                 	<form method="post">
                     	<select name="client_name">
                         </select>
-                        <input type="button" value="查询">
+                        <input type="button" class="btn btn-primary" value="查询">
                     </form>
                     <table class="client_payment_list">
                     </table>

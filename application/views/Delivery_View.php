@@ -40,7 +40,9 @@
                 	<p><h3>送货情况预览</h3></p>
                     <form method="post">
                     	<table>
-                        	<tr><td>送货日期  <input type="date" name="delivery_date" /></td></tr>
+                        	<tr><td>送货日期  <input type="date" name="delivery_date" /></td>
+                            	<td width="10"></td><td><input type="button" class="btn btn-primary" value="查询" /></td>
+                            </tr>
                         </table>
                     </form>
                     <!-- delivery detail in current date -->

@@ -58,7 +58,7 @@
                                     <tr><td>账户余额： <input type='text' readonly="readonly" /></td></tr>
                                     <tr><td>本次支付金额： <input type='text' /></td></tr>
                                     <tr><td>支付方式： <select name="paymentoption"></select></td></tr>
-                                    <tr><td><input type="button" id="companysubmit" value="入账" /></td></tr>
+                                    <tr><td><input type="button" class="btn btn-primary" id="companysubmit" value="入账" /></td></tr>
                                 </table> 
                             </form>
                         </div>
@@ -66,7 +66,7 @@
                         	<form method="post">
                             	<table>
                                 	<tr><td>零售金额： <input type="text" name="retailamount"  /></td></tr>
-                                    <tr><td><input type="button" id="retailsubmit" value="入账" /></td></tr>
+                                    <tr><td><input type="button" class="btn btn-primary" id="retailsubmit" value="入账" /></td></tr>
                                 </table>
                             </form>
                         </div>
@@ -95,7 +95,7 @@
                         <div class="paymentlist">
                         	<p><form method="post">
                             	下单日期： <input type="date" name='starttime' /> 到 <input type="date" name='endtime' /><br />
-                                <input type="button" id="checklist" value="明细查询" /><br />
+                                <input type="button" id="checklist" class="btn btn-primary" value="明细查询" /><br />
                             </form></p>
                             <div class="listdetail">
                             	<table>
@@ -118,8 +118,8 @@
                         <input type="text"></input><br />
                         <label>描述</label>
                         <textarea rows="5"></textarea><br />
-                        <button type="submit" class="btn btn-primary">确认</button>
-                        <button type="submit" class="btn">清空</button>
+                        <button type="button" class="btn btn-primary">确认</button>
+                        <button type="button" class="btn">清空</button>
                       </fieldset>
                     </form>
                 </div>
@@ -133,7 +133,7 @@
                             <option>test1</option>
                             <option>test2<option>
                         </select><br />
-                        <button type="submit" class="btn btn-primary">查询</button>
+                        <button type="button" class="btn btn-primary">查询</button>
                       </fieldset>
                     </form>
                     </div>
@@ -195,5 +195,4 @@
                     });
 				</script>
          </div>
-         
      </div>

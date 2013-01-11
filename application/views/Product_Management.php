@@ -166,7 +166,7 @@
                                             <option value="6">Stock</option>
                                             <option value="7">Other</option>
                                         </select></td></tr>
-                            <tr><td align="right"><input type="reset" value="清空" /> <input type="submit" value="入库" /></td></tr>
+                            <tr><td align="right"><input type="reset" class="btn btn-danger" value="清空" /> <input type="submit" class="btn btn-primary" value="入库" /></td></tr>
                         </table>
                     </form>
                 </div>
@@ -174,7 +174,7 @@
                 	<p><h3>商品管理</h3></p>
                     <div class="productview">
                     	<form metho="post">
-                        	<p>产品名：<select name="productname"></select> <input type="button" value="查询" />
+                        	<p>产品名：<select name="productname"></select> <input type="button" class="btn btn-primary" value="查询" />
                             </p>
                       
                         <table>
@@ -186,8 +186,8 @@
                             </tr>
                             <?php ?>
                             <tr><td colspan="9" align="right">
-                            	<input type="button" id="updatebutton" value="更新"/>
-                                <input type="button" id="deletebutton" value="删除"/>
+                            	<input type="button" id="updatebutton" class="btn btn-primary" value="更新"/>
+                                <input type="button" id="deletebutton" class="btn btn-danger" value="删除"/>
                                 </td></tr>
                             
                         </table>

@@ -42,7 +42,7 @@
                             <tr><td>订单汇总</td></tr>
                             <tr><td>总数量 <input type="text" name="Qty" readonly></td></tr>
                             <tr><td>总价格 <input type="text" name="Amount" readonly></td></tr>
-                            <tr><td><input type="button" value="查看订单细节"> <input type="button" value="下单"></td></tr>
+                            <tr><td><input type="button" class="btn btn-primary" value="查看订单细节"> <input type="button" class="btn btn-primary" value="下单"></td></tr>
                         </table>
                     </td></tr>
                 </table>
@@ -52,7 +52,7 @@
         	<p><h3>订单查询</h3></p>
         	<form metho="post"> 
             	<table>
-                	<tr><td>下单日期 <input type="date" name="start"> 到 <input type="date" name="end"></td><td rowspan="2"><input type="button" value="查询"></td></tr>
+                	<tr><td>下单日期 <input type="date" name="start"> 到 <input type="date" name="end"></td><td rowspan="2"><input type="button" class="btn btn-primary" value="查询"></td></tr>
                     <tr><td>公司 <select name="order_company"></select>  状态<select name="status"></select></td></tr>
                 </table>
             </form>
