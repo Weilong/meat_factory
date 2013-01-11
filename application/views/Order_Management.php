@@ -35,7 +35,7 @@
                     <tr><td>公司 <select name="client_name"></select></td><td width="20" rowspan="4"></td>
                         <td>地区 <input type="text" name="region" readonly></td>
                     </tr>
-                    <tr><td>送货日期 <input type="date" ></td><td>邮箱 <input type="text" name="email" readonly></td></tr>
+                    <tr><td>送货日期 <input class="datepicker" type="text" ></td><td>邮箱 <input type="text" name="email" readonly></td></tr>
                     <tr><td>产品分类 <select name="product_category"></select></td><td>送货地址 <input type="text" name="address" readonly></td></tr>
                     <tr><td>备注 <textarea name="comments" rows="10" cols="10"></textarea></td><td>
                         <table>
@@ -52,7 +52,7 @@
         	<p><h3>订单查询</h3></p>
         	<form metho="post"> 
             	<table>
-                	<tr><td>下单日期 <input type="date" name="start"> 到 <input type="date" name="end"></td><td rowspan="2"><input type="button" value="查询"></td></tr>
+                	<tr><td>下单日期 <input class="datepicker" type="text" name="start"> 到 <input class="datepicker" type="text" name="end"></td><td rowspan="2"><input type="button" value="查询"></td></tr>
                     <tr><td>公司 <select name="order_company"></select>  状态<select name="status"></select></td></tr>
                 </table>
             </form>
@@ -68,6 +68,10 @@
 					$('.order_view').animate({height:'100%'},"slow");
                 });
             });
+
+            $(function() {
+                        $( ".datepicker" ).datepicker();
+                    });
 		</script>
     </div>
  </div>

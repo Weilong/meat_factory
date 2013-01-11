@@ -94,7 +94,7 @@
                     	<p><h5>明细查询</h5></p>
                         <div class="paymentlist">
                         	<p><form method="post">
-                            	下单日期： <input type="date" name='starttime' /> 到 <input type="date" name='endtime' /><br />
+                            	下单日期： <input class="datepicker" type="text" name='starttime' /> 到 <input class="datepicker" type="text" name='endtime' /><br />
                                 <input type="button" id="checklist" value="明细查询" /><br />
                             </form></p>
                             <div class="listdetail">
@@ -192,6 +192,10 @@
 							$('.costpayment').animate({height:'0px'},"fast");
                             $('.viewbalance').animate({height:'100%'},"slow");
                         });
+                    });
+
+                    $(function() {
+                        $( ".datepicker" ).datepicker();
                     });
 				</script>
          </div>
