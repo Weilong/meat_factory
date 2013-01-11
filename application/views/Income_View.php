@@ -37,7 +37,7 @@
                 	<form method="post">
                     	<table>
                         	<tr><td>产品名称 <select name="productname"></select></td>
-                            	<td rowspan="2" width="30"></td><td colspan="2">日期 <input type="date" name="startdate" /> 到 <input type="date" name="enddate" /></td>
+                            	<td rowspan="2" width="30"></td><td colspan="2">日期 <input class="datepicker" type="text" name="startdate" /> 到 <input class="datepicker" type="text" name="enddate" /></td>
                             </tr>
                             <tr>
                             	<td>公司名称 <select name="companyname"></select></td>
@@ -75,6 +75,11 @@
                         </tr>
                     </table>
                 </div>
+                <script languange="javascript" type="text/javascript">
+                    $(function() {
+                        $( ".datepicker" ).datepicker();
+                    });
+                </script>
             </div>
          </div>
          

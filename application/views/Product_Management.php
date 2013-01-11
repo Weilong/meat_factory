@@ -83,9 +83,9 @@
                                 <label>进货日期</label>
                                 <!-- the input for date needs to be improved so that user can 
                                 select date from a drop-down calendar straight away -->
-                                <input type="date" placeholder="起始日期">
+                                <input class="datepicker" type="text">
                                 到
-                                <input type="date" placeholder="截止日期">
+                                <input class="datepicker" type="text">
                                 <button type="submit" class="btn btn-primary">搜索</button>
                             </form>
                         </div>
@@ -212,6 +212,10 @@
 							$('.addnewproduct').animate({height:'0px'},"fast");
                             $('.productmanagement').animate({height:'100%'},"slow");	
                         });
+                    });
+
+                    $(function() {
+                        $( ".datepicker" ).datepicker();
                     });
 			</script>
          </div>
