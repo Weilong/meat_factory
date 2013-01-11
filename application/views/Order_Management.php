@@ -47,6 +47,9 @@
                     </td></tr>
                 </table>
             </form>
+            <table>
+            	<tr><th>产品ID 产品名 单位 单价 种类 Qty</th></tr>
+            </table>
         </div>
         <div class="order_view">
         	<p><h3>订单查询</h3></p>
