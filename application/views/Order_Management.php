@@ -42,7 +42,7 @@
                             <tr><td>订单汇总</td></tr>
                             <tr><td>总数量 <input type="text" name="Qty" readonly></td></tr>
                             <tr><td>总价格 <input type="text" name="Amount" readonly></td></tr>
-                            <tr><td><input type="button" value="查看订单细节"> <input type="button" value="下单"></td></tr>
+                            <tr><td><input type="button" class="btn btn-primary" value="查看订单细节"> <input type="button" class="btn btn-primary" value="下单"></td></tr>
                         </table>
                     </td></tr>
                 </table>

@@ -57,7 +57,7 @@
                             </tr>
                             <tr>
                             	<td colspan="4" align="right">
-                                	<input type="button" value="查询" />
+                                	<input type="button" class="btn btn-primary" value="查询" />
                                 </td>
                             </tr>
                         </table>
