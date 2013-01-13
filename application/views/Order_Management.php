@@ -33,12 +33,14 @@
             	<p><h3>添加新订单</h3></p>
             	<form method="post">
                     <fieldset>
-                        <lengend>订单信息</legend>
+                        <legend>订单信息</legend>
                             <div class="row">
                                 <div class="span4">
                                     <label>公司</label>
-                                    <select name="client_name"></select>
-                                    <label>送过日期</label>
+                                    <select id="company_name">
+                                        <option>All</option>
+                                    </select>
+                                    <label>送货日期</label>
                                     <input class="datepicker" type="text" >
                                     <label>产品分类</label>
                                     <select name="product_category"></select>
@@ -51,7 +53,7 @@
                                     <label>邮箱</label>
                                     <input type="text" name="email" readonly>
                                     <label>送货地址</label>
-                                    <input type="text" name="address" readonly>
+                                    <input type="text" id="address" readonly>
                                     <label>订单汇总</label>
                                     <label>总数量</label>
                                     <input type="text" name="Qty" readonly>
@@ -157,11 +159,35 @@
                     $('.add_order').animate({height:'0px'},"fast");
 					$('.order_view').animate({height:'100%'},"slow");
                 });
+
+                //retrieve comments to display on page
+                $.getJSON("customers/read_company_name?jsoncallback=?", function(data){
+                    //loop through all items in the JSON array
+                    for (var x = 0;x<data.length;x++){
+                        //create a container for each comment
+                        var div = $("<option>").appendTo("#company_name");
+                        //add author name and comment to container
+                        $("<label>").text(data[x].CompanyName).appendTo(div);
+                        //$("<div>").addClass("comment").text(data[x].comment).appendTo(div);
+                    }
+                });
             });
 
-            $(function() {
-                        $( ".datepicker" ).datepicker();
-                    });
+            $(function(){
+                        $(".datepicker" ).datepicker();
+            });
+
+            $("#company_name").change(function(){
+                var ajaxOpts={
+                            type: "post",
+                            url: "customers/read_company_information",
+                            data: "&ConpanyName="+$("#company_name").find("select").val(),
+                            success: function(data){
+                                $("#address").val(data.Address1);
+                            }
+                        };
+                $.ajax(ajaxOpts);
+            });
 		</script>
     </div>
  </div>
