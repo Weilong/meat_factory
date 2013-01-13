@@ -58,29 +58,52 @@
                                 区域：<select name="area">
                                 </select>
                         </div>
-                        <input type="button" id="submit_button" class="btn btn-primary" value="保存">
-                        <input type="reset" class="btn btn-danger" value="重填">
+                        <button type="submit" class="btn btn-primary">保存</button>
+                        <button type="submit" class="btn">清空</button>
                     </form>
                 </div>
                 <div class="supplier_detail">
                 	<p><h3>供应商信息</h3></p>
-                    <form method="post">
-                    	所属地区<select name="client_region">
-                        </select>
-                        <input type="submit" value="查询">
-                    </form>
-                    <form method="post">
-                    <table class='client_name table table-striped table-hover'>
-                    	  <tr><th>公司简称</th><th width="10"></th><!-- click to view detail and edit -->
-                          		<th>公司全称</th><th width="10"></th>
-                                <th>公司地址</th><th width="10"></th>
-                                <th>地区</th><th width="10"></th>
-                                <th>电话</th><th width="10"></th>
+                    <div>
+                        <form method="post" class="form-inline">
+                        	<label>所属地区</label>
+                            <select name="client_region">
+                            </select>
+                            <button type="submit" class="btn btn-primary">查询</button>
+                        </form>
+                    </div>
+                    <div>
+                        <form method="post">
+                        <table class='client_name table table-striped table-hover'>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>公司简称</th><!-- click to view detail and edit -->
+                          		<th>公司全称</th>
+                                <th>公司地址</th>
+                                <th>地区</th>
+                                <th>电话</th>
                                 <th>手机</th>
-                          </tr>
-                    </table>
-                    	<input type="button" class="btn btn-primary" value="更新送货区域">   <input type="button" class="btn btn-danger" value="删除所选">
-                    </form>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <td>n/a</td>
+                                <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                            </tr>
+                        </tbody>
+                        </table>
+                        	<button type="submit" class="btn btn-danger">删除</button>
+                            <button type="submit" class="btn btn-primary">保存更改</button>
+                        </form>
+                    </div>
                 </div>
                 <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
