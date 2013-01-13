@@ -14,7 +14,7 @@ class Customers extends CI_Controller {
 
 	public function read_company_name()
 	{
-		$sql = "SELECT CompanyName FROM customer";
+		$sql = "SELECT companyname FROM customer";
 		$query = $this->db->query($sql);
 
 		if ($query->num_rows()>0)
@@ -36,13 +36,13 @@ class Customers extends CI_Controller {
 
 	public function read_company_information()
 	{
-		$CompanyName = $this->input->post("CompanyName");
-		$sql = "SELECT Address1 FROM customer WHERE CompanyName='$CompanyName'";
+		$company_name = $this->input->post("company_name");
+		$sql = "SELECT Address1, Suburb1, Email FROM customer WHERE companyname='$company_name'";
 		$query = $this->db->query($sql);
 
 		if ($query->num_rows()==1)
 		{
-			$response = $_GET["jsoncallback"]."(".json_encode($query->row($i));
+			$response = json_encode($query->row());
 			echo $response;
 		}
 	}

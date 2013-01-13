@@ -49,42 +49,22 @@
                                 </div>
                                 <div class="span5">
                                     <label>地区</label>
-                                    <input type="text" name="region" readonly>
+                                    <input type="text" id="suburb" readonly>
                                     <label>邮箱</label>
-                                    <input type="text" name="email" readonly>
+                                    <input type="text" id="email" readonly>
                                     <label>送货地址</label>
-                                    <input type="text" id="address" readonly>
+                                    <input type="text" id="delivery_address" readonly>
                                     <label>订单汇总</label>
                                     <label>总数量</label>
-                                    <input type="text" name="Qty" readonly>
+                                    <input type="text" id="qty" readonly>
                                     <label>总价格</label>
-                                    <input type="text" name="Amount" readonly>
+                                    <input type="text" id="amount" readonly>
                                     <br />
                                     <button type="submit" class="btn btn-primary">查看订单细节</button>
                                     <button type="submit" class="btn btn-primary">下单</button>
                                 </div>
                             </div>
                     </fieldset>
-                	<!--<table>
-                        <tr><td>公司 <select name="client_name"></select></td><td width="20" rowspan="4"></td>
-                            <td>地区 <input type="text" name="region" readonly></td>
-                        </tr>
-                        <tr><td>送货日期 <input class="datepicker" type="text" ></td><td>邮箱 <input type="text" name="email" readonly></td></tr>
-                        <tr><td>产品分类 <select name="product_category"></select></td><td>送货地址 <input type="text" name="address" readonly></td></tr>
-                        <tr><td>备注 <textarea name="comments" rows="10" cols="10"></textarea></td><td>
-                            <table>
-                                <tr><td>订单汇总</td></tr>
-                                <tr><td>总数量 <input type="text" name="Qty" readonly></td></tr>
-                                <tr><td>总价格 <input type="text" name="Amount" readonly></td></tr>
-                                <tr><td><input type="button" class="btn btn-primary" value="查看订单细节"> <input type="button" class="btn btn-primary" value="下单"></td></tr>
-                            </table>
-                        </td></tr>
-                    </table>
-                </form>
-                <table>
-                	<tr><th>产品ID 产品名 单位 单价 种类 Qty</th></tr>
-                </table>
-            -->
             </div>
             <hr />
             <div>
@@ -167,23 +147,26 @@
                         //create a container for each comment
                         var div = $("<option>").appendTo("#company_name");
                         //add author name and comment to container
-                        $("<label>").text(data[x].CompanyName).appendTo(div);
+                        $("<label>").text(data[x].companyname).appendTo(div);
                         //$("<div>").addClass("comment").text(data[x].comment).appendTo(div);
                     }
                 });
             });
 
             $(function(){
-                        $(".datepicker" ).datepicker();
+                $(".datepicker" ).datepicker();
             });
 
             $("#company_name").change(function(){
                 var ajaxOpts={
                             type: "post",
+                            dataType: "json",
                             url: "customers/read_company_information",
-                            data: "&ConpanyName="+$("#company_name").find("select").val(),
+                            data: "&company_name="+$("#company_name").val(),
                             success: function(data){
-                                $("#address").val(data.Address1);
+                                $("#delivery_address").val(data.Address1);
+                                $("#suburb").val(data.Suburb1);
+                                $("#email").val(data.Email);
                             }
                         };
                 $.ajax(ajaxOpts);
