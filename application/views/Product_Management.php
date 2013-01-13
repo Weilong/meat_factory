@@ -182,7 +182,7 @@
                 	<p><h3>商品管理</h3></p>
                     <div>
                     	<form class="form-inline" method="post">
-                        	<label>产品名:</label>
+                        	<label>产品名</label>
                             <select name="productname"></select> 
                             <button type="submit" class="btn btn-primary"/>查询</button>
                             
@@ -247,6 +247,10 @@
                                     </tr>
                                 </tbody>
                             </table>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-danger">删除</button>
+                        <button type="submit" class="btn btn-primary">保存修改</button>
                     </div>
                 </div>
             </div>

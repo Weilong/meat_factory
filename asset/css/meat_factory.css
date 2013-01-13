@@ -152,3 +152,8 @@ body{
 	height:auto;
 	overflow:hidden;
 }
+
+.table-fixed
+{
+	table-layout:fixed;
+}

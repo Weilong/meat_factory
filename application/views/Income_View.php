@@ -24,7 +24,7 @@
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=income_view' ?>">报表查看</a>
                     	<ul>
-                        	<li>账目信息查询</li>
+                        	<li>收入支出一览</li>
                         </ul>
                     </li>
                   </ul>
@@ -32,11 +32,46 @@
               </div>
             </div>
             <div class = "main-content">
-            	<p><h3>公司收入支出账目信息查询</h3></p>
+            	<p><h3>收入支出一览</h3></p>
             	<div class="incomeview">
-                	<form method="post">
-                    	<table>
-                        	<tr><td>产品名称 <select name="productname"></select></td>
+                	<form class="form-inline" method="post">
+                        <table border="0">
+                            <tr>
+                                <td>
+                                    <label>公司名称</label> 
+                                    <select name="companyname"></select>
+                                    <label>日期</label> 
+                                    <input class="datepicker" type="text" name="startdate" style="width:127px;" /> 
+                                    到 
+                                    <input class="datepicker" type="text" name="enddate" style="width:127px;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>产品名称</label>
+                                    <select name="productname"></select>
+                                    <label>类型</label> 
+                                    <select name="incometype" style="width:120px;">
+                                        <option value="0">ALL</option>
+                                        <option value="1">收入</option>
+                                        <option value="2">支出</option>
+                                    </select>
+                                    <label>支付方式</label> 
+                                    <select name="paytype" style="width:120px";>
+                                        <option value="0">ALL</option>
+                                        <option value="1">Cash</option>
+                                        <option value="2">Cheque</option>
+                                    </select>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right"><button type="submit" class="btn btn-primary">查询</button></td>
+                            </tr>
+                        </table>
+                    	<!--<table>
+                        	<tr>
+                                <td>产品名称 <select name="productname"></select></td>
                             	<td rowspan="2" width="30"></td><td colspan="2">日期 <input class="datepicker" type="text" name="startdate" /> 到 <input class="datepicker" type="text" name="enddate" /></td>
                             </tr>
                             <tr>
@@ -60,11 +95,11 @@
                                 	<input type="button" class="btn btn-primary" value="查询" />
                                 </td>
                             </tr>
-                        </table>
+                        </table>-->
                     </form>
                 </div>
                 <div class="searchresultview">
-                	<table>
+                	<!--<table>
                     	<tr><th>ProductName</th><th width="10"></th>
                         	<th>CompanyName</th><th width="10"></th>
                             <th>PayMethod</th><th width="10"></th>
@@ -73,7 +108,57 @@
                             <th>Credit</th><th width="10"></th>
                             <th>Comment</th>
                         </tr>
-                    </table>
+                    </table>-->
+                    <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox"></th>
+                                        <th>ProductName</th>
+                                        <th>CompanyName</th>
+                                        <th>PayMethod</th>
+                                        <th>Date</th>
+                                        <th>Debit</th>
+                                        <th>Credit</th>
+                                        <th>Comment</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                </tbody>
+                            </table>
                 </div>
                 <script languange="javascript" type="text/javascript">
                     $(function() {
