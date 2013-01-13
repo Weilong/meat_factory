@@ -185,23 +185,7 @@
                         	<label>产品名</label>
                             <select name="productname"></select> 
                             <button type="submit" class="btn btn-primary"/>查询</button>
-                            
-                      <!--
-                        <table class="table-striped table-hover">
-                        	<tr><th>产品名称</th><th width="10"></th>
-                                <th>产品描述</th><th width="10"></th>
-                                <th>单位</th><th width="10"></th>
-                                <th>单价</th><th width="10"></th>
-                                <th>类别</th>
-                            </tr>
-                            <?php ?>
-                            <tr><td colspan="9" align="right">
-                            	<input type="button" id="updatebutton" class="btn btn-primary" value="更新"/>
-                                <input type="button" id="deletebutton" class="btn btn-danger" value="删除"/>
-                                </td></tr>
-                            
-                        </table>-->
-                          </form>
+                        </form>
                     </div>
                     <hr />
                     <div>
@@ -250,7 +234,7 @@
                     </div>
                     <div>
                         <button type="submit" class="btn btn-danger">删除</button>
-                        <button type="submit" class="btn btn-primary">保存修改</button>
+                        <button type="submit" class="btn btn-primary">保存更改</button>
                     </div>
                 </div>
             </div>

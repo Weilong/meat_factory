@@ -38,7 +38,7 @@
             <div class = "main-content">
             	<div class="delivery_view">
                 	<p><h3>送货情况预览</h3></p>
-                    <form method="post">
+                    <form class="form-inline" method="post">
                     	<table>
                         	<tr>
                                 <td>送货日期  <input class="datepicker" type="text" name="delivery_date" /></td>

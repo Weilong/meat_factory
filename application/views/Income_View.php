@@ -69,46 +69,9 @@
                                 <td align="right"><button type="submit" class="btn btn-primary">查询</button></td>
                             </tr>
                         </table>
-                    	<!--<table>
-                        	<tr>
-                                <td>产品名称 <select name="productname"></select></td>
-                            	<td rowspan="2" width="30"></td><td colspan="2">日期 <input class="datepicker" type="text" name="startdate" /> 到 <input class="datepicker" type="text" name="enddate" /></td>
-                            </tr>
-                            <tr>
-                            	<td>公司名称 <select name="companyname"></select></td>
-                                <td>类型 <select name="incometype">
-                                	<option value="0">ALL</option>
-                                    <option value="1">收入</option>
-                                    <option value="2">支出</option>
-                                    </select>
-                                </td>
-                                <td>
-                                	支付方式 <select name="paytype">
-                                    <option value="0">ALL</option>
-                                    <option value="1">Cash</option>
-                                    <option value="2">Cheque</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                            	<td colspan="4" align="right">
-                                	<input type="button" class="btn btn-primary" value="查询" />
-                                </td>
-                            </tr>
-                        </table>-->
                     </form>
                 </div>
                 <div class="searchresultview">
-                	<!--<table>
-                    	<tr><th>ProductName</th><th width="10"></th>
-                        	<th>CompanyName</th><th width="10"></th>
-                            <th>PayMethod</th><th width="10"></th>
-                            <th>Date</th><th width="10"></th>
-                            <th>Debit</th><th width="10"></th>
-                            <th>Credit</th><th width="10"></th>
-                            <th>Comment</th>
-                        </tr>
-                    </table>-->
                     <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>

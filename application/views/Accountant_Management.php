@@ -95,7 +95,7 @@
                         <div class="paymentlist">
                         	<p><form method="post">
                             	下单日期： <input class="datepicker" type="text" name='starttime' /> 到 <input class="datepicker" type="text" name='endtime' /><br />
-                                <input type="button" id="checklist" value="明细查询" /><br />
+                                <button type="submit" class="btn btn-primary">明细查询</button><br />
                             </form></p>
                             <div class="listdetail">
                             	<table>
