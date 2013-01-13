@@ -45,7 +45,7 @@
                           <fieldset>
                             <legend>产品信息</legend>
                                 <div class="row">
-                                    <div class="span5">
+                                    <div class="span4">
                                         <label>产品名称</label>
                                         <select>
                                             <option>test1</option>
@@ -150,33 +150,43 @@
                 <div class="addnewproduct">
                 	<p><h3>添加新商品</h3></p>
                     <form method="post">
-                    	<table>
-                        	<tr><td>产品名称 <input type="text" name="newproductname" /></td></tr>
-                            <tr><td>产品描述 <input type="text" name="productintro" /></td></tr>
-                            <tr><td>库存 <input type="number" name="qty" /></td></tr>
-                            <tr><td>单位 <input type="text" name="unit" /></td></tr>
-                            <tr><td>单价 <input type="text" name="price" /></td></tr>
-                            <tr><td>分类 <select name="category">
-                            				<option vlaue="0"></option>
-                            				<option value="1">Beef</option>
-                                            <option value="2">Chicken</option>
-                                            <option value="3">Lamb</option>
-                                            <option value="4">Duck</option>
-                                            <option value="5">Pork</option>
-                                            <option value="6">Stock</option>
-                                            <option value="7">Other</option>
-                                        </select></td></tr>
-                            <tr><td align="right"><input type="reset" class="btn btn-danger" value="清空" /> <input type="submit" class="btn btn-primary" value="入库" /></td></tr>
-                        </table>
+                        <fieldset>
+                            <label>产品名称</label>
+                            <input type="text" name="productname" />
+                            <label>产品描述</label>
+                            <input type="text" name="productintro" />
+                            <label>库存</label>
+                            <input type="number" name="qty" />
+                            <label>单位</label>
+                            <input type="text" name="unit" />
+                            <label>单价</label>
+                            <input type="text" name="price" />
+                            <label>分类</label>
+                            <select name="category">
+                                <option vlaue="0"></option>
+                                <option value="1">Beef</option>
+                                <option value="2">Chicken</option>
+                                <option value="3">Lamb</option>
+                                <option value="4">Duck</option>
+                                <option value="5">Pork</option>
+                                <option value="6">Stock</option>
+                                <option value="7">Other</option>
+                            </select>
+                            <br />
+                            <button type="submit" class="btn btn-primary">添加</button>
+                            <button type="reset" class="btn">清空</button>
+                        </fieldset>
                     </form>
                 </div>
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
-                    <div class="productview">
-                    	<form metho="post">
-                        	<p>产品名：<select name="productname"></select> <input type="button" class="btn btn-primary" value="查询" />
-                            </p>
-                      
+                    <div>
+                    	<form class="form-inline" method="post">
+                        	<label>产品名:</label>
+                            <select name="productname"></select> 
+                            <button type="submit" class="btn btn-primary"/>查询</button>
+                            
+                      <!--
                         <table class="table-striped table-hover">
                         	<tr><th>产品名称</th><th width="10"></th>
                                 <th>产品描述</th><th width="10"></th>
@@ -190,8 +200,53 @@
                                 <input type="button" id="deletebutton" class="btn btn-danger" value="删除"/>
                                 </td></tr>
                             
-                        </table>
+                        </table>-->
                           </form>
+                    </div>
+                    <hr />
+                    <div>
+                        <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th><input type="checkbox"></th>
+                                        <th>产品名</th>
+                                        <th>产品描述</th>
+                                        <th>单价</th>
+                                        <th>单位</th>
+                                        <th>类别</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                    <tr>
+                                        <td><input type="checkbox"></td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <td>n/a</td>
+                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
+                                    </tr>
+                                </tbody>
+                            </table>
                     </div>
                 </div>
             </div>
