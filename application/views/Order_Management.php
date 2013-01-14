@@ -147,8 +147,8 @@
                 $.getJSON("manage_order/get_company_name", function(data){
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
-                        var div = $("<option>").appendTo("#company_name");
-                        $("<label>").text(data[x].companyname).appendTo(div);
+                        var opt = $("<option>").appendTo("#company_name");
+                        opt.text(data[x].companyname);
                     }
                 });
 
@@ -179,7 +179,7 @@
                             type: "post",
                             dataType: "json",
                             url: "manage_order/get_company_data",
-                            data: "&company_name="+$("#company_name").val(),
+                            data: {company_name : $("#company_name").val()},
                             success: function(data){
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
@@ -189,14 +189,12 @@
                             }
                         };
                 $.ajax(ajaxOpts);
-            });
 
-            $("#company_name").change(function(){
                 var ajaxOpts={
                             type: "post",
                             dataType: "json",
                             url: "manage_order/get_company_order",
-                            data: "&company_name="+$("#company_name").val()+"&category="+$("#category").val(),
+                            data: {company_name : $("#company_name").val(), category : $("#product_category").val()},
                             success: function(data){
                                 $("#results_table tbody").empty();
                                 for (var x = 0;x<data.length;x++){

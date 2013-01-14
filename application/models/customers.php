@@ -50,7 +50,7 @@ class Customers extends CI_Model {
 
 		foreach($query->result() as $row)
 		{
-			$total_price +=	$row->Price;
+			$total_price +=	($row->Price*$row->Qty);
 			$total_qty += $row->Qty;
 		}
 
