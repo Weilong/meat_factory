@@ -33,10 +33,11 @@ class Manage_order extends CI_Controller {
 	public function get_company_order()
 	{
 		$company_name = $this->input->post("company_name");
+		$category = $this->input->post("category");
 		
-		if (isset($company_name)&&!empty($company_name))
+		if (isset($company_name)&&!empty($company_name) AND isset($category)&&!empty($category))
 		{
-			$orders = $this->customers->filter_company_order($company_name);
+			$orders = $this->customers->filter_company_order($company_name,$category);
 		}
 		else
 		{

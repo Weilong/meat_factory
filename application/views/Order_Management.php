@@ -54,7 +54,7 @@
                                         <option>Others</option>
                                     </select>
                                     <label>备注</label>
-                                    <textarea name="comments" rows="10" cols="10"></textarea>
+                                    <textarea name="comments" rows="8" cols="10"></textarea>
                                 </div>
                                 <div class="span5">
                                     <label>地区</label>
@@ -196,7 +196,33 @@
                             type: "post",
                             dataType: "json",
                             url: "manage_order/get_company_order",
-                            data: "&company_name="+$("#company_name").val(),
+                            data: "&company_name="+$("#company_name").val()+"&category="+$("#category").val(),
+                            success: function(data){
+                                $("#results_table tbody").empty();
+                                for (var x = 0;x<data.length;x++){
+
+                                    var tr = $("<tr>").appendTo($("#results_table tbody"));
+
+                                    $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
+                                    $("<td>").text(data[x].ProductID).appendTo(tr);
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<td>").text(data[x].Qty).appendTo(tr);
+                                    $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                }
+                            }
+                        };
+                $.ajax(ajaxOpts);
+            });
+
+            $("#product_category").change(function(){
+                var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/get_company_order",
+                            data: "&company_name="+$("#company_name").val()+"&category="+$("#product_category").val(),
                             success: function(data){
                                 $("#results_table tbody").empty();
                                 for (var x = 0;x<data.length;x++){
