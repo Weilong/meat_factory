@@ -43,7 +43,16 @@
                                     <label>送货日期</label>
                                     <input class="datepicker" type="text" >
                                     <label>产品分类</label>
-                                    <select name="product_category"></select>
+                                    <select id="product_category">
+                                        <option>All</option>
+                                        <option>Pork</option>
+                                        <option>Beef</option>
+                                        <option>Lamb</option>
+                                        <option>Chicken</option>
+                                        <option>Duck</option>
+                                        <option>Stock</option>
+                                        <option>Others</option>
+                                    </select>
                                     <label>备注</label>
                                     <textarea name="comments" rows="10" cols="10"></textarea>
                                 </div>
@@ -56,9 +65,9 @@
                                     <input type="text" id="delivery_address" readonly>
                                     <label>订单汇总</label>
                                     <label>总数量</label>
-                                    <input type="text" id="qty" readonly>
+                                    <input type="text" id="total_qty" readonly>
                                     <label>总价格</label>
-                                    <input type="text" id="amount" readonly>
+                                    <input type="text" id="total_price" readonly>
                                     <br />
                                     <button type="submit" class="btn btn-primary">查看订单细节</button>
                                     <button type="submit" class="btn btn-primary">下单</button>
@@ -69,31 +78,21 @@
             <hr />
             <div>
                 <form method="post">
-                    <table class='client_name table table-striped table-hover'>
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>产品ID</th><!-- click to view detail and edit -->
-                            <th>产品名</th>
-                            <th>单价</th>
-                            <th>单位</th>
-                            <th>种类</th>
-                            <th>数量</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>n/a</td>
-                            <td>n/a</td>
-                            <td>n/a</td>
-                            <td>n/a</td>
-                            <td>n/a</td>
-                            <td>n/a</td>
-                            <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                        </tr>
-                    </tbody>
+                    <table  id="results_table" class='table table-striped table-hover'>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>产品ID</th><!-- click to view detail and edit -->
+                                <th>产品名</th>
+                                <th>单价</th>
+                                <th>单位</th>
+                                <th>种类</th>
+                                <th>数量</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                     <!--
                         <button type="submit" class="btn btn-danger">删除</button>
@@ -118,15 +117,19 @@
                 </table>
             </form>
             <table class="table table-striped">
-            	<tr>
-                    <th>订单号</th><th width="10"></th>
-                	<th>下单日期</th><th width="10"></th>
-                    <th>公司名字</th><th width="10"></th>
-                    <th>送货日期</th><th width="10"></th>
-                    <th>送货进程</th><th width="10"></th>
-                    <th>总价</th><th width="10"></th>
-                    <th>备注</th>
-                </tr>
+                <thead>
+                	<tr>
+                        <th>订单号</th><th width="10"></th>
+                    	<th>下单日期</th><th width="10"></th>
+                        <th>公司名字</th><th width="10"></th>
+                        <th>送货日期</th><th width="10"></th>
+                        <th>送货进程</th><th width="10"></th>
+                        <th>总价</th><th width="10"></th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
             </table>
         </div>
          <script language="javascript" type="text/javascript">
@@ -140,15 +143,29 @@
 					$('.order_view').animate({height:'100%'},"slow");
                 });
 
-                //retrieve comments to display on page
-                $.getJSON("customers/read_company_name?jsoncallback=?", function(data){
+                //retrieve all company names to display on page
+                $.getJSON("manage_order/get_company_name", function(data){
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
-                        //create a container for each comment
                         var div = $("<option>").appendTo("#company_name");
-                        //add author name and comment to container
                         $("<label>").text(data[x].companyname).appendTo(div);
-                        //$("<div>").addClass("comment").text(data[x].comment).appendTo(div);
+                    }
+                });
+
+                $.getJSON("manage_order/get_company_order", function(data){
+                    //loop through all items in the JSON array
+                    for (var x = 0;x<data.length;x++){
+
+                        var tr = $("<tr>").appendTo($("#results_table tbody"));
+
+                        $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
+                        $("<td>").text(data[x].ProductID).appendTo(tr);
+                        $("<td>").text(data[x].ProductName).appendTo(tr);
+                        $("<td>").text(data[x].Price).appendTo(tr);
+                        $("<td>").text(data[x].Unit).appendTo(tr);
+                        $("<td>").text(data[x].Category).appendTo(tr);
+                        $("<td>").text(data[x].Qty).appendTo(tr);
+                        $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                     }
                 });
             });
@@ -161,12 +178,40 @@
                 var ajaxOpts={
                             type: "post",
                             dataType: "json",
-                            url: "customers/read_company_information",
+                            url: "manage_order/get_company_data",
                             data: "&company_name="+$("#company_name").val(),
                             success: function(data){
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
                                 $("#email").val(data.Email);
+                                $("#total_qty").val(data.total_qty);
+                                $("#total_price").val(data.total_price);
+                            }
+                        };
+                $.ajax(ajaxOpts);
+            });
+
+            $("#company_name").change(function(){
+                var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/get_company_order",
+                            data: "&company_name="+$("#company_name").val(),
+                            success: function(data){
+                                $("#results_table tbody").empty();
+                                for (var x = 0;x<data.length;x++){
+
+                                    var tr = $("<tr>").appendTo($("#results_table tbody"));
+
+                                    $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
+                                    $("<td>").text(data[x].ProductID).appendTo(tr);
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<td>").text(data[x].Qty).appendTo(tr);
+                                    $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                }
                             }
                         };
                 $.ajax(ajaxOpts);
