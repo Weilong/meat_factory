@@ -50,9 +50,14 @@
                                 邮编：<input type="text" name="client_code" size="10px"><br/>
                                 城市：<input type="text" name="client_city" size="50px"><br/>
                                 州： <select name="client_states">
-                                		<option value="">NSW</option>
-                                        <option value="">ACT</option>
-                                        <option value="">VIC</option>
+                                		<option value="NSW">NSW</option>
+                                        <option value="ACT">ACT</option>
+                                        <option value="VIC">VIC</option>
+                                        <option value="TAS">TAS</option>
+                                        <option value="QLD">QLD</option>
+                                        <option value="NT">NT</option>
+                                        <option value="SA">SA</option>
+                                        <option value="WA">WA</option>
                                 	</select>
                                     <br/>
                                 区域：<select name="area">
