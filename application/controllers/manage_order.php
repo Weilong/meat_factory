@@ -3,10 +3,10 @@
 class Manage_order extends CI_Controller {
 
 	 public function __construct()
-       {
-            parent::__construct();
-            $this->load->model("customers");
-       }
+   {
+        parent::__construct();
+        $this->load->model("customers");
+   }
 
 	public function index()
 	{
@@ -46,6 +46,18 @@ class Manage_order extends CI_Controller {
 		
 		$response = json_encode($orders);
 		echo $response;
+	}
+
+	public function add_order()
+	{
+		$this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
+		$this->form_validation->set_rules('delivery_date', 'Delivery Date', 'trim|required');
+		
+		if($this->form_validation->run() == FALSE)
+	   {
+	     //Field validation failed.&nbsp; User redirected to login page
+	     $this->load->view('order_management');
+	   }
 	}
 }
 

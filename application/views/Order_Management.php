@@ -31,16 +31,16 @@
         <div class="add_order">
         	<div>
             	<p><h3>添加新订单</h3></p>
-            	<form method="post">
+                <form>
                     <fieldset>
                         <legend>订单信息</legend>
                             <div class="row">
                                 <div class="span4">
                                     <label>公司</label>
-                                    <select id="company_name">
+                                    <select id="company_name" name="company_name">
                                     </select>
                                     <label>送货日期</label>
-                                    <input class="datepicker" type="text" >
+                                    <input class="datepicker" type="text" name="delivery_date" >
                                     <label>产品分类</label>
                                     <select id="product_category">
                                         <option>All</option>
@@ -69,7 +69,7 @@
                                     <input type="text" id="total_price" readonly>
                                     <br />
                                     <!--<button type="submit" class="btn btn-primary">查看订单细节</button>-->
-                                    <a href="#detailModal" role="button" class="btn btn-primary" data-toggle="modal">查看订单细节</a>
+                                    <a href="#detailModal" role="button" id="detail_btn" class="btn btn-primary" data-toggle="modal">查看订单细节</a>
                                     <!-- Modal -->
                                     <div id="detailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                       <div class="modal-header">
@@ -100,6 +100,7 @@
                                 </div>
                             </div>
                     </fieldset>
+                </form>
             </div>
             <hr />
             <div>
@@ -107,7 +108,6 @@
                     <table  id="results_table" class='table table-striped table-hover'>
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
                                 <th>产品名</th><!-- click to view detail and edit -->
                                 <th>描述</th>
                                 <th>单价</th>
@@ -187,7 +187,6 @@
 
                         var tr = $("<tr>").appendTo($("#results_table tbody"));
 
-                        $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
                         $("<td>").text(data[x].ProductName).appendTo(tr);
                         $("<td>").text(data[x].Description).appendTo(tr);
                         $("<td>").text(data[x].Price).appendTo(tr);
@@ -233,7 +232,6 @@
 
                                     var tr = $("<tr>").appendTo($("#results_table tbody"));
 
-                                    $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
                                     $("<td>").text(data[x].ProductName).appendTo(tr);
                                     $("<td>").text(data[x].Description).appendTo(tr);
                                     $("<td>").text(data[x].Price).appendTo(tr);
@@ -244,6 +242,7 @@
                                     //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                                     if (data[x].Qty>0)
                                     {
+                                        $("modal_table tbody").empty();
                                         var tr = $("<tr>").appendTo($("#modal_table tbody"));
                                         $("<td>").text(data[x].ProductName).appendTo(tr);
                                         $("<td>").text(data[x].Description).appendTo(tr);
@@ -263,7 +262,7 @@
                             type: "post",
                             dataType: "json",
                             url: "manage_order/get_company_order",
-                            data: "&company_name="+$("#company_name").val()+"&category="+$("#product_category").val(),
+                            data: {company_name : $("#company_name").val(), category : $("#product_category").val()},
                             success: function(data){
                                 $("#results_table tbody").empty();
                                 for (var x = 0;x<data.length;x++){
@@ -279,21 +278,13 @@
                                     $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
                                     //$("<td>").text(data[x].Qty).appendTo(tr);
                                     //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
-                                    if (data[x].Qty>0)
-                                    {
-                                        var tr = $("<tr>").appendTo($("#modal_table tbody"));
-                                        $("<td>").text(data[x].ProductName).appendTo(tr);
-                                        $("<td>").text(data[x].Description).appendTo(tr);
-                                        $("<td>").text(data[x].Price).appendTo(tr);
-                                        $("<td>").text(data[x].Unit).appendTo(tr);
-                                        $("<td>").text(data[x].Category).appendTo(tr);
-                                        $("<td>").text(data[x].Qty).appendTo(tr);
-                                    }
                                 }
                             }
                         };
                 $.ajax(ajaxOpts);
             });
+
+            
 		</script>
     </div>
  </div>
