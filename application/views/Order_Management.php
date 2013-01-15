@@ -167,8 +167,8 @@
                         $("<td>").text(data[x].Price).appendTo(tr);
                         $("<td>").text(data[x].Unit).appendTo(tr);
                         $("<td>").text(data[x].Category).appendTo(tr);
-                        $("<td>").text(data[x].Qty).appendTo(tr);
-                        $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                        $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
+                        //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                     }
                 });
 
@@ -213,8 +213,9 @@
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<td>").text(data[x].Qty).appendTo(tr);
-                                    $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                    $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
+                                    //$("<td>").text(data[x].Qty).appendTo(tr);
+                                    //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                                 }
                             }
                         };
@@ -239,8 +240,9 @@
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<td>").text(data[x].Qty).appendTo(tr);
-                                    $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                    $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
+                                    //$("<td>").text(data[x].Qty).appendTo(tr);
+                                    //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                                 }
                             }
                         };
