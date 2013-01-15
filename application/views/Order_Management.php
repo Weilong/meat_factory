@@ -68,7 +68,34 @@
                                     <label>总价格</label>
                                     <input type="text" id="total_price" readonly>
                                     <br />
-                                    <button type="submit" class="btn btn-primary">查看订单细节</button>
+                                    <!--<button type="submit" class="btn btn-primary">查看订单细节</button>-->
+                                    <a href="#detailModal" role="button" class="btn btn-primary" data-toggle="modal">查看订单细节</a>
+                                    <!-- Modal -->
+                                    <div id="detailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="detailModalLabel">订单细节</h3>
+                                      </div>
+                                      <div class="modal-body">
+                                        <table  id="modal_table" class='table table-striped table-hover'>
+                                            <thead>
+                                                <tr>
+                                                    <th>产品名</th><!-- click to view detail and edit -->
+                                                    <th>描述</th>
+                                                    <th>单价</th>
+                                                    <th>单位</th>
+                                                    <th>种类</th>
+                                                    <th>数量</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                                      </div>
+                                    </div>
                                     <button type="submit" class="btn btn-primary">下单</button>
                                 </div>
                             </div>
@@ -87,7 +114,6 @@
                                 <th>单位</th>
                                 <th>种类</th>
                                 <th>数量</th>
-                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -216,6 +242,16 @@
                                     $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
                                     //$("<td>").text(data[x].Qty).appendTo(tr);
                                     //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                    if (data[x].Qty>0)
+                                    {
+                                        var tr = $("<tr>").appendTo($("#modal_table tbody"));
+                                        $("<td>").text(data[x].ProductName).appendTo(tr);
+                                        $("<td>").text(data[x].Description).appendTo(tr);
+                                        $("<td>").text(data[x].Price).appendTo(tr);
+                                        $("<td>").text(data[x].Unit).appendTo(tr);
+                                        $("<td>").text(data[x].Category).appendTo(tr);
+                                        $("<td>").text(data[x].Qty).appendTo(tr);
+                                    }
                                 }
                             }
                         };
@@ -243,6 +279,16 @@
                                     $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
                                     //$("<td>").text(data[x].Qty).appendTo(tr);
                                     //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
+                                    if (data[x].Qty>0)
+                                    {
+                                        var tr = $("<tr>").appendTo($("#modal_table tbody"));
+                                        $("<td>").text(data[x].ProductName).appendTo(tr);
+                                        $("<td>").text(data[x].Description).appendTo(tr);
+                                        $("<td>").text(data[x].Price).appendTo(tr);
+                                        $("<td>").text(data[x].Unit).appendTo(tr);
+                                        $("<td>").text(data[x].Category).appendTo(tr);
+                                        $("<td>").text(data[x].Qty).appendTo(tr);
+                                    }
                                 }
                             }
                         };
