@@ -143,7 +143,7 @@
 					$('.order_view').animate({height:'100%'},"slow");
                 });
 
-                //retrieve all company names to display on page
+                //retrieve all company names from database to display on page
                 $.getJSON("manage_order/get_company_name", function(data){
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
@@ -152,6 +152,7 @@
                     }
                 });
 
+                //retrieve all products ordered from database
                 $.getJSON("manage_order/get_company_order", function(data){
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
@@ -169,12 +170,13 @@
                     }
                 });
             });
-
+            
             $(function(){
                 $(".datepicker" ).datepicker();
             });
 
             $("#company_name").change(function(){
+                //autofill the related info by selecting different company
                 var ajaxOpts={
                             type: "post",
                             dataType: "json",
@@ -189,7 +191,7 @@
                             }
                         };
                 $.ajax(ajaxOpts);
-
+                //filter products to display
                 var ajaxOpts={
                             type: "post",
                             dataType: "json",

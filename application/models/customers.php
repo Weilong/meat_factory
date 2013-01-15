@@ -80,7 +80,13 @@ class Customers extends CI_Model {
 
 	public function filter_company_order($company_name,$category)
 	{
-		$sql = "SELECT orderdetail.ProductID, orderdetail.ProductName, orderdetail.Price, orderdetail.Unit, Category, Qty FROM orderdetail, product WHERE orderdetail.ProductID =product.ProductID AND orderdetail.CompanyName='$company_name' AND product.Category='$category'";
+		$sql = "SELECT orderdetail.ProductID, orderdetail.ProductName, orderdetail.Price, orderdetail.Unit, Category, Qty FROM orderdetail, product WHERE orderdetail.ProductID =product.ProductID";
+		
+		if ($company_name!="All")
+			$sql .= " AND orderdetail.CompanyName='$company_name'";
+		if ($category!="All")
+			$sql .= " AND product.Category='$category'";
+
 		$query = $this->db->query($sql);
 		$orders = array();
 
