@@ -34,7 +34,7 @@
             	<div class="add_new_supplier">
                 	<p><h3>添加新供应商</h3></p>
                 	<p><h5>供应商联系信息</h5></p>
-                	<form method="post">
+                	<form method="post" id="newsupplier" action="<?php echo base_url().'index.php?c=add_supplier&m=add_new_supplier'; ?>" >
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" name="short_name"></td></tr>
@@ -45,11 +45,11 @@
                         </div>
                         <p><h5>供应商地址</h5></p>
                         <div class="address">
-                        		地址：<input type="text" name="client_place" size="100px"><br/>
-                                地区：<input type="text" name="client_region" size="25px" ><br/>
-                                邮编：<input type="text" name="client_code" size="10px"><br/>
-                                城市：<input type="text" name="client_city" size="50px"><br/>
-                                州： <select name="client_states">
+                        		地址：<input type="text" id="client_place" name="client_place" size="100px"><br/>
+                                地区：<input type="text" id="client_region" name="client_region" size="25px" ><br/>
+                                邮编：<input type="text" id="client_code" name="client_code" size="10px"><br/>
+                                城市：<input type="text" id="client_city" name="client_city" size="50px"><br/>
+                                州： <select id="client_states" name="client_states">
                                 		<option value="NSW">NSW</option>
                                         <option value="ACT">ACT</option>
                                         <option value="VIC">VIC</option>
@@ -60,13 +60,69 @@
                                         <option value="WA">WA</option>
                                 	</select>
                                     <br/>
-                                区域：<select name="area">
+                                区域：<select name="area" id="area">
+                                			<option value="area1">Area1</option>
+                                            <option value="area2">Area2</option>
+                                            <option value="area3">Area3</option>
+                                            <option value="area4">Area4</option>
+                                            <option value="area5">Area5</option>
+                                            <option value="area6">Area6</option>
+                                            <option value="area7">Area7</option>
+                                            <option value="area8">Area8</option>
+                                            <option value="area9">Area9</option>
+                                            <option value="area10">Area10</option>
                                 </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">保存</button>
-                        <button type="submit" class="btn">清空</button>
+                        <button type="button" class="btn btn-primary" id='addsupplier'>保存</button>
+                        <button type="reset" class="btn">清空</button>
                     </form>
                 </div>
+                <script language="javascript" type="text/javascript">
+					/*
+						control and confirm the new client detail and address for delivery
+						if some blank area is Null then alert to ask user to fulfill them
+						if everything is done, the client data will be posted to controller
+					*/
+					$(document).ready(function(e) {
+                       $('#addsupplier').click(function(e) {
+						   		var full_name = $('#current_name').val();
+								var short_name = $('#short_name').val();
+								var mobile = $('#mobile').val();
+								var member_type=$('#member_type').val();
+								var fax_num = $('#fax_number').val();
+								var phone = $('#phone').val();
+								var email = $('#email_address').val();
+								var client_place = $('#client_place').val();
+								var client_region = $('#client_region').val();
+								var client_code = $('#client_code').val();
+								var client_city = $('#client_city').val();
+								var client_state = $('#client_states').val();
+								var client_area = $('#area').val();
+								if(full_name==""&&short_name=="")//if full name and short name is blank then alert else ->>
+								{
+									alert('请填写公司名称');
+								}
+								else
+								{
+									if(phone=="")//if contact phone is blank then alert else->>
+									{
+										alert('请填写公司联系电话');}
+									else
+									{
+										if(client_place==""||client_region==""||client_code==""||client_city=="")//if client address is not fulfilled then alert else ->>
+										{
+											alert('请填写完整的公司地址');
+										}
+										else
+										{
+											$('form#newsupplier').submit();//submit
+										}
+									}
+								}
+								
+                   		 });
+                    });
+                </script>
                 <div class="supplier_detail">
                 	<p><h3>供应商信息</h3></p>
                     <div>

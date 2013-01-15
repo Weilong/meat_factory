@@ -35,7 +35,7 @@
             	<div class="add_new_client">
                 	<p><h3>添加新客户</h3></p>
                 	<p><h5>客户联系信息</h5></p>
-                	<form method="post" id="newclient" action="" >
+                	<form method="post" id="newclient" action="<?php echo base_url().'index.php?c=add_client&m=add_new_client'; ?>" >
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" id="current_name" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" id="short_name" name="short_name"></td></tr>
@@ -99,9 +99,14 @@
                     </form>
                 </div>
                 <script language="javascript" type="text/javascript">
+					/*
+						control and confirm the new client detail and address for delivery
+						if some blank area is Null then alert to ask user to fulfill them
+						if everything is done, the client data will be posted to controller
+					*/
 					$(document).ready(function(e) {
                        $('#addclient').click(function(e) {
-                        		var full_name = $('#current_name').val();
+						   		var full_name = $('#current_name').val();
 								var short_name = $('#short_name').val();
 								var mobile = $('#mobile').val();
 								var member_type=$('#member_type').val();
@@ -121,9 +126,48 @@
 									var delivery_code = $('#delivery_code').val(client_code);
 									var delivery_city = $('#delivery_city').val(client_city);
 									var delivery_states = $('#delivery_states').val(client_state);
+									$('#delivery_place').attr('readonly','readonly');
+									$('#delivery_region').attr('readonly','readonly');
+									$('#delivery_code').attr('readonly','readonly');
+									$('#delivery_city').attr('readonly','readonly');
 								}
-								// var txt = '{"newclient":[{"fullname":full_name,"shortname":short_name,"mobile":mobile,"membertype":member_type,"faxnum":fax_num,"phone":phone,"email":email,"clientplace":client_place,"clientregion":client_region,"clientcode":client_code,"clientcity":client_city,"client_state":client_state,"clientarea":client_area,"deliveryplace":delivery_place,"deliveryregion":delivery_region,"deliverycode":delivery_code,"deliverycity":delivery_city,"delivery_states":delivery_states}]}';		
-								$('form#newclient').submit();
+								else
+								{
+									var delivery_place = $('#delivery_place').val();
+									var delivery_region = $('#delivery_region').val();
+									var delivery_code = $('#delivery_code').val();
+									var delivery_city = $('#delivery_city').val();
+									var delivery_states = $('#delivery_states').val();
+								}
+								if(full_name==""&&short_name=="")//if full name and short name is blank then alert else ->>
+								{
+									alert('请填写公司名称');
+								}
+								else
+								{
+									if(phone=="")//if contact phone is blank then alert else->>
+									{
+										alert('请填写公司联系电话');}
+									else
+									{
+										if(client_place==""||client_region==""||client_code==""||client_city=="")//if client address is not fulfilled then alert else ->>
+										{
+											alert('请填写完整的公司地址');
+											}
+										else
+										{
+											if(delivery_place==""||delivery_region==""||delivery_code==""||delivery_city=="")//if delivery address is not fulfilled then alert else ->>
+											{
+												alert('请填写完整该公司送货地址');
+											}
+											else
+											{
+												$('form#newclient').submit();//submit
+											}
+										}
+									}
+								}
+								
                    		 });
                     });
                 </script>
