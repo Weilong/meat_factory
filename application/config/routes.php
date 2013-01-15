@@ -37,6 +37,10 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+$route['add_client/:(any)']='add_new_client'; //This route indicates the add_new_client controller should be loaded
+$route['add_supplier/:(any)']='add_new_supplier'; //This route indicates the add_new_supplier controller should be loaded
+$route['add_new_product/:(any)']='add_new_product';//This route indicates the add_new_product controller should be loaded
+$route['add_cost/:(any)']='add_cost_balance';//This route indicates the add_cost_balance controller should be loaded
 $route['page/:(any)']='page';
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';

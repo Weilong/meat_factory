@@ -106,23 +106,54 @@
                 </div>
                 <div class="costpayment">
                 	<p><h3>成本预算</h3></p>
-                    <form>
+                    <form method="post" id="costbalance" action="<?php echo base_url().'add_cost/add_cost_balance'; ?>" >
                       <fieldset>
                         <label>成本类型</label>
-                        <select>
-                            <option>Salary</option>
-                            <option>Other<option>
+                        <select name='costtype' id='costtype'>
+                            <option value="salary">Salary</option>
+                            <option value="other">Other<option>
                         </select><br />
                         <label>金额</label>
                         <!-- the type of input needs to be validated at back-end or using ajax -->
-                        <input type="text"></input><br />
+                        <input type="number" name="balance" id="balance"></input><br />
                         <label>描述</label>
-                        <textarea rows="5"></textarea><br />
-                        <button type="button" class="btn btn-primary">确认</button>
-                        <button type="button" class="btn">清空</button>
+                        <textarea rows="5" name="comments" id="comments"></textarea><br />
+                        <button type="button" id="confirm" class="btn btn-primary">确认</button>
+                        <button type="reset" class="btn">清空</button>
                       </fieldset>
                     </form>
                 </div>
+                <script language="javascript" type="text/javascript">
+					$(document).ready(function(e) {
+                      	$('#confirm').click(function(e) {
+                        	var costtype = $('#costtype').val();
+							var balance = $('#balance').val();
+							var comments = $('#comments').val();
+							if(balance=="")
+							{
+								alert('请输入成本金额');
+							}
+							else
+							{
+								if(costtype=="other")
+								{
+									if(comments==""||comments==null)
+									{
+										alert('请输入成本描述');
+									}
+									else
+									{
+										$('form#costbalance').submit();
+									}
+								}
+								else if(costtype=='salary')
+								{
+									$('form#costbalance').submit();
+								}
+							}
+                    	});  
+                    });
+                </script>
                 <div class="viewbalance">
                 	<p><h3>客户账户余额查询</h3></p>
                     <div>
