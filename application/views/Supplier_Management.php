@@ -34,7 +34,7 @@
             	<div class="add_new_supplier">
                 	<p><h3>添加新供应商</h3></p>
                 	<p><h5>供应商联系信息</h5></p>
-                	<form method="post" id="newsupplier" action="<?php echo base_url().'index.php?c=add_supplier&m=add_new_supplier'; ?>" >
+                	<form method="post" id="newsupplier" action="<?php echo base_url().'add_supplier/add_new_supplier'; ?>" >
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" name="short_name"></td></tr>

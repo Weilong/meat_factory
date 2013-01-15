@@ -35,7 +35,7 @@
             	<div class="add_new_client">
                 	<p><h3>添加新客户</h3></p>
                 	<p><h5>客户联系信息</h5></p>
-                	<form method="post" id="newclient" action="<?php echo base_url().'index.php?c=add_client&m=add_new_client'; ?>" >
+                	<form method="post" id="newclient" action="<?php echo base_url().'add_client/add_new_client'; ?>" >
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" id="current_name" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" id="short_name" name="short_name"></td></tr>
