@@ -38,7 +38,6 @@
                                 <div class="span4">
                                     <label>公司</label>
                                     <select id="company_name">
-                                        <option>All</option>
                                     </select>
                                     <label>送货日期</label>
                                     <input class="datepicker" type="text" >
@@ -59,7 +58,7 @@
                                 <div class="span5">
                                     <label>地区</label>
                                     <input type="text" id="suburb" readonly>
-                                    <label>邮箱</label>
+                                    <label>邮编</label>
                                     <input type="text" id="email" readonly>
                                     <label>送货地址</label>
                                     <input type="text" id="delivery_address" readonly>
@@ -82,8 +81,8 @@
                         <thead>
                             <tr>
                                 <th><input type="checkbox"></th>
-                                <th>产品ID</th><!-- click to view detail and edit -->
-                                <th>产品名</th>
+                                <th>产品名</th><!-- click to view detail and edit -->
+                                <th>描述</th>
                                 <th>单价</th>
                                 <th>单位</th>
                                 <th>种类</th>
@@ -145,11 +144,14 @@
 
                 //retrieve all company names from database to display on page
                 $.getJSON("manage_order/get_company_name", function(data){
+
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
                         var opt = $("<option>").appendTo("#company_name");
                         opt.text(data[x].companyname);
                     }
+                    //set the selected item to blank
+                    $("#company_name").get(0).selectedIndex = -1;
                 });
 
                 //retrieve all products ordered from database
@@ -160,8 +162,8 @@
                         var tr = $("<tr>").appendTo($("#results_table tbody"));
 
                         $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
-                        $("<td>").text(data[x].ProductID).appendTo(tr);
                         $("<td>").text(data[x].ProductName).appendTo(tr);
+                        $("<td>").text(data[x].Description).appendTo(tr);
                         $("<td>").text(data[x].Price).appendTo(tr);
                         $("<td>").text(data[x].Unit).appendTo(tr);
                         $("<td>").text(data[x].Category).appendTo(tr);
@@ -169,10 +171,12 @@
                         $("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
                     }
                 });
+
             });
-            
+            //initialise the datepicker and set current date to the calendar
             $(function(){
-                $(".datepicker" ).datepicker();
+                var calender = $(".datepicker").datepicker();
+                calender.datepicker("setDate", new Date());
             });
 
             $("#company_name").change(function(){
@@ -185,7 +189,7 @@
                             success: function(data){
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
-                                $("#email").val(data.Email);
+                                $("#email").val(data.Postcode1);
                                 $("#total_qty").val(data.total_qty);
                                 $("#total_price").val(data.total_price);
                             }
@@ -204,8 +208,8 @@
                                     var tr = $("<tr>").appendTo($("#results_table tbody"));
 
                                     $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
-                                    $("<td>").text(data[x].ProductID).appendTo(tr);
                                     $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
@@ -230,8 +234,8 @@
                                     var tr = $("<tr>").appendTo($("#results_table tbody"));
 
                                     $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
-                                    $("<td>").text(data[x].ProductID).appendTo(tr);
                                     $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
