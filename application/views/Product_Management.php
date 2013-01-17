@@ -149,7 +149,7 @@
                 </div>
                 <div class="addnewproduct">
                 	<p><h3>添加新商品</h3></p>
-                    <form method="post" id="newproduct" action="<?php echo base_url().'add_new_product/add_product'; ?>">
+                    <form method="post" id="newproduct" action="add_new_product/add_product">
                         <fieldset>
                             <label>产品名称</label>
                             <input type="text" id="productname" name="productname" />
