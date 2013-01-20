@@ -7,7 +7,7 @@
                     <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=delivery_view' ?>">送货管理</a>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a>
                     	<ul>
                         	<li>送货信息查询</li>
                         </ul>
@@ -38,7 +38,7 @@
             <div class = "main-content">
             	<div class="delivery_view">
                 	<p><h3>送货情况预览</h3></p>
-                    <form class="form-inline" method="post" action='delivery_view/load_delivery_detail'>
+                    <form class="form-inline" method="post" action="<?php echo base_url().'delivery_view/load_delivery_detail'; ?>">
                     	<table>
                         	<tr>
                                 <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?php echo date('Y-m-d'); ?>' /></td>
@@ -52,33 +52,48 @@
                         	<th>DeliveryDate</th><th>Driver</th><th>Suburb</th><th>Area</th>
                         	<th>Print</th><th>Complete</th>
                         </tr>
-                        <?php
-							$results=json_decode($result);
-							foreach($results as $row)
+                        <?php 
+							if($result!=NULL||$result!=(""))//if the array is not empty or null, then list the search result
 							{
-								/*
-								$name=$row->companyname;
-								$contactname=$row->contactname;
-								$deliverydate=$row->deliverydate;
-								*/
-								echo "<tr>";
-								echo "<td>".$row->id."</td>";
-								echo "<td>".$row->companyname."</td>";
-								echo "<td>".$row->contactname."</td>";
-								echo "<td>".$row->deliverydate."</td>";
-								echo "<td>".$row->driver."</td>";
-								echo "<td>".$row->suburb."</td>";
-								echo "<td>".$row->area."</td>";
-								echo "<td><input type='button' value='print' /></td>";
-								echo "<td><input type='button' value='complete' /></td>";
-								
-								echo "</tr>";
+								foreach($result as $row)
+								{
+						?>
+									<tr>
+                                        <td id='a<? echo $row->id ?>'><? echo $row->id ?></td>
+                                        <td><? echo $row->companyname ?></td>
+                                        <td><? echo $row->contactname ?></td>
+                                        <td><? echo $row->deliverydate ?></td>
+                                        <td><select name='selectdriver'>
+                                                <option value='<? echo $row->driver ?>'><? echo $row->driver ?></option>
+                                            </select></td>
+                                        <td><? echo $row->suburb ?></td>
+                                        <td><? echo $row->area ?></td>
+                                        <td><a href='#'>Print</a></td>
+                                        <td><input type='button' class='a<? echo $row->id ?>' value='complete' /></td>
+									</tr>
+                                    <script language="javascript" type="text/javascript">
+										$(document).ready(function(e) {
+                                            $('.a<? echo $row->id ?>').click(function(e) {
+                                                var orderid = "<? echo $row->id ?>";
+												var deliverystatus = 'completed';
+												
+                                            });
+                                        });
+									</script>
+                        <?
+								}
+							}
+							else
+							{
+						?>
+                        	<tr><td colspan="9"> 本日没有送货 </td></tr>
+                        <?
 							}
 						?>
                     </table>
                     <script language="javascript" type="text/javascript">
 						$(document).ready(function(e) {
-                            $('#searching').click(function(e) {
+							$('#searching').click(function(e) {
                                	$('.form-inline').submit();
                             });
                         });

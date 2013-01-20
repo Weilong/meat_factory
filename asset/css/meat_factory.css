@@ -51,6 +51,12 @@ body{
 {
 	height:0px;
 }
+/* delivery view */
+.delivery_view
+{
+	width:100%;
+}
+
 /* add new client form, client detail form, client payment detail form */
 .add_new_client, .client_detail, .client_payment_detail
 {

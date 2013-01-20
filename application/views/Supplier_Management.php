@@ -7,7 +7,7 @@
                     <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=delivery_view' ?>">进货管理</a></li>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">进货管理</a></li>
                     <li class="divider"></li>
                     <li><a href="#">账目管理</a></li>
                     <li class="divider"></li>

@@ -41,6 +41,7 @@ $route['add_client/:(any)']='add_new_client'; //This route indicates the add_new
 $route['add_supplier/:(any)']='add_new_supplier'; //This route indicates the add_new_supplier controller should be loaded
 $route['add_new_product/:(any)']='add_new_product';//This route indicates the add_new_product controller should be loaded
 $route['add_cost/:(any)']='add_cost_balance';//This route indicates the add_cost_balance controller should be loaded
+$route['delivery_view/:(any)']='load_delivery_detail';
 $route['page/:(any)']='page';
 $route['default_controller'] = "welcome";
 $route['404_override'] = '';
