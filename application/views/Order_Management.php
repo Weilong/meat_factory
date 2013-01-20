@@ -206,7 +206,7 @@
                             type: "post",
                             dataType: "json",
                             url: "manage_order/get_company_order",
-                            data: {company_name : $("#company_name").val(), category : $("#product_category").val()},
+                            data: {company_name : $("#company_name").val()},
                             success: function(data){
                                 $("#results_table tbody").empty();
                                 var total_qty = 0;
@@ -228,14 +228,16 @@
                                     
 
                                     if ($("#product_category").val()!="All"){
-                                        if (tr.className!=$(".product_category").val()){
+                                        if (!tr.hasClass($("#product_category").val())){
                                             tr.hide();
                                         }
                                     }
 
                                     if (data[x].Qty>0){
                                         $("#modal_table tbody").empty();
+                                        
                                         var tr = $("<tr>").appendTo($("#modal_table tbody"));
+                                        
                                         $("<td>").text(data[x].ProductName).appendTo(tr);
                                         $("<td>").text(data[x].Description).appendTo(tr);
                                         $("<td>").text(data[x].Price).appendTo(tr);

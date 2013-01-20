@@ -2,19 +2,16 @@
 
 class Manage_order extends CI_Controller {
 
-	 public function __construct()
-   {
+	public function __construct(){
         parent::__construct();
         $this->load->model("customers");
-   }
+    }
 
-	public function index()
-	{
+	public function index(){
 		
 	}
 
-	public function get_company_name()
-	{
+	public function get_company_name(){
 		
 		$customers = $this->customers->read_company_name();
 
@@ -22,42 +19,29 @@ class Manage_order extends CI_Controller {
 		echo $response;
 	}
 
-	public function get_company_data()
-	{
+	public function get_company_data(){
 		$company_name = $this->input->post("company_name");
-		$result = array_merge((array)$this->customers->read_company_info($company_name),(array)$this->customers->read_total_price($company_name));
+		//$result = array_merge((array)$this->customers->read_company_info($company_name),(array)$this->customers->read_total_price($company_name));
+		$result = $this->customers->read_company_info($company_name);
 		$response = json_encode($result);
 		echo $response;
 	}
 
-	public function get_company_order()
-	{
+	public function get_company_order(){
 		$company_name = $this->input->post("company_name");
-		$category = $this->input->post("category");
-		
-		if (isset($company_name)&&!empty($company_name) AND isset($category)&&!empty($category))
-		{
-			$orders = $this->customers->filter_company_order($company_name,$category);
-		}
-		else
-		{
-			$orders = $this->customers->read_company_order();
-		}
-		
+		$orders = $this->customers->filter_company_order($company_name);
 		$response = json_encode($orders);
 		echo $response;
 	}
 
-	public function add_order()
-	{
+	public function add_order(){
 		$this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
 		$this->form_validation->set_rules('delivery_date', 'Delivery Date', 'trim|required');
 		
-		if($this->form_validation->run() == FALSE)
-	   {
+		if($this->form_validation->run() == FALSE){
 	     //Field validation failed.&nbsp; User redirected to login page
 	     $this->load->view('order_management');
-	   }
+	    }
 	}
 }
 
