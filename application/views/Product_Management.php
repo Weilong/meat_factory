@@ -281,7 +281,8 @@
                     });
 
                     $(function() {
-                        $( ".datepicker" ).datepicker();
+                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                        calender.datepicker("setDate", new Date());
                     });
 			</script>
          </div>

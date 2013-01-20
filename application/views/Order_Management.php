@@ -178,7 +178,7 @@
 
                 //initialise the datepicker and set current date to the calendar
                 $(function(){
-                    var calender = $(".datepicker").datepicker();
+                    var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
                     calender.datepicker("setDate", new Date());
                 });
                 //retrieve all company names from database to display on page
@@ -302,7 +302,7 @@
                 $("modal_table tbody tr").each(function(){
                     //var item = [];
                     //var first_tr = $(this).children().first();
-                    alert("first_tr.html()");
+                   alert("first_tr.html()"); 
                     //item[first_tr.html()]
                     //item["CompanyName"] = $(this+":first-child")
                 });
