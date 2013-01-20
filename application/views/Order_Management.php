@@ -69,7 +69,7 @@
                                     <input type="text" id="total_price" readonly>
                                     <br />
                                     <!--<button type="submit" class="btn btn-primary">查看订单细节</button>-->
-                                    <a href="#detailModal" role="button" id="detail_btn" class="btn btn-primary" data-toggle="modal">查看订单细节</a>
+                                    <a href="#detailModal" role="button" id="detail_btn" class="btn btn-primary" data-toggle="modal">查看订单</a>
                                     <!-- Modal -->
                                     <div id="detailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                       <div class="modal-header">
@@ -96,7 +96,8 @@
                                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                       </div>
                                     </div>
-                                    <button id="submit_order"class="btn btn-primary">下单</button>
+                                    <button id="save_default" class="btn btn-primary">保存订单</button>
+                                    <button id="submit_order" class="btn btn-primary">下单</button>
                                 </div>
                             </div>
                     </fieldset>
@@ -218,15 +219,11 @@
 
                                     $("<td>").text(data[x].ProductName).appendTo(tr);
                                     $("<td>").text(data[x].Description).appendTo(tr);
-                                    $("<td>").text(data[x].Price).appendTo(tr);
+                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
+                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(data[x].Qty).change(change_qty).appendTo($("<td>").appendTo(tr));
                                     
-                                    total_qty += data[x].Qty * 1;   //Qty is float type in database
-                                    total_price += (data[x].Price * data[x].Qty);
-                                    
-
                                     if ($("#product_category").val()!="All"){
                                         if (!tr.hasClass($("#product_category").val())){
                                             tr.hide();
@@ -244,6 +241,9 @@
                                         $("<td>").text(data[x].Unit).appendTo(tr);
                                         $("<td>").text(data[x].Category).appendTo(tr);
                                         $("<td>").text(data[x].Qty).appendTo(tr);
+
+                                        total_qty += parseFloat(data[x].Qty);   //Qty is float type in database
+                                        total_price += (data[x].Price * data[x].Qty);
                                     }
                                 }
 
@@ -266,13 +266,30 @@
                 }
             });
 
-            $("#qty_input").change(function(){
-
-            })
+            function change_qty(){
+                if ($(this).val()=="" || $(this).val()<0){
+                    $(this).val(0);
+                }
+                var total_qty=0,total_price=0;
+                $("#modal_table tbody").empty();
+                $("#results_table tbody tr").each(function(){
+                    if ($(this).find("input").val()!=0){
+                        var tr = $(this).clone();
+                        var qty = parseFloat(tr.find("input").val());
+                        var price = parseFloat(tr.find(".price").text());
+                        total_qty += qty;
+                        total_price += (price*qty);
+                        tr.find("input").parent().text(qty);
+                        tr.appendTo($("#modal_table tbody"));
+                    }
+                });
+                $("#total_qty").val(total_qty);
+                $("#total_price").val(total_price);
+            }
 
             $("#submit_order").click(function(){
 
-            })
+            });
 		</script>
     </div>
  </div>
