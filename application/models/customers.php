@@ -34,24 +34,7 @@ class Customers extends CI_Model {
 		}
 	}
 
-	/**public function read_company_order(){
-		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product";
-		$sql.=" ORDER BY ProductName ASC";
-		$query = $this->db->query($sql);
-		$orders = array();
-
-		if ($query->num_rows()>0){
-			for($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++){
-				$query->row($i)->Qty=0;
-				$orders[$i] = $query->row($i);
-			}
-		}
-
-		return $orders;
-	}**/
-	
-	public function filter_company_order($company_name)
-	{
+	public function filter_company_order($company_name){
 		// left join product and orderdetail to show every product no matter a company has ordered or not
 		// if ordered show qty else replace null to 0
 		$sql = "SELECT product.ProductName, product.Description, product.Price, product.Unit, Category, Qty FROM product LEFT JOIN orderdetail ON product.ProductID = orderdetail.ProductID";
@@ -78,6 +61,11 @@ class Customers extends CI_Model {
 		}
 
 		return $orders;
+	}
+
+	public function save_to_order_template()
+	{
+		
 	}
 }
 ?>

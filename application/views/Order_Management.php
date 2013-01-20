@@ -96,12 +96,19 @@
                                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                       </div>
                                     </div>
-                                    <button id="save_default" class="btn btn-primary">保存订单</button>
-                                    <button id="submit_order" class="btn btn-primary">下单</button>
+                                    
                                 </div>
                             </div>
                     </fieldset>
                 </form>
+                <div>
+                    <button id="save_default" class="btn btn-primary">保存订单</button>
+                    <button id="submit_order" class="btn btn-primary">下单</button>
+                    <!--<div class="alert alert-success">
+                      <button type="button" class="close" data-dismiss="alert">×</button>
+                      <strong>Well done!</strong>
+                    </div>   -->            
+                </div>
             </div>
             <hr />
             <div>
@@ -267,9 +274,11 @@
             });
 
             function change_qty(){
+                //need validation: cant be negative, alphabet or other symbols
                 if ($(this).val()=="" || $(this).val()<0){
                     $(this).val(0);
                 }
+                
                 var total_qty=0,total_price=0;
                 $("#modal_table tbody").empty();
                 $("#results_table tbody tr").each(function(){
@@ -283,9 +292,29 @@
                         tr.appendTo($("#modal_table tbody"));
                     }
                 });
+
                 $("#total_qty").val(total_qty);
                 $("#total_price").val(total_price);
             }
+
+            $("#save_default").click(function(){
+                //var data = [];
+                $("modal_table tbody tr").each(function(){
+                    //var item = [];
+                    //var first_tr = $(this).children().first();
+                    alert("first_tr.html()");
+                    //item[first_tr.html()]
+                    //item["CompanyName"] = $(this+":first-child")
+                });
+                /**var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/save_default",
+                            data: data,
+                            success: function(data){
+                            }
+                    };**/
+            });
 
             $("#submit_order").click(function(){
 

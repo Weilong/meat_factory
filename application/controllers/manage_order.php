@@ -14,14 +14,12 @@ class Manage_order extends CI_Controller {
 	public function get_company_name(){
 		
 		$customers = $this->customers->read_company_name();
-
 		$response = json_encode($customers);
 		echo $response;
 	}
 
 	public function get_company_data(){
 		$company_name = $this->input->post("company_name");
-		//$result = array_merge((array)$this->customers->read_company_info($company_name),(array)$this->customers->read_total_price($company_name));
 		$result = $this->customers->read_company_info($company_name);
 		$response = json_encode($result);
 		echo $response;
@@ -42,6 +40,10 @@ class Manage_order extends CI_Controller {
 	     //Field validation failed.&nbsp; User redirected to login page
 	     $this->load->view('order_management');
 	    }
+	}
+
+	public function save_default(){
+		
 	}
 }
 
