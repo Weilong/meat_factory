@@ -96,7 +96,7 @@
                                         <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
                                       </div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary">下单</button>
+                                    <button id="submit_order"class="btn btn-primary">下单</button>
                                 </div>
                             </div>
                     </fieldset>
@@ -168,6 +168,11 @@
 					$('.order_view').animate({height:'100%'},"slow");
                 });
 
+                //initialise the datepicker and set current date to the calendar
+                $(function(){
+                    var calender = $(".datepicker").datepicker();
+                    calender.datepicker("setDate", new Date());
+                });
                 //retrieve all company names from database to display on page
                 $.getJSON("manage_order/get_company_name", function(data){
 
@@ -179,30 +184,8 @@
                     //set the selected item to blank
                     $("#company_name").get(0).selectedIndex = -1;
                 });
-
-                //retrieve all products ordered from database
-                $.getJSON("manage_order/get_company_order", function(data){
-                    //loop through all items in the JSON array
-                    for (var x = 0;x<data.length;x++){
-
-                        var tr = $("<tr>").appendTo($("#results_table tbody"));
-
-                        $("<td>").text(data[x].ProductName).appendTo(tr);
-                        $("<td>").text(data[x].Description).appendTo(tr);
-                        $("<td>").text(data[x].Price).appendTo(tr);
-                        $("<td>").text(data[x].Unit).appendTo(tr);
-                        $("<td>").text(data[x].Category).appendTo(tr);
-                        $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
-                        //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
-                    }
-                });
-
             });
-            //initialise the datepicker and set current date to the calendar
-            $(function(){
-                var calender = $(".datepicker").datepicker();
-                calender.datepicker("setDate", new Date());
-            });
+            
 
             $("#company_name").change(function(){
                 //autofill the related info by selecting different company
@@ -215,8 +198,6 @@
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
                                 $("#email").val(data.Postcode1);
-                                $("#total_qty").val(data.total_qty);
-                                $("#total_price").val(data.total_price);
                             }
                         };
                 $.ajax(ajaxOpts);
@@ -228,21 +209,32 @@
                             data: {company_name : $("#company_name").val(), category : $("#product_category").val()},
                             success: function(data){
                                 $("#results_table tbody").empty();
+                                var total_qty = 0;
+                                var total_price = 0;
+
                                 for (var x = 0;x<data.length;x++){
 
-                                    var tr = $("<tr>").appendTo($("#results_table tbody"));
+                                    var tr = $("<tr>").addClass(data[x].Category).appendTo($("#results_table tbody"));
 
                                     $("<td>").text(data[x].ProductName).appendTo(tr);
                                     $("<td>").text(data[x].Description).appendTo(tr);
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
-                                    //$("<td>").text(data[x].Qty).appendTo(tr);
-                                    //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
-                                    if (data[x].Qty>0)
-                                    {
-                                        $("modal_table tbody").empty();
+                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
+                                    
+                                    total_qty += data[x].Qty * 1;   //Qty is float type in database
+                                    total_price += (data[x].Price * data[x].Qty);
+                                    
+
+                                    if ($("#product_category").val()!="All"){
+                                        if (tr.className!=$(".product_category").val()){
+                                            tr.hide();
+                                        }
+                                    }
+
+                                    if (data[x].Qty>0){
+                                        $("#modal_table tbody").empty();
                                         var tr = $("<tr>").appendTo($("#modal_table tbody"));
                                         $("<td>").text(data[x].ProductName).appendTo(tr);
                                         $("<td>").text(data[x].Description).appendTo(tr);
@@ -252,39 +244,33 @@
                                         $("<td>").text(data[x].Qty).appendTo(tr);
                                     }
                                 }
+
+                                $("#total_qty").val(total_qty);
+                                $("#total_price").val(total_price);
                             }
                         };
                 $.ajax(ajaxOpts);
             });
 
             $("#product_category").change(function(){
-                var ajaxOpts={
-                            type: "post",
-                            dataType: "json",
-                            url: "manage_order/get_company_order",
-                            data: {company_name : $("#company_name").val(), category : $("#product_category").val()},
-                            success: function(data){
-                                $("#results_table tbody").empty();
-                                for (var x = 0;x<data.length;x++){
-
-                                    var tr = $("<tr>").appendTo($("#results_table tbody"));
-
-                                    $("<input type='checkbox'>").appendTo($("<td>").appendTo(tr));
-                                    $("<td>").text(data[x].ProductName).appendTo(tr);
-                                    $("<td>").text(data[x].Description).appendTo(tr);
-                                    $("<td>").text(data[x].Price).appendTo(tr);
-                                    $("<td>").text(data[x].Unit).appendTo(tr);
-                                    $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<input type=text>").addClass("input-small").val(data[x].Qty).appendTo($("<td>").appendTo(tr));
-                                    //$("<td>").text(data[x].Qty).appendTo(tr);
-                                    //$("<i>").addClass("icon-edit").after($("<i>").addClass("icon-trash")).appendTo($("<td>").appendTo(tr));
-                                }
-                            }
-                        };
-                $.ajax(ajaxOpts);
+                if ($("#product_category").val()!="All"){
+                    var category = $("#product_category").val();
+                    //hide all tr and then show the tr with certain class
+                    $("#results_table tbody tr").hide();
+                    $("."+category).show();
+                }
+                else{
+                    $("#results_table tbody tr").show();
+                }
             });
 
-            
+            $("#qty_input").change(function(){
+
+            })
+
+            $("#submit_order").click(function(){
+
+            })
 		</script>
     </div>
  </div>
