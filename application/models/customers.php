@@ -91,7 +91,7 @@ class Customers extends CI_Model {
 		/*
 			add order into table orderdetail
 		*/
-		$sql = "SELECT MAX(OrderID), OrderDate FROM orderinfo";
+		$sql = "SELECT OrderDate, OrderID FROM orderinfo WHERE OrderID=(SELECT MAX(OrderID) FROM orderinfo)";
 		$query = $this->db->query($sql);
 		$order_id = $query->row(0)->OrderID;
 		$order_date = $query->row(0)->OrderDate;
