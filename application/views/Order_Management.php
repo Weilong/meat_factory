@@ -9,8 +9,7 @@
                 	<li><a href="#" id='add_order'>添加新订单</a></li>
                     <li><a href="#" id='order_view'>订单查询</a></li>
                 </ul>
-            </li>
-            
+            </li>    
             <li class="divider"></li>
             <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a></li>
             <li class="divider"></li>
@@ -111,27 +110,25 @@
                 </div>
             </div>
             <hr />
-            <div>
-                <form method="post">
-                    <table  id="results_table" class='table table-striped table-hover'>
-                        <thead>
-                            <tr>
-                                <th>产品名</th><!-- click to view detail and edit -->
-                                <th>描述</th>
-                                <th>单价</th>
-                                <th>单位</th>
-                                <th>种类</th>
-                                <th>数量</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <!--
-                        <button type="submit" class="btn btn-danger">删除</button>
-                        <button type="submit" class="btn btn-primary">保存更改</button>
-                    -->
-                </form>
+            <div class="table-scrollable-wrapper">
+                <table  id="results_table" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>产品名</th><!-- click to view detail and edit -->
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>单位</th>
+                            <th>种类</th>
+                            <th>数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <!--
+                    <button type="submit" class="btn btn-danger">删除</button>
+                    <button type="submit" class="btn btn-primary">保存更改</button>
+                -->
             </div>
         </div>
         <div class="order_view">
