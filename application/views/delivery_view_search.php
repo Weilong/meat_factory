@@ -52,44 +52,6 @@
                         	<th>DeliveryDate</th><th>Driver</th><th>Suburb</th><th>Area</th>
                         	<th>Print</th><th>Complete</th>
                         </tr>
-                        <?php 
-							if($result!=NULL||$result!=(""))//if the array is not empty or null, then list the search result
-							{
-								foreach($result as $row)
-								{
-						?>
-									<tr>
-                                        <td id='a<? echo $row->id ?>'><? echo $row->id ?></td>
-                                        <td><? echo $row->companyname ?></td>
-                                        <td><? echo $row->contactname ?></td>
-                                        <td><? echo $row->deliverydate ?></td>
-                                        <td><select name='selectdriver'>
-                                                <option value='<? echo $row->driver ?>'><? echo $row->driver ?></option>
-                                            </select></td>
-                                        <td><? echo $row->suburb ?></td>
-                                        <td><? echo $row->area ?></td>
-                                        <td><a href='#'>Print</a></td>
-                                        <td><input type='button' class='a<? echo $row->id ?>' value='complete' /></td>
-									</tr>
-                                    <script language="javascript" type="text/javascript">
-										$(document).ready(function(e) {
-                                            $('.a<? echo $row->id ?>').click(function(e) {
-                                                var orderid = "<? echo $row->id ?>";
-												var deliverystatus = 'completed';
-												
-                                            });
-                                        });
-									</script>
-                        <?
-								}
-							}
-							else
-							{
-						?>
-                        	<tr><td colspan="9"> 本日没有送货 </td></tr>
-                        <?
-							}
-						?>
                     </table>
                     <script language="javascript" type="text/javascript">
 						$(document).ready(function(e) {
@@ -101,8 +63,7 @@
                 </div>
                 <script language="javascript" type="text/javascript">
                     $(function() {
-                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
-                        calender.datepicker("setDate", new Date());
+                        $( ".datepicker" ).datepicker();
                     })
                 </script>
             </div>
