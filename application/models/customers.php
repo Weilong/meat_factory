@@ -111,6 +111,23 @@ class Customers extends CI_Model {
 		$sql = "INSERT INTO payment (Date, OrderID, CompanyName, Debit, Status) 
 				VALUES ('$order_date', '$order_id', '$order[company_name]', '$order[total_price]', 'Unpaid')";
 		$this->db->query($sql);
+		/*
+			add total price to balance in  companyname table
+		*/
+		$sql = "SELECT Balance FROM companyname WHERE CompanyName='$order[company_name]'";
+		$query = $this->db->query($sql);
+		if ($query->num_rows()!=0){
+			$new_balance = $query->row(0)->Balance + $order['total_price'];
+			$sql = "UPDATE companyname 
+					SET Balance='$new_balance' 
+					WHERE CompanyName='$order[company_name]'";
+			$this->db->query($sql);
+		}
+		else{
+			$sql = "INSERT INTO companyname (CompanyName, ContactName, Balance, Date) 
+					VALUES ('$order[company_name]', '$contact_name', '$order[total_price]', '$order_date')";
+			$this->db->query($sql);
+		}
 	}
 }
 ?>
