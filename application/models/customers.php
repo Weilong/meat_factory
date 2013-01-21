@@ -37,14 +37,11 @@ class Customers extends CI_Model {
 	public function filter_company_order($company_name){
 		// left join product and orderdetail to show every product no matter a company has ordered or not
 		// if ordered show qty else replace null to 0
-		$sql = "SELECT product.ProductName, product.Description, product.Price, product.Unit, Category, Qty FROM product LEFT JOIN orderdetail ON product.ProductID = orderdetail.ProductID";
-		$sql .= " AND orderdetail.CompanyName = '$company_name'";
+		$sql = "SELECT product.ProductName, product.Description, product.Price, product.Unit, Category, Qty FROM product LEFT JOIN order_template ON product.ProductID = order_template.ProductID";
+		$sql .= " AND order_template.CompanyName = '$company_name'";
 		$sql .=" ORDER BY Qty DESC, product.ProductName ASC";
 		//based on the table filtered by company, do further filter using category
 		$sql = "Select ProductName, Description, Price, Unit, Category, Qty FROM "."(".$sql.") tmp"." WHERE (1=1)";
-		
-		//if ($category!="All")
-			//$sql .= " AND Category='$category'";
 		
 		$query = $this->db->query($sql);
 
@@ -63,9 +60,22 @@ class Customers extends CI_Model {
 		return $orders;
 	}
 
-	public function save_to_order_template()
+	public function save_to_order_template($order)
 	{
-		
+		$company_name = $order["company_name"];
+		$products = $order["products"];
+		//delete old template before adding new
+		$sql = "DELETE FROM order_template WHERE CompanyName='$company_name'";
+		$this->db->query($sql);
+		foreach ($products as $product){
+			$sql = "SELECT ProductID FROM product WHERE product.ProductName='$product[product_name]'";
+			$query = $this->db->query($sql);
+			$product_id = $query->row(0)->ProductID;
+			
+			$sql = "INSERT INTO order_template (CompanyName, ProductID, ProductName, Description, Unit, Price, Qty) VALUES ('$company_name','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]')";
+			$this->db->query($sql);
+		}
+
 	}
 }
 ?>

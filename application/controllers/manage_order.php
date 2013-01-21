@@ -43,7 +43,8 @@ class Manage_order extends CI_Controller {
 	}
 
 	public function save_default(){
-		
+		$order = json_decode($this->input->post("order"),true);
+		$this->customers->save_to_order_template($order);
 	}
 }
 

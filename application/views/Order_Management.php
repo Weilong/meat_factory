@@ -219,7 +219,7 @@
                                 $("#results_table tbody").empty();
                                 var total_qty = 0;
                                 var total_price = 0;
-
+                                $("#modal_table tbody").empty();
                                 for (var x = 0;x<data.length;x++){
 
                                     var tr = $("<tr>").addClass(data[x].Category).appendTo($("#results_table tbody"));
@@ -236,10 +236,8 @@
                                             tr.hide();
                                         }
                                     }
-
+                                    
                                     if (data[x].Qty>0){
-                                        $("#modal_table tbody").empty();
-                                        
                                         var tr = $("<tr>").appendTo($("#modal_table tbody"));
                                         
                                         $("<td>").text(data[x].ProductName).appendTo(tr);
@@ -298,22 +296,37 @@
             }
 
             $("#save_default").click(function(){
-                //var data = [];
-                $("modal_table tbody tr").each(function(){
-                    //var item = [];
-                    //var first_tr = $(this).children().first();
-                   alert("first_tr.html()"); 
-                    //item[first_tr.html()]
-                    //item["CompanyName"] = $(this+":first-child")
+
+                if ($("#company_name").val() ==null){
+                    alert("请选择公司");
+                    return;
+                }
+                var order = {},products = {};  //make it an object instead of array
+                order["company_name"] = $("#company_name").val();
+                $("#modal_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+
+                    product["product_name"] = childrens.eq(0).text();
+                    product["description"] = childrens.eq(1).text();
+                    product["price"] = parseFloat(childrens.eq(2).text());
+                    product["unit"] = childrens.eq(3).text();
+                    //product["category"] = childrens.eq(4).text();
+                    product["qty"] = parseFloat(childrens.eq(5).text());
+                    products[childrens.eq(0).text()] = product;
+                    
                 });
-                /**var ajaxOpts={
+                order["products"] = products;
+                var ajaxOpts={
                             type: "post",
                             dataType: "json",
                             url: "manage_order/save_default",
-                            data: data,
+                            data: {order: JSON.stringify(order)},
                             success: function(data){
+                                alert("订单已保存以备下次使用");
                             }
-                    };**/
+                    };
+                $.ajax(ajaxOpts);
             });
 
             $("#submit_order").click(function(){
