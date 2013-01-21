@@ -311,7 +311,6 @@
                     product["description"] = childrens.eq(1).text();
                     product["price"] = parseFloat(childrens.eq(2).text());
                     product["unit"] = childrens.eq(3).text();
-                    //product["category"] = childrens.eq(4).text();
                     product["qty"] = parseFloat(childrens.eq(5).text());
                     products[childrens.eq(0).text()] = product;
                     
@@ -330,7 +329,14 @@
             });
 
             $("#submit_order").click(function(){
-
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/add_order",
+                        success: function(data){
+                            
+                        }
+                };
             });
 		</script>
     </div>
