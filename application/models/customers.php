@@ -105,6 +105,12 @@ class Customers extends CI_Model {
 					VALUES ('$order_id', '$order[company_name]','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]', '$order_date')";
 			$this->db->query($sql);
 		}
+		/*
+			add according payment into payment table
+		*/
+		$sql = "INSERT INTO payment (Date, OrderID, CompanyName, Debit, Status) 
+				VALUES ('$order_date', '$order_id', '$order[company_name]', '$order[total_price]', 'Unpaid')";
+		$this->db->query($sql);
 	}
 }
 ?>
