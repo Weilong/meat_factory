@@ -60,8 +60,7 @@ class Customers extends CI_Model {
 		return $orders;
 	}
 
-	public function save_to_order_template($order)
-	{
+	public function save_to_order_template($order){
 		$company_name = $order["company_name"];
 		$products = $order["products"];
 		//delete old template before adding new
@@ -75,7 +74,37 @@ class Customers extends CI_Model {
 			$sql = "INSERT INTO order_template (CompanyName, ProductID, ProductName, Description, Unit, Price, Qty) VALUES ('$company_name','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]')";
 			$this->db->query($sql);
 		}
+	}
 
+	public function insert_order($order){
+		/*
+			add order into table orderinfo
+		*/
+		$date = date('y-m-d');
+		$sql = "SELECT ContactName, Area FROM customer WHERE CompanyName='$order[company_name]'";
+		$query = $this->db->query($sql);
+		$contact_name = $query->row(0)->ContactName;
+		$area = $query->row(0)->Area;
+		$sql = "INSERT INTO orderinfo (CompanyName, DeliveryDate, Comment, Status, Address, Suburb, Area, Postcode, TotalQty, TotalPrice, OrderDate, ContactName) 
+				VALUES ('$order[company_name]', '$order[delivery_date]', '$order[comment]', 'New', '$order[delivery_address]', '$order[suburb]', '$area', '$order[postcode]', '$order[total_qty]', '$order[total_price]', '$date', '$contact_name')";
+		$this->db->query($sql);
+		/*
+			add order into table orderdetail
+		*/
+		$sql = "SELECT MAX(OrderID), OrderDate FROM orderinfo";
+		$query = $this->db->query($sql);
+		$order_id = $query->row(0)->OrderID;
+		$order_date = $query->row(0)->OrderDate;
+		$products = $order["products"];
+		foreach ($products as $product){
+			$sql = "SELECT ProductID FROM product, orderinfo WHERE product.ProductName='$product[product_name]'";
+			$query = $this->db->query($sql);
+			$product_id = $query->row(0)->ProductID;
+			
+			$sql = "INSERT INTO orderdetail (OrderID, CompanyName, ProductID, ProductName, Description, Unit, Price, Qty, OrderDate) 
+					VALUES ('$order_id', '$order[company_name]','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]', '$order_date')";
+			$this->db->query($sql);
+		}
 	}
 }
 ?>

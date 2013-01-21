@@ -32,14 +32,9 @@ class Manage_order extends CI_Controller {
 		echo $response;
 	}
 
-	public function add_order(){
-		$this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
-		$this->form_validation->set_rules('delivery_date', 'Delivery Date', 'trim|required');
-		
-		if($this->form_validation->run() == FALSE){
-	     //Field validation failed.&nbsp; User redirected to login page
-	     $this->load->view('order_management');
-	    }
+	public function submit_order(){
+		$order = json_decode($this->input->post("order"),true);
+		$this->customers->insert_order($order);
 	}
 
 	public function save_default(){

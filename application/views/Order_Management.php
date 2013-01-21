@@ -40,7 +40,7 @@
                                     <select id="company_name" name="company_name">
                                     </select>
                                     <label>送货日期</label>
-                                    <input class="datepicker" type="text" name="delivery_date" >
+                                    <input class="datepicker" type="text" id="delivery_date" name="delivery_date" >
                                     <label>产品分类</label>
                                     <select id="product_category">
                                         <option>All</option>
@@ -53,13 +53,13 @@
                                         <option>Others</option>
                                     </select>
                                     <label>备注</label>
-                                    <textarea name="comments" rows="8" cols="10"></textarea>
+                                    <textarea id="comment" name="comment" rows="8" cols="10"></textarea>
                                 </div>
                                 <div class="span5">
                                     <label>地区</label>
                                     <input type="text" id="suburb" readonly>
                                     <label>邮编</label>
-                                    <input type="text" id="email" readonly>
+                                    <input type="text" id="postcode" readonly>
                                     <label>送货地址</label>
                                     <input type="text" id="delivery_address" readonly>
                                     <label>订单汇总</label>
@@ -205,7 +205,7 @@
                             success: function(data){
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
-                                $("#email").val(data.Postcode1);
+                                $("#postcode").val(data.Postcode1);
                             }
                         };
                 $.ajax(ajaxOpts);
@@ -301,21 +301,7 @@
                     alert("请选择公司");
                     return;
                 }
-                var order = {},products = {};  //make it an object instead of array
-                order["company_name"] = $("#company_name").val();
-                $("#modal_table tbody tr").each(function(){
-                    var childrens = $(this).children();
-                    var product = {};
-
-                    product["product_name"] = childrens.eq(0).text();
-                    product["description"] = childrens.eq(1).text();
-                    product["price"] = parseFloat(childrens.eq(2).text());
-                    product["unit"] = childrens.eq(3).text();
-                    product["qty"] = parseFloat(childrens.eq(5).text());
-                    products[childrens.eq(0).text()] = product;
-                    
-                });
-                order["products"] = products;
+                var order = prepare_order($(this).attr("id"));
                 var ajaxOpts={
                             type: "post",
                             dataType: "json",
@@ -329,15 +315,52 @@
             });
 
             $("#submit_order").click(function(){
+                if ($("#company_name").val() ==null){
+                    alert("请选择公司");
+                    return;
+                }
+                var order = prepare_order($(this).attr("id"));
                 var ajaxOpts={
                         type: "post",
                         dataType: "json",
-                        url: "manage_order/add_order",
+                        url: "manage_order/submit_order",
+                        data: {order: JSON.stringify(order)},
                         success: function(data){
-                            
+                            alert("订单添加成功");
                         }
                 };
+                $.ajax(ajaxOpts);
             });
+
+            function prepare_order(button){
+                var order = {},products = {};  //make it an object instead of array
+                order["company_name"] = $("#company_name").val();
+                
+                if (button=="submit_order"){
+                    order["delivery_date"] = $("#delivery_date").val();
+                    order["comment"] = $("#comment").val();
+                    order["suburb"] = $("#suburb").val();
+                    order["postcode"] = $("#postcode").val();
+                    order["delivery_address"] = $("#delivery_address").val();
+                    order["total_qty"] = $("#total_qty").val();
+                    order["total_price"] = $("#total_price").val();
+                }
+                $("#modal_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+
+                    product["product_name"] = childrens.eq(0).text();
+                    product["description"] = childrens.eq(1).text();
+                    product["price"] = parseFloat(childrens.eq(2).text());
+                    product["unit"] = childrens.eq(3).text();
+                    //children.eq(4) is category
+                    product["qty"] = parseFloat(childrens.eq(5).text());
+                    products[childrens.eq(0).text()] = product;
+                    
+                });
+                order["products"] = products;
+                return order;
+            }
 		</script>
     </div>
  </div>
