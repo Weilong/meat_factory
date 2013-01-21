@@ -20,23 +20,24 @@
 					{
 						$delivery_date=$_POST['delivery_date'];
 					}
-					$data['result']=json_decode($this->delivery->read_orderInfo($delivery_date));
+					$data['result']=json_decode($this->delivery->read_orderInfo($delivery_date));//get the current date delivery list
+					$data['drivers']=json_decode($this->delivery->read_delivery_driver());//get all driver name to change, if the delivery is not completed
 						$this->load->view('includes/header');
 						$this->load->view('delivery_view',$data);
 						$this->load->view('includes/footer');
 				}
 			}
-			
-			public function load_delivery_driver()
+			public function change_delivery_status()
 			{
-				
+				$status = $this->input->post('complete_status');
+				$orderid = $this->input->post('orderid');
+				$this->delivery->delivery_status_change($orderid,$status);
 			}
-			public function delivery_status_change()
+			public function delivery_driver_change()
 			{
-				if($_POST['status'])
-				{
-					
-				}
+					$driver=$this->input->post('drivername');
+					$orderid =$this->input->post('orderid');
+					$this->delivery->change_delivery_driver($orderid,$driver);
 			}
 		}
 

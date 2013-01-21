@@ -59,25 +59,48 @@
 								{
 						?>
 									<tr>
-                                        <td id='a<? echo $row->id ?>'><? echo $row->id ?></td>
+                                        <td id='driver<? echo $row->id ?>'><? echo $row->id ?></td>
                                         <td><? echo $row->companyname ?></td>
                                         <td><? echo $row->contactname ?></td>
                                         <td><? echo $row->deliverydate ?></td>
-                                        <td><select name='selectdriver'>
-                                                <option value='<? echo $row->driver ?>'><? echo $row->driver ?></option>
+                                        <td><select name='selectdriver' class="driver<? echo $row->id ?>">
+                                        		<option value='<? echo $row->driver; ?>'><? echo $row->driver; ?></option>
+                                        		<? 
+													foreach($drivers as $rows)
+												  	{
+														$delivery_drivers = $rows->driver;
+														if($delivery_drivers!=$row->driver)
+														{
+												?>
+                                                <option value='<? echo $delivery_drivers; ?>'><? echo $delivery_drivers; ?></option>
+                                                <?
+														}
+													}
+												?>
                                             </select></td>
                                         <td><? echo $row->suburb ?></td>
                                         <td><? echo $row->area ?></td>
-                                        <td><a href='#'>Print</a></td>
-                                        <td><input type='button' class='a<? echo $row->id ?>' value='complete' /></td>
+                                        <td><a href='print_order_detail' target="_blank">Print</a></td>
+                                        <td><button id='<? echo $row->id ?>' >Complete</button></td>
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
-                                            $('.a<? echo $row->id ?>').click(function(e) {
-                                                var orderid = "<? echo $row->id ?>";
-												var deliverystatus = 'completed';
-												
+                                            $('.driver<? echo $row->id ?>').change(function(){
+                                              	var newdriver = $(".driver<? echo $row->id ?>").val();
+												var order_id = <? echo $row->id ?>;
+												var ajaxobj = 
+												{
+													type: "post",
+													url: "delivery_driver_change",
+													data: {drivername : newdriver, orderid: order_id},
+													success:function()
+													{
+														alert('change success');
+													}
+												};
+												$.ajax(ajaxobj);
                                             });
+											
                                         });
 									</script>
                         <?
@@ -96,6 +119,21 @@
 							$('#searching').click(function(e) {
                                	$('.form-inline').submit();
                             });
+							$('button').click(function() {
+												var order_id = $(this).attr('id');
+												var status = "completed";
+												var obj_status = {
+													type: "post",
+													url: "change_delivery_status",
+													data: {complete_status : status, orderid: order_id},
+													success:function()
+													{
+														alert(order_id);
+														alert(status);
+													}													
+												};
+												$.ajax(obj_status);
+                           });
                         });
 					</script>
                 </div>

@@ -53,20 +53,44 @@ class delivery extends CI_Model {
 					return $deliverydata = json_encode($company);
 				}
 	}
+	
 	public function read_delivery_driver()
 	{
+		/*
+			this model is implemented to list all driver
+			all order can change the driver
+		*/
 		$sql = "Select * from driver";
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0)
 		{
 			$drivers=array();
+			$i=0;
 			foreach($query->result() as $rows)
 			{
 				$driver=$rows->drivername;
-				array_push($drivers,$driver);	
+				$result=compact(
+					'driver'
+				);
+				array_push($drivers,$result);
 			}
 			return $deliverydriver = json_encode($drivers);
 		}
+	}
+	
+	public function change_delivery_driver($orderid, $driver)
+	{
+		/*
+			if the delivery driver has been changed, the model will be implemented
+		*/
+		$sql="UPDATE `orderinfo` SET `Driver`='$driver' WHERE `OrderID`='$orderid'";
+		$query = $this->db->query($sql);
+		$result = $query->result();
+	}
+	public function delivery_status_change($orderid,$status)
+	{
+		$sql="UPDATE `orderinfo` SET `Status`='$status' WHERE `OrderID`='$orderid'";
+		$query = $this->db->query($sql);
 	}
 }
 ?>

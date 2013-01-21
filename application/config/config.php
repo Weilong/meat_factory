@@ -15,7 +15,7 @@
 |
 */
 // $config['base_url']	= 'http://localhost/meat_factory/';
-$config['base_url'] = 'http://localhost/MeatFactory/';
+$config['base_url'] = 'http://localhost/meat_factory/';
 /*
 |--------------------------------------------------------------------------
 | Index File
