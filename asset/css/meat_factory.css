@@ -163,13 +163,18 @@ body{
 {
 	table-layout:fixed;
 }
-
+/*
 .table-scrollable-wrapper thead tr{
-    position:absolute;
+    position:relative;
 }
 
-.table-scrollable-wrapper{
+.table-scrollable-wrapper thead{
+	display:block;
+}
+
+.table-scrollable-wrapper tbody{
+	display:block;
 	padding:0 ; 
     height:500px;
     overflow:auto;
-}
+}*/

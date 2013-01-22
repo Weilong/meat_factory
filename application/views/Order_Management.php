@@ -270,7 +270,7 @@
 
             function change_qty(){
                 //need validation: cant be negative, alphabet or other symbols
-                if ($(this).val()=="" || $(this).val()<0){
+                if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
                     $(this).val(0);
                 }
                 
@@ -312,10 +312,21 @@
             });
 
             $("#submit_order").click(function(){
+                var message = "";
                 if ($("#company_name").val() ==null){
-                    alert("请选择公司");
+                    message += "请选择公司\n";
+                }
+                if (!isValidDate($("#delivery_date").val())){
+                    message += "送货日期格式不正确\n";
+                }
+                if ($("#total_qty").val()==0){
+                    message += "请添加产品\n";
+                }
+                if (message!=""){
+                    alert(message);
                     return;
                 }
+
                 var order = prepare_order($(this).attr("id"));
                 var ajaxOpts={
                         type: "post",
@@ -357,6 +368,10 @@
                 });
                 order["products"] = products;
                 return order;
+            }
+
+            function isValidDate(date){
+                return date.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
             }
 		</script>
     </div>
