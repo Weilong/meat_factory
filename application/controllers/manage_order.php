@@ -41,6 +41,16 @@ class Manage_order extends CI_Controller {
 		$order = json_decode($this->input->post("order"),true);
 		$this->customers->save_to_order_template($order);
 	}
+
+	public function search_order(){
+		$start_date = $this->input->post("start");
+		$end_date = $this->input->post("end");
+		$company = $this->input->post("company");
+		$status = $this->input->post("status");
+		$orders = $this->customers->get_orders($start_date,$end_date,$company,$status);
+		$response = json_encode($orders);
+		echo $response;
+	}
 }
 
 /* End of file customers.php */

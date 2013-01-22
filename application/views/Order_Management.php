@@ -102,11 +102,7 @@
                 </form>
                 <div>
                     <button id="save_default" class="btn btn-primary">保存订单</button>
-                    <button id="submit_order" class="btn btn-primary">下单</button>
-                    <!--<div class="alert alert-success">
-                      <button type="button" class="close" data-dismiss="alert">×</button>
-                      <strong>Well done!</strong>
-                    </div>   -->            
+                    <button id="submit_order" class="btn btn-primary">下单</button>          
                 </div>
             </div>
             <hr />
@@ -125,10 +121,6 @@
                     <tbody>
                     </tbody>
                 </table>
-                <!--
-                    <button type="submit" class="btn btn-danger">删除</button>
-                    <button type="submit" class="btn btn-primary">保存更改</button>
-                -->
             </div>
         </div>
         <div class="order_view">
@@ -136,25 +128,40 @@
         	<form class="form-inline" method="post"> 
             	<table>
                 	<tr>
-                        <td>下单日期 <input class="datepicker" type="text" name="start"> 到 <input class="datepicker" type="text" name="end"></td>
+                        <td><label>起始日</label>
+                            <input id="start_date" class="datepicker" type="text">
+                            <label>到</label>
+                            <input id="end_date" class="datepicker" type="text">
+                        </td>
                     </tr>
                     <tr>
-                        <td>公司 <select name="order_company"></select>  状态<select name="status"></select></td>
-                    </tr>
-                    <tr>
-                        <td><button type="submit" class="btn btn-primary">查询</button></td>
-                    </tr>
+                        <td><label>公司</label>
+                            <select id="search_company_name">
+                                <option>All</option>
+                            </select>
+                            <label>状态</label>
+                            <select id="status">
+                                <option>New</option>
+                                <option>Dispatching</option>
+                                <option>Complete</option>
+                            </select>
+                        </td>
+                    </tr>     
                 </table>
             </form>
-            <table class="table table-striped">
+            <div>
+                <button id="search_order" class="btn btn-primary">查询</button>
+            </div>
+            <hr />
+            <table id="search_result_table" class="table table-striped table-hover">
                 <thead>
                 	<tr>
-                        <th>订单号</th><th width="10"></th>
-                    	<th>下单日期</th><th width="10"></th>
-                        <th>公司名字</th><th width="10"></th>
-                        <th>送货日期</th><th width="10"></th>
-                        <th>送货进程</th><th width="10"></th>
-                        <th>总价</th><th width="10"></th>
+                        <th>订单号</th>
+                    	<th>下单日期</th>
+                        <th>公司名字</th>
+                        <th>送货日期</th>
+                        <th>送货进程</th>
+                        <th>总价</th>
                         <th>备注</th>
                     </tr>
                 </thead>
@@ -184,6 +191,8 @@
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
                         var opt = $("<option>").appendTo("#company_name");
+                        opt.text(data[x].companyname);
+                        opt = $("<option>").appendTo("#search_company_name");
                         opt.text(data[x].companyname);
                     }
                     //set the selected item to blank
@@ -310,7 +319,9 @@
                     };
                 $.ajax(ajaxOpts);
             });
-
+            /*
+                click submit order button to add order
+            */
             $("#submit_order").click(function(){
                 var message = "";
                 if ($("#company_name").val() ==null){
@@ -339,6 +350,34 @@
                 };
                 $.ajax(ajaxOpts);
             });
+            /*
+                click search button to get corresponding orders
+            */
+            $("#search_order").click(function(){
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order",
+                        data: {start: $("#start_date").val(),
+                                end: $("#end_date").val(), 
+                                company: $("#search_company_name").val(), 
+                                status: $("#status").val()},
+                        success: function(data){
+                            $("#search_result_table tbody").empty()
+                            for (var i=0;i<data.length;i++){
+                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
+                                $("<td>").text(data[i].OrderID).appendTo(tr);
+                                $("<td>").text(data[i].OrderDate).appendTo(tr);
+                                $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
+                                $("<td>").text(data[i].Status).appendTo(tr);
+                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
+                                $("<td>").text(data[i].Comment).appendTo(tr);
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+            })
 
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array

@@ -129,5 +129,27 @@ class Customers extends CI_Model {
 			$this->db->query($sql);
 		}
 	}
+
+	public function delete_order($order_id){
+		
+	}
+
+	public function get_orders($start_date,$end_date,$company,$status){
+		$sql = "SELECT OrderID, OrderDate, CompanyName, DeliveryDate, Status, TotalPrice, Comment 
+				FROM orderinfo 
+				WHERE OrderDate BETWEEN '$start_date' AND '$end_date' AND Status='$status'";
+		if ($company!="All"){
+			$sql.= " AND CompanyName='$company'"; 
+		}
+		$sql.=" ORDER BY OrderID";
+		$query = $this->db->query($sql);
+		$orders = array();
+		if ($query->num_rows()>0){
+			for ($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++ ){
+				$orders[$i] = $query->row($i);
+			}
+		}
+		return $orders;
+	}
 }
 ?>
