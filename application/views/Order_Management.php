@@ -9,8 +9,7 @@
                 	<li><a href="#" id='add_order'>添加新订单</a></li>
                     <li><a href="#" id='order_view'>订单查询</a></li>
                 </ul>
-            </li>
-            
+            </li>    
             <li class="divider"></li>
             <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a></li>
             <li class="divider"></li>
@@ -40,7 +39,7 @@
                                     <select id="company_name" name="company_name">
                                     </select>
                                     <label>送货日期</label>
-                                    <input class="datepicker" type="text" name="delivery_date" >
+                                    <input class="datepicker" type="text" id="delivery_date" name="delivery_date" >
                                     <label>产品分类</label>
                                     <select id="product_category">
                                         <option>All</option>
@@ -53,13 +52,13 @@
                                         <option>Others</option>
                                     </select>
                                     <label>备注</label>
-                                    <textarea name="comments" rows="8" cols="10"></textarea>
+                                    <textarea id="comment" name="comment" rows="8" cols="10"></textarea>
                                 </div>
                                 <div class="span5">
                                     <label>地区</label>
                                     <input type="text" id="suburb" readonly>
                                     <label>邮编</label>
-                                    <input type="text" id="email" readonly>
+                                    <input type="text" id="postcode" readonly>
                                     <label>送货地址</label>
                                     <input type="text" id="delivery_address" readonly>
                                     <label>订单汇总</label>
@@ -103,35 +102,25 @@
                 </form>
                 <div>
                     <button id="save_default" class="btn btn-primary">保存订单</button>
-                    <button id="submit_order" class="btn btn-primary">下单</button>
-                    <!--<div class="alert alert-success">
-                      <button type="button" class="close" data-dismiss="alert">×</button>
-                      <strong>Well done!</strong>
-                    </div>   -->            
+                    <button id="submit_order" class="btn btn-primary">下单</button>          
                 </div>
             </div>
             <hr />
-            <div>
-                <form method="post">
-                    <table  id="results_table" class='table table-striped table-hover'>
-                        <thead>
-                            <tr>
-                                <th>产品名</th><!-- click to view detail and edit -->
-                                <th>描述</th>
-                                <th>单价</th>
-                                <th>单位</th>
-                                <th>种类</th>
-                                <th>数量</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                    <!--
-                        <button type="submit" class="btn btn-danger">删除</button>
-                        <button type="submit" class="btn btn-primary">保存更改</button>
-                    -->
-                </form>
+            <div class="table-scrollable-wrapper">
+                <table  id="results_table" class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>产品名</th><!-- click to view detail and edit -->
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>单位</th>
+                            <th>种类</th>
+                            <th>数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="order_view">
@@ -139,31 +128,83 @@
         	<form class="form-inline" method="post"> 
             	<table>
                 	<tr>
-                        <td>下单日期 <input class="datepicker" type="text" name="start"> 到 <input class="datepicker" type="text" name="end"></td>
+                        <td><label>起始日</label>
+                            <input id="start_date" class="datepicker" type="text">
+                            <label>到</label>
+                            <input id="end_date" class="datepicker" type="text">
+                        </td>
                     </tr>
                     <tr>
-                        <td>公司 <select name="order_company"></select>  状态<select name="status"></select></td>
-                    </tr>
-                    <tr>
-                        <td><button type="submit" class="btn btn-primary">查询</button></td>
-                    </tr>
+                        <td><label>公司</label>
+                            <select id="search_company_name">
+                                <option>All</option>
+                            </select>
+                            <label>状态</label>
+                            <select id="status">
+                                <option>New</option>
+                                <option>Dispatching</option>
+                                <option>Complete</option>
+                            </select>
+                        </td>
+                    </tr>     
                 </table>
             </form>
-            <table class="table table-striped">
-                <thead>
-                	<tr>
-                        <th>订单号</th><th width="10"></th>
-                    	<th>下单日期</th><th width="10"></th>
-                        <th>公司名字</th><th width="10"></th>
-                        <th>送货日期</th><th width="10"></th>
-                        <th>送货进程</th><th width="10"></th>
-                        <th>总价</th><th width="10"></th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div>
+                <button id="search_order" class="btn btn-primary">查询</button>
+            </div>
+            <hr />
+            <div>
+                <table id="search_result_table" class="table table-striped table-hover">
+                    <thead>
+                    	<tr>
+                            
+                            <th><input type="checkbox"></th>
+                            <th>订单号</th>
+                        	<th>下单日期</th>
+                            <th>公司名字</th>
+                            <th>送货日期</th>
+                            <th>送货进程</th>
+                            <th>总价</th>
+                            <th>备注</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button class="btn btn-danger">删除</button>
+            </div>
+            <!-- Modal -->
+            <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="orderModalLabel">订单细节</h3>
+              </div>
+              <div class="modal-body">
+                <table  id="modal_order_table" class='table table-striped table-hover'>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>产品名</th><!-- click to view detail and edit -->
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>单位</th>
+                            <th>种类</th>
+                            <th>数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-danger">删除</button>
+                <button class="btn btn-primary">打印</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+              </div>
+            </div>
         </div>
          <script language="javascript" type="text/javascript">
 			$(document).ready(function(e) {
@@ -178,7 +219,7 @@
 
                 //initialise the datepicker and set current date to the calendar
                 $(function(){
-                    var calender = $(".datepicker").datepicker();
+                    var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
                     calender.datepicker("setDate", new Date());
                 });
                 //retrieve all company names from database to display on page
@@ -187,6 +228,8 @@
                     //loop through all items in the JSON array
                     for (var x = 0;x<data.length;x++){
                         var opt = $("<option>").appendTo("#company_name");
+                        opt.text(data[x].companyname);
+                        opt = $("<option>").appendTo("#search_company_name");
                         opt.text(data[x].companyname);
                     }
                     //set the selected item to blank
@@ -205,7 +248,7 @@
                             success: function(data){
                                 $("#delivery_address").val(data.Address1);
                                 $("#suburb").val(data.Suburb1);
-                                $("#email").val(data.Postcode1);
+                                $("#postcode").val(data.Postcode1);
                             }
                         };
                 $.ajax(ajaxOpts);
@@ -219,7 +262,7 @@
                                 $("#results_table tbody").empty();
                                 var total_qty = 0;
                                 var total_price = 0;
-
+                                $("#modal_table tbody").empty();
                                 for (var x = 0;x<data.length;x++){
 
                                     var tr = $("<tr>").addClass(data[x].Category).appendTo($("#results_table tbody"));
@@ -236,10 +279,8 @@
                                             tr.hide();
                                         }
                                     }
-
+                                    
                                     if (data[x].Qty>0){
-                                        $("#modal_table tbody").empty();
-                                        
                                         var tr = $("<tr>").appendTo($("#modal_table tbody"));
                                         
                                         $("<td>").text(data[x].ProductName).appendTo(tr);
@@ -275,7 +316,7 @@
 
             function change_qty(){
                 //need validation: cant be negative, alphabet or other symbols
-                if ($(this).val()=="" || $(this).val()<0){
+                if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
                     $(this).val(0);
                 }
                 
@@ -288,7 +329,7 @@
                         var price = parseFloat(tr.find(".price").text());
                         total_qty += qty;
                         total_price += (price*qty);
-                        tr.find("input").parent().text(qty);
+                        tr.find("input").parent().text(qty);    //replace input by plain text
                         tr.appendTo($("#modal_table tbody"));
                     }
                 });
@@ -298,27 +339,144 @@
             }
 
             $("#save_default").click(function(){
-                //var data = [];
-                $("modal_table tbody tr").each(function(){
-                    //var item = [];
-                    //var first_tr = $(this).children().first();
-                    alert("first_tr.html()");
-                    //item[first_tr.html()]
-                    //item["CompanyName"] = $(this+":first-child")
-                });
-                /**var ajaxOpts={
+
+                if ($("#company_name").val() ==null){
+                    alert("请选择公司");
+                    return;
+                }
+                var order = prepare_order($(this).attr("id"));
+                var ajaxOpts={
                             type: "post",
                             dataType: "json",
                             url: "manage_order/save_default",
-                            data: data,
+                            data: {order: JSON.stringify(order)},
                             success: function(data){
+                                alert("订单已保存以备下次使用");
                             }
-                    };**/
+                    };
+                $.ajax(ajaxOpts);
             });
-
+            /*
+                click submit order button to add order
+            */
             $("#submit_order").click(function(){
+                var message = "";
+                if ($("#company_name").val() ==null){
+                    message += "请选择公司\n";
+                }
+                if (!isValidDate($("#delivery_date").val())){
+                    message += "送货日期格式不正确\n";
+                }
+                if ($("#total_qty").val()==0){
+                    message += "请添加产品\n";
+                }
+                if (message!=""){
+                    alert(message);
+                    return;
+                }
 
+                var order = prepare_order($(this).attr("id"));
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/submit_order",
+                        data: {order: JSON.stringify(order)},
+                        success: function(data){
+                            alert("订单添加成功");
+                        }
+                };
+                $.ajax(ajaxOpts);
             });
+            /*
+                click search button to get corresponding orders
+            */
+            $("#search_order").click(function(){
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order",
+                        data: {start: $("#start_date").val(),
+                                end: $("#end_date").val(), 
+                                company: $("#search_company_name").val(), 
+                                status: $("#status").val()},
+                        success: function(data){
+                            $("#search_result_table tbody").empty()
+                            for (var i=0;i<data.length;i++){
+                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
+                                
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
+                                $("<td>").text(data[i].OrderID).appendTo(tr);
+                                $("<td>").text(data[i].OrderDate).appendTo(tr);
+                                $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
+                                $("<td>").text(data[i].Status).appendTo(tr);
+                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
+                                $("<td>").text(data[i].Comment).appendTo(tr);
+                                $("<td>").append($("<button>").addClass("btn view_button").text("View")).appendTo(tr);   
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+            });
+            
+            $(".view_button").live("click", function(){
+                var order_id = $(this).closest("tr").children().eq(1).text();
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order_detail",
+                        data: {order_id: order_id},
+                        success: function(data){
+                            $("#modal_order_table tbody").empty()
+                            for (var x=0;x<data.length;x++){
+                                var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
+                                $("<td>").text(data[x].ProductName).appendTo(tr);
+                                $("<td>").text(data[x].Description).appendTo(tr);
+                                $("<td>").text(data[x].Price).appendTo(tr);
+                                $("<td>").text(data[x].Unit).appendTo(tr);
+                                $("<td>").text(data[x].Category).appendTo(tr);
+                                $("<td>").text(data[x].Qty).appendTo(tr);
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+                $("#orderModal").modal({show:true});               
+            });
+
+            function prepare_order(button){
+                var order = {},products = {};  //make it an object instead of array
+                order["company_name"] = $("#company_name").val();
+                
+                if (button=="submit_order"){
+                    order["delivery_date"] = $("#delivery_date").val();
+                    order["comment"] = $("#comment").val();
+                    order["suburb"] = $("#suburb").val();
+                    order["postcode"] = $("#postcode").val();
+                    order["delivery_address"] = $("#delivery_address").val();
+                    order["total_qty"] = $("#total_qty").val();
+                    order["total_price"] = $("#total_price").val();
+                }
+                $("#modal_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+
+                    product["product_name"] = childrens.eq(0).text();
+                    product["description"] = childrens.eq(1).text();
+                    product["price"] = parseFloat(childrens.eq(2).text());
+                    product["unit"] = childrens.eq(3).text();
+                    //children.eq(4) is category
+                    product["qty"] = parseFloat(childrens.eq(5).text());
+                    products[childrens.eq(0).text()] = product;
+                    
+                });
+                order["products"] = products;
+                return order;
+            }
+
+            function isValidDate(date){
+                return date.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
+            }
 		</script>
     </div>
  </div>

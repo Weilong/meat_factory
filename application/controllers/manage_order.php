@@ -32,18 +32,31 @@ class Manage_order extends CI_Controller {
 		echo $response;
 	}
 
-	public function add_order(){
-		$this->form_validation->set_rules('company_name', 'Company Name', 'trim|required');
-		$this->form_validation->set_rules('delivery_date', 'Delivery Date', 'trim|required');
-		
-		if($this->form_validation->run() == FALSE){
-	     //Field validation failed.&nbsp; User redirected to login page
-	     $this->load->view('order_management');
-	    }
+	public function submit_order(){
+		$order = json_decode($this->input->post("order"),true);
+		$this->customers->insert_order($order);
 	}
 
 	public function save_default(){
-		
+		$order = json_decode($this->input->post("order"),true);
+		$this->customers->save_to_order_template($order);
+	}
+
+	public function search_order(){
+		$start_date = $this->input->post("start");
+		$end_date = $this->input->post("end");
+		$company = $this->input->post("company");
+		$status = $this->input->post("status");
+		$orders = $this->customers->fetch_orders($start_date,$end_date,$company,$status);
+		$response = json_encode($orders);
+		echo $response;
+	}
+
+	public function search_order_detail(){
+		$order_id = $this->input->post("order_id");
+		$order_detail = $this->customers->fetch_order_detail($order_id);
+		$response = json_encode($order_detail);
+		echo $response;
 	}
 }
 
