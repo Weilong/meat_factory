@@ -61,6 +61,7 @@
                                 	</select>
                                     <br/>
                                 区域：<select name="area" id="area">
+                                			<option value="  "></option>
                                 			<option value="area1">Area1</option>
                                             <option value="area2">Area2</option>
                                             <option value="area3">Area3</option>
@@ -127,42 +128,63 @@
                 	<p><h3>供应商信息</h3></p>
                     <div>
                         <form method="post" class="form-inline">
-                        	<label>所属地区</label>
-                            <select name="client_region">
+                        	<label>供应商</label>
+                            <select name="supplier_region" id="supplier_region">
+                            	<option value=" "></option>
+                                
                             </select>
-                            <button type="submit" class="btn btn-primary">查询</button>
+                            <button id="check_list" class="btn btn-primary">查询</button>
                         </form>
                     </div>
+                    <script language="javascript" type="text/javascript">
+									$(document).ready(function(e) {
+                                        $.getJSON('client_edit/read_supplier_region',
+											/*
+												get the json data from back end
+												decode json and list with select via option
+											*/
+											function(data){
+												for (var x = 0;x<data.length;x++){
+													var opt = $("<option>").appendTo("#supplier_region");
+													opt.text(data[x].CompanyName);
+													opt.val(data[x].CompanyName);
+												}
+												//set the selected item to blank
+												//$("#company_name").get(0).selectedIndex = -1;
+											}
+										);
+                                    });
+								</script>
                     <div>
                         <form method="post">
                         <table class='client_name table table-striped table-hover'>
-                        <thead>
-                            <tr>
-                                <th><input type="checkbox"></th>
-                                <th>公司简称</th><!-- click to view detail and edit -->
-                          		<th>公司全称</th>
-                                <th>公司地址</th>
-                                <th>地区</th>
-                                <th>电话</th>
-                                <th>手机</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                            </tr>
-                        </tbody>
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox"></th>
+                                    <th>公司简称</th><!-- click to view detail and edit -->
+                                    <th>公司全称</th>
+                                    <th>公司地址</th>
+                                    <th>地区</th>
+                                    <th>电话</th>
+                                    <th>手机</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox"></td>
+                                    <td>n/a</td>
+                                    <td>n/a</td>
+                                    <td>n/a</td>
+                                    <td>n/a</td>
+                                    <td>n/a</td>
+                                    <td>n/a</td>
+                                    <th><i class="icon-edit" id="editicon"></i><i class="icon-trash" id="deleteicon"></i></th>
+                                </tr>
+                            </tbody>
                         </table>
-                        	<button type="submit" class="btn btn-danger">删除</button>
-                            <button type="submit" class="btn btn-primary">保存更改</button>
+                        	<button  id="delete_select" class="btn btn-danger">删除</button>
+                            <button  id="save_change" class="btn btn-primary">保存更改</button>
                         </form>
                     </div>
                 </div>

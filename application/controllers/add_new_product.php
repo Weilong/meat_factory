@@ -38,3 +38,4 @@ class add_new_product extends CI_Controller {
 
 
 }
+?>

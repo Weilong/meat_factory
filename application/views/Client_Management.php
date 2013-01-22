@@ -174,13 +174,46 @@
                 <div class="client_detail">
                 	<p><h3>客户信息</h3></p>
                     <div>
-                        <form class="form-inline" method="post">
                         	<label>所属地区</label>
-                            <select name="client_region">
-                            </select>
-                            <button type="submit" class="btn btn-primary">查询</button>
-                        </form>
+                            <select name="client_region" id="customer_region">
+                            </select><br />
+                            <button id="check_list" class="btn btn-primary">查询</button>
                     </div>
+                     <script language="javascript" type="text/javascript">
+									$(document).ready(function(e) {
+                                        $.getJSON('client_edit/read_client_region',
+											/*
+												get the json data from back end
+												decode json and list with select via option
+											*/
+											function(data){
+												for (var x = 0;x<data.length;x++){
+													var opt = $("<option>").appendTo("#customer_region");
+													opt.text(data[x].Suburb1);
+													opt.val(data[x].Suburb1);
+												}
+												//set the selected item to blank
+												//$("#company_name").get(0).selectedIndex = -1;
+											}
+										);
+										$('#check_list').click(function(e) {
+											/*
+												check list button is pressed
+												if region select is changed get value 
+												get the customer detail with this region   
+											*/
+											var region = $('#customer_region').val();
+											var obj = {
+												type: 'post',
+												url : 'client_edit/client_list',
+												data : {regionplace:region}
+											};
+											$.ajax(obj);
+											//$.getJSON('client_edit/client_list',function(data){
+											//});
+                                        });
+                                    });
+								</script>
                     <div>
                         <form method="post">
                         <table class='client_name table table-striped table-hover'>
@@ -211,10 +244,11 @@
                             </tr>
                         </tbody>
                         </table>
-                            <button type="submit" class="btn btn-danger">删除</button>
-                            <button type="submit" class="btn btn-primary">保存更改</button>
+                            <button id="delete_select" class="btn btn-danger">删除</button>
+                            <button id="save_change" class="btn btn-primary">保存更改</button>
                         </form>
                     </div>
+                    
                 </div>
                 <div class="client_payment_detail">
                 	<p><h3>客户付款/欠费情况</h3></p>

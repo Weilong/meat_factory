@@ -50,3 +50,4 @@ class Customers extends CI_Controller {
 
 /* End of file customers.php */
 /* Location: ./application/controllers/customers.php */
+?>

@@ -57,31 +57,56 @@
 							{
 								foreach($result as $row)
 								{
+									$status = "completed";
 						?>
 									<tr>
                                         <td id='driver<? echo $row->id ?>'><? echo $row->id ?></td>
                                         <td><? echo $row->companyname ?></td>
                                         <td><? echo $row->contactname ?></td>
                                         <td><? echo $row->deliverydate ?></td>
-                                        <td><select name='selectdriver' class="driver<? echo $row->id ?>">
-                                        		<option value='<? echo $row->driver; ?>'><? echo $row->driver; ?></option>
-                                        		<? 
+                                        <td><? if($row->status==$status)
+												{
+													echo $row->driver;
+												}
+												else
+												{
+											?>
+                                            		<select name='selectdriver' class="driver<? echo $row->id ?>">
+                                        			<option value='<? echo $row->driver; ?>'><? echo $row->driver; ?></option>
+                                        	<? 
 													foreach($drivers as $rows)
 												  	{
 														$delivery_drivers = $rows->driver;
 														if($delivery_drivers!=$row->driver)
 														{
-												?>
-                                                <option value='<? echo $delivery_drivers; ?>'><? echo $delivery_drivers; ?></option>
-                                                <?
+											?>
+                                                			<option value='<? echo $delivery_drivers; ?>'><? echo $delivery_drivers; ?></option>
+                                            <?
 														}
 													}
-												?>
-                                            </select></td>
+												}
+											?>
+                                            </select>
+                                        </td>
                                         <td><? echo $row->suburb ?></td>
                                         <td><? echo $row->area ?></td>
-                                        <td><a href='print_order_detail' target="_blank">Print</a></td>
-                                        <td><button id='<? echo $row->id ?>' >Complete</button></td>
+                                        <td><a href='print_order_detail' id="<? echo $row->id ?>" target="_blank">Print</a></td>
+                                        <td>
+                                        	<?
+                                            	if($row->status==$status)
+												{
+											?>
+                                            	Completed
+											<?
+												}
+												else
+												{
+                                            ?>
+                                            <button id='<? echo $row->id ?>' >Complete</button>
+                                            <?
+												}
+											?>
+                                        </td>
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
@@ -100,7 +125,6 @@
 												};
 												$.ajax(ajaxobj);
                                             });
-											
                                         });
 									</script>
                         <?
@@ -128,8 +152,7 @@
 													data: {complete_status : status, orderid: order_id},
 													success:function()
 													{
-														alert(order_id);
-														alert(status);
+														alert('Delivery completed');
 													}													
 												};
 												$.ajax(obj_status);

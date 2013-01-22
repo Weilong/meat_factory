@@ -2,7 +2,7 @@
 
 class add_supplier extends CI_Controller {
 
-	 public function __construct()
+	   public function __construct()
        {
             parent::__construct();
        }
@@ -82,3 +82,4 @@ class add_supplier extends CI_Controller {
 
 
 }
+?>
