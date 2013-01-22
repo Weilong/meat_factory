@@ -47,8 +47,15 @@ class Manage_order extends CI_Controller {
 		$end_date = $this->input->post("end");
 		$company = $this->input->post("company");
 		$status = $this->input->post("status");
-		$orders = $this->customers->get_orders($start_date,$end_date,$company,$status);
+		$orders = $this->customers->fetch_orders($start_date,$end_date,$company,$status);
 		$response = json_encode($orders);
+		echo $response;
+	}
+
+	public function search_order_detail(){
+		$order_id = $this->input->post("order_id");
+		$order_detail = $this->customers->fetch_order_detail($order_id);
+		$response = json_encode($order_detail);
 		echo $response;
 	}
 }

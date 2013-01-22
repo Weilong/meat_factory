@@ -153,21 +153,58 @@
                 <button id="search_order" class="btn btn-primary">查询</button>
             </div>
             <hr />
-            <table id="search_result_table" class="table table-striped table-hover">
-                <thead>
-                	<tr>
-                        <th>订单号</th>
-                    	<th>下单日期</th>
-                        <th>公司名字</th>
-                        <th>送货日期</th>
-                        <th>送货进程</th>
-                        <th>总价</th>
-                        <th>备注</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+            <div>
+                <table id="search_result_table" class="table table-striped table-hover">
+                    <thead>
+                    	<tr>
+                            
+                            <th><input type="checkbox"></th>
+                            <th>订单号</th>
+                        	<th>下单日期</th>
+                            <th>公司名字</th>
+                            <th>送货日期</th>
+                            <th>送货进程</th>
+                            <th>总价</th>
+                            <th>备注</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div>
+                <button class="btn btn-danger">删除</button>
+            </div>
+            <!-- Modal -->
+            <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="orderModalLabel">订单细节</h3>
+              </div>
+              <div class="modal-body">
+                <table  id="modal_order_table" class='table table-striped table-hover'>
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>产品名</th><!-- click to view detail and edit -->
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>单位</th>
+                            <th>种类</th>
+                            <th>数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-danger">删除</button>
+                <button class="btn btn-primary">打印</button>
+                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+              </div>
+            </div>
         </div>
          <script language="javascript" type="text/javascript">
 			$(document).ready(function(e) {
@@ -292,7 +329,7 @@
                         var price = parseFloat(tr.find(".price").text());
                         total_qty += qty;
                         total_price += (price*qty);
-                        tr.find("input").parent().text(qty);
+                        tr.find("input").parent().text(qty);    //replace input by plain text
                         tr.appendTo($("#modal_table tbody"));
                     }
                 });
@@ -366,6 +403,8 @@
                             $("#search_result_table tbody").empty()
                             for (var i=0;i<data.length;i++){
                                 var tr=$("<tr>").appendTo($("#search_result_table tbody"));
+                                
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
                                 $("<td>").text(data[i].OrderID).appendTo(tr);
                                 $("<td>").text(data[i].OrderDate).appendTo(tr);
                                 $("<td>").text(data[i].CompanyName).appendTo(tr);
@@ -373,11 +412,37 @@
                                 $("<td>").text(data[i].Status).appendTo(tr);
                                 $("<td>").text(data[i].TotalPrice).appendTo(tr);
                                 $("<td>").text(data[i].Comment).appendTo(tr);
+                                $("<td>").append($("<button>").addClass("btn view_button").text("View")).appendTo(tr);   
                             }
                         }
                 };
                 $.ajax(ajaxOpts);
-            })
+            });
+            
+            $(".view_button").live("click", function(){
+                var order_id = $(this).closest("tr").children().eq(1).text();
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order_detail",
+                        data: {order_id: order_id},
+                        success: function(data){
+                            $("#modal_order_table tbody").empty()
+                            for (var x=0;x<data.length;x++){
+                                var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
+                                $("<td>").text(data[x].ProductName).appendTo(tr);
+                                $("<td>").text(data[x].Description).appendTo(tr);
+                                $("<td>").text(data[x].Price).appendTo(tr);
+                                $("<td>").text(data[x].Unit).appendTo(tr);
+                                $("<td>").text(data[x].Category).appendTo(tr);
+                                $("<td>").text(data[x].Qty).appendTo(tr);
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+                $("#orderModal").modal({show:true});               
+            });
 
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array

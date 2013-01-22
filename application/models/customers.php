@@ -131,10 +131,14 @@ class Customers extends CI_Model {
 	}
 
 	public function delete_order($order_id){
-		
+
 	}
 
-	public function get_orders($start_date,$end_date,$company,$status){
+	public function delete_order_detail(){
+
+	}
+
+	public function fetch_orders($start_date,$end_date,$company,$status){
 		$sql = "SELECT OrderID, OrderDate, CompanyName, DeliveryDate, Status, TotalPrice, Comment 
 				FROM orderinfo 
 				WHERE OrderDate BETWEEN '$start_date' AND '$end_date' AND Status='$status'";
@@ -150,6 +154,20 @@ class Customers extends CI_Model {
 			}
 		}
 		return $orders;
+	}
+
+	public function fetch_order_detail($order_id){
+		$sql = "SELECT orderdetail.ProductName, orderdetail.Description, orderdetail.Price, orderdetail.Unit, Category, Qty 
+				FROM orderdetail, product 
+				WHERE OrderID='$order_id' AND orderdetail.ProductID=product.ProductID";
+		$query = $this->db->query($sql);
+		$order_detail = array();
+		if ($query->num_rows()>0){
+			for ($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++ ){
+				$order_detail[$i] = $query->row($i);
+			}
+		}
+		return $order_detail;
 	}
 }
 ?>
