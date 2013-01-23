@@ -163,6 +163,12 @@ body{
 {
 	table-layout:fixed;
 }
+/* icon pic controll */
+i:hover{
+	cursor:pointer;
+}
+
+
 /*
 .table-scrollable-wrapper thead tr{
     position:relative;

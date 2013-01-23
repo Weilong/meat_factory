@@ -211,6 +211,7 @@
                                 <th>手机</th>
                                 <th>送货区域</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -238,6 +239,7 @@
 												success: function(client_data){
 													var obj = eval("("+client_data+")");
 													var x=0; //for loop with the json file length
+													$('td').remove();
 													for(x=0;x<obj.length;x++){
 														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
 															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
@@ -248,11 +250,10 @@
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<td>").text(obj[x].area).appendTo(tr);
-															$("<i>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
-															$("<i>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+															$("<i title='edit'>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
+															$("<i title='delete'>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
 													}
 												}
-													
 											};
 											$.ajax(obj);
                          });

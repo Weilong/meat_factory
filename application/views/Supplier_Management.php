@@ -30,7 +30,7 @@
                 </div>
               </div>
             </div>
-            <div class = "main-content">
+            <div class = "main-content" style="width:auto;">
             	<div class="add_new_supplier">
                 	<p><h3>添加新供应商</h3></p>
                 	<p><h5>供应商联系信息</h5></p>
@@ -165,6 +165,7 @@
                                     <th>电话</th>
                                     <th>手机</th>
                                     <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -188,6 +189,7 @@
 												success: function(supplier_data){
 													var obj = eval("("+supplier_data+")");
 													var x=0; //for loop with the json file length
+													$('td').remove();
 													for(x=0;x<obj.length;x++){
 														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
 															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
@@ -197,8 +199,8 @@
 															$("<td>").text(obj[x].region).appendTo(tr);
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
-															$("<i>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
-															$("<i>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+															$("<i title='edit'>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
+															$("<i title='delete'>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
 													}
 												}
 											};
