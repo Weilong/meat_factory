@@ -196,32 +196,15 @@
 												//$("#company_name").get(0).selectedIndex = -1;
 											}
 										);
-										$('#check_list').click(function(e) {
-											/*
-												check list button is pressed
-												if region select is changed get value 
-												get the customer detail with this region   
-											*/
-											var region = $('#customer_region').val();
-											var obj = {
-												type: 'post',
-												url : 'client_edit/client_list',
-												data : {regionplace:region}
-											};
-											$.ajax(obj);
-											//$.getJSON('client_edit/client_list',function(data){
-											//});
-                                        });
                                     });
 								</script>
                     <div>
-                        <form method="post">
-                        <table class='client_name table table-striped table-hover'>
+                        <table id='results_table' class='client_name table table-striped table-hover'>
                         <thead>
                             <tr>
                                 <th><input type="checkbox"></th>
-                                <th>公司简称</th><!-- click to view detail and edit -->
-                                <th>公司全称</th>
+                                <th>公司全称</th><!-- click to view detail and edit -->
+                                <th>公司简称</th>
                                 <th>公司地址</th>
                                 <th>地区</th>
                                 <th>电话</th>
@@ -231,32 +214,55 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><input type="checkbox"></td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                            </tr>
                         </tbody>
                         </table>
                             <button id="delete_select" class="btn btn-danger">删除</button>
                             <button id="save_change" class="btn btn-primary">保存更改</button>
-                        </form>
                     </div>
-                    
+                    <script language="javascript" type="text/javascript">
+						/*
+							list client info
+							
+						*/
+						$('#check_list').click(function(e) {
+											/*
+												check list button is pressed
+												if region select is changed get value 
+												get the customer detail with this region   
+											*/
+											var region = $('#customer_region').val();
+											var obj = {
+												type: 'post',
+												url : 'client_edit/client_list',
+												data : {regionplace:region},
+												success: function(client_data){
+													var obj = eval("("+client_data+")");
+													var x=0; //for loop with the json file length
+													for(x=0;x<obj.length;x++){
+														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
+															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
+															$("<td>").text(obj[x].companyname).appendTo(tr);
+															$("<td>").text(obj[x].contactname).appendTo(tr);
+															$("<td>").text(obj[x].address).appendTo(tr);
+															$("<td>").text(obj[x].region).appendTo(tr);
+															$("<td>").text(obj[x].phone).appendTo(tr);
+															$("<td>").text(obj[x].mobile).appendTo(tr);
+															$("<td>").text(obj[x].area).appendTo(tr);
+															$("<i>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
+															$("<i>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+													}
+												}
+													
+											};
+											$.ajax(obj);
+                         });
+					</script>
                 </div>
                 <div class="client_payment_detail">
                 	<p><h3>客户付款/欠费情况</h3></p>
-                	<form class="form-inline" method="post">
                     	<select name="client_name">
                         </select>
                         <input type="button" class="btn btn-primary" value="查询">
-                    </form>
                     <table class="client_payment_list table table-striped table-hover">
                     	<tr><th>公司名</th><th width="10">
                         	<th>3个月前（90天）</th><th width="10">

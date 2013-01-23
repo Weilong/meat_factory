@@ -127,14 +127,12 @@
                 <div class="supplier_detail">
                 	<p><h3>供应商信息</h3></p>
                     <div>
-                        <form method="post" class="form-inline">
                         	<label>供应商</label>
                             <select name="supplier_region" id="supplier_region">
                             	<option value=" "></option>
                                 
                             </select>
                             <button id="check_list" class="btn btn-primary">查询</button>
-                        </form>
                     </div>
                     <script language="javascript" type="text/javascript">
 									$(document).ready(function(e) {
@@ -156,13 +154,12 @@
                                     });
 								</script>
                     <div>
-                        <form method="post">
-                        <table class='client_name table table-striped table-hover'>
+                        <table id="results_table" class='client_name table table-striped table-hover'>
                             <thead>
                                 <tr>
                                     <th><input type="checkbox"></th>
-                                    <th>公司简称</th><!-- click to view detail and edit -->
-                                    <th>公司全称</th>
+                                    <th>公司全称</th><!-- click to view detail and edit -->
+                                    <th>公司简称</th>
                                     <th>公司地址</th>
                                     <th>地区</th>
                                     <th>电话</th>
@@ -171,22 +168,44 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="checkbox"></td>
-                                    <td>n/a</td>
-                                    <td>n/a</td>
-                                    <td>n/a</td>
-                                    <td>n/a</td>
-                                    <td>n/a</td>
-                                    <td>n/a</td>
-                                    <th><i class="icon-edit" id="editicon"></i><i class="icon-trash" id="deleteicon"></i></th>
-                                </tr>
                             </tbody>
                         </table>
                         	<button  id="delete_select" class="btn btn-danger">删除</button>
-                            <button  id="save_change" class="btn btn-primary">保存更改</button>
-                        </form>
                     </div>
+                    <script language="javascript" type="text/javascript">
+						$(document).ready(function(e) {
+                            $('button#check_list').click(function(e) {
+											/*
+												supplier list button is pressed
+												if region select is changed get value 
+												get the customer detail with this region   
+											*/
+											var companyname = $('#supplier_region').val();
+											var obj = {
+												type: 'post',
+												url : 'client_edit/supplier_list',
+												data : {suppliername:companyname},
+												success: function(supplier_data){
+													var obj = eval("("+supplier_data+")");
+													var x=0; //for loop with the json file length
+													for(x=0;x<obj.length;x++){
+														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
+															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
+															$("<td>").text(obj[x].companyname).appendTo(tr);
+															$("<td>").text(obj[x].contactname).appendTo(tr);
+															$("<td>").text(obj[x].address).appendTo(tr);
+															$("<td>").text(obj[x].region).appendTo(tr);
+															$("<td>").text(obj[x].phone).appendTo(tr);
+															$("<td>").text(obj[x].mobile).appendTo(tr);
+															$("<i>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
+															$("<i>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+													}
+												}
+											};
+											$.ajax(obj);
+                        	 });
+                        });
+					</script>
                 </div>
                 <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
@@ -198,6 +217,7 @@
                             $('.add_new_supplier').animate({height:'0px'},"fast");
 							$('.supplier_detail').animate({height:'100%'},"slow");
                         });
+						
                     });
 				</script>
             </div>
