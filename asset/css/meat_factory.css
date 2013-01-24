@@ -168,7 +168,23 @@ i:hover{
 	cursor:pointer;
 }
 
-
+/* client and supplier edit */
+.client_supplier
+{
+	visibility:hidden;
+	background:#FFF;
+	width:0px;
+	height:0px;
+	position:fixed;
+	top:15%;
+	left:20%;
+	overflow:auto;	
+}
+.client_supplier_detail
+{
+	width:auto;
+	margin:0px auto;
+}
 /*
 .table-scrollable-wrapper thead tr{
     position:relative;
