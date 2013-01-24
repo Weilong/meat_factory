@@ -31,7 +31,7 @@
                 </div>
               </div>
             </div>
-            <div class = "main-content">
+            <div class = "main-content" style="width:auto;">
             	<div class="add_new_client">
                 	<p><h3>添加新客户</h3></p>
                 	<p><h5>客户联系信息</h5></p>
@@ -202,7 +202,7 @@
                         <table id='results_table' class='client_name table table-striped table-hover'>
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
+                                <th><input title="select all" id="all" type="checkbox"></th>
                                 <th>公司全称</th><!-- click to view detail and edit -->
                                 <th>公司简称</th>
                                 <th>公司地址</th>
@@ -239,9 +239,11 @@
 												success: function(client_data){
 													var obj = eval("("+client_data+")");
 													var x=0; //for loop with the json file length
-													$('td').remove();
+													$('#results_table td').remove();
 													for(x=0;x<obj.length;x++){
+														
 														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
+														var companyid=obj[x].id;
 															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
 															$("<td>").text(obj[x].companyname).appendTo(tr);
 															$("<td>").text(obj[x].contactname).appendTo(tr);
@@ -250,7 +252,7 @@
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<td>").text(obj[x].area).appendTo(tr);
-															$("<i title='edit'>").addClass("icon-edit").appendTo($("<td>").appendTo(tr));
+															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 															$("<i title='delete'>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
 													}
 												}
@@ -307,3 +309,169 @@
             </div>
          </div>
 </div>
+ <div class="client_supplier">
+ 	<button class="close" ><i class="icon-remove"></i></button>
+	<div class="client_supplier_detail">
+    	<table class="client_supplier_detail">
+        	   	<tr><td>公司ID：</td><td><input type="text" name='company_id' id='company_id' readonly="readonly"/></td></tr>
+                <tr><td>公司名称：</td><td><input type="text" name='company_name' id="company_name" /></td></tr>
+                <tr><td>公司简称：</td><td><input type="text" name='company_contactname' id="company_contactname"/></td></tr>
+                <tr><td>公司类型：</td><td><select name='company_type' id="company_type">
+                							<option value="Client">Client</option>
+                                            <option value="Supplier">Supplier</option>
+                						 </select>
+                                </td></tr>
+                <tr><td>公司地址：</td><td><input type="text" name='company_address'id="company_address" /></td></tr>
+                <tr><td>地区：</td><td><input type="text" name='company_suburb' id="company_suburb"/></td></tr>
+                <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
+                <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
+                <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
+                <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
+                <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
+                <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
+                <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
+                <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
+                <tr><td colspan="2"><h4>送货地址</h4></td></tr>
+                <tr><td>地址：</td><td><input type="text" name='delivery_address'id="delivery_address" /></td></tr>
+                <tr><td>地区：</td><td><input type="text" name='delivery_suburb' id="delivery_suburb"/></td></tr>
+      			<tr><td>城市：</td><td><input type="text" name='express_city' id="express_city" /></td></tr>
+                <tr><td>洲：</td><td><input type="text" name='delivery_state'id="delivery_state" /></td></tr>
+                <tr><td>国家：</td><td><input type="text" name='delivery_country'id="delivery_country" /></td></tr>
+                <tr><td>邮编：</td><td><input type="text" name='delivery_postcode' id="delivery_postcode"/></td></tr>
+                <tr><td><button id="save_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
+        </table>
+
+        
+    </div>
+   
+</div>
+<script language="javascript" type="text/javascript">
+	//get supplier detail and edit
+	$(document).ready(function(e) {
+							$('button.edit_btn').live(
+								"click", function(e)
+								{
+									var company = $(this).attr('id');
+									var ajaxobj = {
+										type:'post',
+										url : 'client_edit/client_detail',
+										data:{companyid:company},
+										success:function(data){
+											$('.client_supplier').animate({width:'50%',height:'50%',opacity:'1'},'slow');
+											$('.client_supplier').css('visibility','visible');
+											var company = eval("("+data+")");
+											var i=0; //for loop with json file length
+											for(i=0;i<company.length;i++)
+											{
+												/*
+													get all of company data and convert to string
+													define the variable 
+													create row and column
+												*/
+												var company_id = company[i].id;
+												var company_name = company[i].companyname;
+												var companycontactname = company[i].contactname;
+												var companytype=company[i].customertype;
+												var companyaddress=company[i].address;
+												var deliveryaddress = company[i].deliveryaddress;
+												var companysuburb=company[i].suburb;
+												var deliverysuburb = company[i].deliverysuburb;
+												var companycity=company[i].city;
+												var expresscity = company[i].expresscity;
+												var companystate=company[i].state;
+												var deliverystate = company[i].deliverystate;
+												var companycountry=company[i].country;
+												var deliverycountry = company[i].deliverycountry;
+												var companypostcode=company[i].postcode;
+												var deliverypostcode = company[i].deliverypostcode;
+												var companytelephone=company[i].telephone;
+												var companyfax=company[i].fax;
+												var companymobile=company[i].mobile;
+												var companyemail=company[i].email;
+												var companyarea = company[i].area;
+												$("#company_id").val(company_id);
+												$("#company_name").val(company_name);	
+												$("#company_contactname").val(companycontactname);
+												$("#company_type").val(companytype);
+												$("#company_address").val(companyaddress);
+												$("#company_suburb").val(companysuburb);
+												$("#company_city").val(companycity);
+												$("#company_state").val(companystate);
+												$("#company_country").val(companycountry);
+												$("#company_postcode").val(companypostcode);
+												$("#delivery_address").val(deliveryaddress);
+												$("#delivery_suburb").val(deliverysuburb);
+				                                $("#express_city").val(expresscity);
+												$("#delivery_state").val(deliverystate);
+												$("#delivery_country").val(deliverycountry);
+												$("#delivery_postcode").val(deliverypostcode);
+												$("#company_phone").val(companytelephone);
+												$("#company_fax").val(companyfax);
+												$("#company_mobile").val(companymobile);
+												$("#company_email").val(companyemail);				
+											}
+										}
+									};
+									$.ajax(ajaxobj);
+								}
+							);
+							$('button#save_change').click(function(e) {
+                                    var companyid= $('#company_id').val();
+                                    var companyname= $('#company_name').val();
+                                    var companycontact= $('#company_contactname').val();
+                                    var companytype= $('#company_type').val();
+                                    var companyaddress= $('#company_address').val();
+                                    var companysuburb= $('#company_suburb').val();
+                                    var companycity= $('#company_city').val();
+                                    var companystate= $('#company_state').val();
+                                    var companycountry= $('#company_country').val();
+                                    var companypostcode= $('#company_postcode').val();
+                                    var companyphone= $('#company_phone').val();
+                                    var companyfax= $('#company_fax').val();
+                                    var companymobile= $('#company_mobile').val();
+                                    var companyemail= $('#company_email').val();
+									var deliveryaddress = $('#delivery_address').val();
+									var deliverysuburb = $('#delivery_suburb').val();
+									var deliverycity = $('#express_city').val();
+									var deliverystate = $('#delivery_state').val();
+									var deliverycountry = $('#delivery_country').val();
+									var deliverypostcode = $('#delivery_postcode').val();
+									var txt = "{'id':'"+companyid+"','name':'" + companyname+"','contact':'" + companycontact+"','type':'" + companytype+"','address':'" + companyaddress+"','suburb':'" + companysuburb+"','city':'" + companycity+"','state':'" + companystate+"','country':'" + companycountry+"','postcode':'" + companypostcode+"','phone':'" + companyphone+"','fax':'" + companyfax+"','mobile':'" + companymobile+"','email':'" + companyemail+"','address2':'" + deliveryaddress+"','suburb2':'" + deliverysuburb+"','city2':'" + deliverycity+"','state2':'" + deliverystate+"','country2':'" + deliverycountry+"','postcode2':'" + deliverypostcode+"'}";
+									var jsonArray = eval('('+txt+')');
+									var ajaxobj={
+										type:'post',
+										datatype:'json',
+										url:'client_edit/client_editing',
+										data:{clientcompany:jsonArray
+											},
+										success:function(){
+											//change succeed and close
+											alert('Change Succeed');
+											$('.client_supplier').animate({
+								   					width:'0px',height:'0px',opacity:'0'},'slow'
+											);
+										}
+									};
+									$.ajax(ajaxobj);
+                            });
+
+							$('input#all').click(function(e) {
+								if($('input#all').attr('checked'))
+								{
+                                	$('input').attr('checked',true);
+								}
+								else
+								{
+									$('input').attr('checked',false);
+								}
+                            });
+							$('button.close').click(function(e) {
+                               $('.client_supplier').animate({
+								   	width:'0px',height:'0px',opacity:'0'},'slow');
+                            });
+							$('button#close').click(function(e) {
+                                $('.client_supplier').animate({
+									width:'0px',height:'0px',opacity:'0'},'slow');
+                            });
+	});
+</script>
