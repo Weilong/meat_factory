@@ -130,14 +130,6 @@ class Customers extends CI_Model {
 		}
 	}
 
-	public function delete_order($order_id){
-
-	}
-
-	public function delete_order_detail(){
-
-	}
-
 	public function fetch_orders($start_date,$end_date,$company,$status){
 		$sql = "SELECT OrderID, OrderDate, CompanyName, DeliveryDate, Status, TotalPrice, Comment 
 				FROM orderinfo 
@@ -168,6 +160,19 @@ class Customers extends CI_Model {
 			}
 		}
 		return $order_detail;
+	}
+
+	public function delete_order($order_id){
+
+	}
+
+	public function delete_order_detail($order_detail){
+		$order_id = $order_detail["order_id"];
+		$products = $order_detail["products"];
+		foreach($products as $product){
+			$sql = "DELETE FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product'";
+			$this->db->query($sql);
+		}
 	}
 }
 ?>

@@ -158,7 +158,7 @@
                     <thead>
                     	<tr>
                             
-                            <th><input type="checkbox"></th>
+                            <th><input class="select-all" type="checkbox"></th>
                             <th>订单号</th>
                         	<th>下单日期</th>
                             <th>公司名字</th>
@@ -186,7 +186,7 @@
                 <table  id="modal_order_table" class='table table-striped table-hover'>
                     <thead>
                         <tr>
-                            <th><input type="checkbox"></th>
+                            <th><input class="select-all" type="checkbox"></th>
                             <th>产品名</th><!-- click to view detail and edit -->
                             <th>描述</th>
                             <th>单价</th>
@@ -200,8 +200,8 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-danger">删除</button>
-                <button class="btn btn-primary">打印</button>
+                <button id="order_modal_delete" class="btn btn-danger">删除</button>
+                <button id="order_modal_print" class="btn btn-primary">打印</button>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
               </div>
             </div>
@@ -427,7 +427,7 @@
                         url: "manage_order/search_order_detail",
                         data: {order_id: order_id},
                         success: function(data){
-                            $("#modal_order_table tbody").empty()
+                            $("#modal_order_table tbody").empty().attr("id",order_id);                          
                             for (var x=0;x<data.length;x++){
                                 var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
                                 $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
@@ -442,6 +442,32 @@
                 };
                 $.ajax(ajaxOpts);
                 $("#orderModal").modal({show:true});               
+            });
+            //select or unselect all checkboxes
+            $(".select-all").click(function(){
+                    $(this).closest("table").find(":checkbox").attr('checked', this.checked)
+            });
+
+            $("#order_modal_delete").click(function(){
+                var order_detail = {}, products = {};
+                order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
+                var x=0;
+                $("#modal_order_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    products[x]=childrens.eq(1).text();
+                    x++;
+                })
+                order_detail["products"] = products;
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/remove_order_detail",
+                        data: {order_detail: JSON.stringify(order_detail)},
+                        success: function(data){
+                            alert("delete");
+                        }
+                };
+                $.ajax(ajaxOpts);
             });
 
             function prepare_order(button){
