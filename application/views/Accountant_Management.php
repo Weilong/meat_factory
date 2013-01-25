@@ -53,7 +53,7 @@
                         	<table>
                             	<tr><td><label>公司: <select id="company_name"></select></label></td></tr>
                                 <tr><td><label>账户余额: <input id="balance" type='text' readonly="readonly" /></label></td></tr>
-                                <tr><td><label>本次支付金额: <input id="payment_amount" type='text' /></label></td></tr>
+                                <tr><td><label>支付金额: <input id="payment_amount" type='text' /></label></td></tr>
                                 <tr><td><label>支付方式: 
                                     <select id="payment_method">
                                         <option>Cash</option>
@@ -97,7 +97,7 @@
                             <button id="profit_search" class="btn btn-primary">查询</button><br />
                             <hr />
                             <div class="listdetail">
-                            	<table class="table table-striped table-hover">
+                            	<table id="profit_table" class="table table-striped table-hover">
                                     <thead>
                                         <th>PaymentID</th>
                                         <th>Date</th>
@@ -304,6 +304,10 @@
                             }
                         };
                         $.ajax(ajaxOpts);
+                    });
+
+                    $("#profit_search").click(function(){
+                        
                     });
 				</script>
          </div>
