@@ -50,25 +50,24 @@
                     </div>
                     <div class="paymentcontrol">
                     	<div class="companypayment">
-                        	<form method="post">
-                            	<table>
-                                	<tr><td>公司： <select name="company">
+                        	<table>
+                            	<tr><td><label>公司: <select id="company_name"></select></label></td></tr>
+                                <tr><td><label>账户余额: <input id="balance" type='text' readonly="readonly" /></label></td></tr>
+                                <tr><td><label>本次支付金额: <input id="payment_amount" type='text' /></label></td></tr>
+                                <tr><td><label>支付方式: 
+                                    <select id="payment_method">
+                                        <option>Cash</option>
+                                        <option>Cheque</option>
                                     </select>
-                                    </td></tr>
-                                    <tr><td>账户余额： <input type='text' readonly="readonly" /></td></tr>
-                                    <tr><td>本次支付金额： <input type='text' /></td></tr>
-                                    <tr><td>支付方式： <select name="paymentoption"></select></td></tr>
-                                    <tr><td><input type="button" class="btn btn-primary" id="companysubmit" value="入账" /></td></tr>
-                                </table> 
-                            </form>
+                                </label></td></tr>
+                                <tr><td><button id="company_submit" class="btn btn-primary">入账</button></td></tr>
+                            </table> 
                         </div>
                         <div class="retailpayment">
-                        	<form method="post">
-                            	<table>
-                                	<tr><td>零售金额： <input type="text" name="retailamount"  /></td></tr>
-                                    <tr><td><input type="button" class="btn btn-primary" id="retailsubmit" value="入账" /></td></tr>
-                                </table>
-                            </form>
+                        	<table>
+                            	<tr><td><label>零售金额：<input type="text" name="retailamount"  /></label></td></tr>
+                                <tr><td><button id="retail_submit"  class="btn btn-primary">入账</button></td></tr>
+                            </table>
                         </div>
                         <script language="javascript" type="text/javascript">
 							//control the change from companypayment to retailpayment
@@ -90,15 +89,24 @@
                             });
 						</script>
                     </div>
+                    <hr />
                     <div class="viewpaymentlist">
                     	<p><h5>明细查询</h5></p>
                         <div class="paymentlist">
-                        	<p><form method="post">
-                            	下单日期： <input class="datepicker" type="text" name='starttime' /> 到 <input class="datepicker" type="text" name='endtime' /><br />
-                                <button type="submit" class="btn btn-primary">明细查询</button><br />
-                            </form></p>
+                        	下单日期： <input class="datepicker" type="text" name='starttime' /> 到 <input class="datepicker" type="text" name='endtime' /><br />
+                            <button id="profit_search" class="btn btn-primary">查询</button><br />
+                            <hr />
                             <div class="listdetail">
-                            	<table>
+                            	<table class="table table-striped table-hover">
+                                    <thead>
+                                        <th>PaymentID</th>
+                                        <th>Date</th>
+                                        <th>CompanyName</th>
+                                        <th>Credit</th>
+                                        <th>PayMethod</th>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -223,12 +231,61 @@
 							$('.costpayment').animate({height:'0px'},"fast");
                             $('.viewbalance').animate({height:'100%'},"slow");
                         });
+
+                        $(function() {
+                            var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                            calender.datepicker("setDate", new Date());
+                        });
+
+                        //retrieve all company names from database to display on page
+                        $.getJSON("manage_order/get_company_name", function(data){
+
+                            //loop through all items in the JSON array
+                            for (var x = 0;x<data.length;x++){
+                                var opt = $("<option>").appendTo("#company_name");
+                                opt.text(data[x].companyname);
+                            }
+                            //set the selected item to blank
+                            $("#company_name").get(0).selectedIndex = -1;
+                        });
                     });
 
-                    $(function() {
-                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
-                        calender.datepicker("setDate", new Date());
-                    });
+                    $("#company_name").change(function(){
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_accountant/get_balance",
+                            data: {company_name : $("#company_name").val()},
+                            success: function(data){
+                                $("#balance").val(data);
+                            }
+                        };
+                        $.ajax(ajaxOpts);
+                    })
+
+                    $("#company_submit").click(function(){
+                        if ($("#company_name").val()==null){
+                            alert("请选择公司");
+                            return;
+                        }
+                        if (isNaN($("#payment_amount").val()) || $("#payment_amount").val()==""){
+                            alert("请输入支付金额");
+                            return;
+                        }
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_accountant/add_profit",
+                            data: {company_name : $("#company_name").val(),
+                                    amount : $("#payment_amount").val(),
+                                    method : $("#payment_method").val()},
+                            success: function(data){
+                                alert("入账成功！");
+                                $("#balance").val(data);
+                            }
+                        };
+                        $.ajax(ajaxOpts);
+                    })
 				</script>
          </div>
      </div>
