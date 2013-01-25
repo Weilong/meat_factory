@@ -162,8 +162,38 @@ class Customers extends CI_Model {
 		return $order_detail;
 	}
 
-	public function delete_order($order_id){
-
+	public function delete_order($orders){
+		foreach($orders as $order_id){
+			/*
+				delete order from table orderinfo
+			*/
+			$sql = "SELECT CompanyName, TotalPrice FROM orderinfo WHERE OrderID = '$order_id'";
+			$query = $this->db->query($sql);
+			$company_name = $query->row(0)->CompanyName;
+			$total_price = $query->row(0)->TotalPrice;
+			$sql = "DELETE FROM orderinfo WHERE OrderID = '$order_id'";
+			$this->db->query($sql);
+			/*
+				delete corresponding order detail from table orderdetail
+			*/
+			$sql = "DELETE FROM orderdetail WHERE OrderID = '$order_id'";
+			$this->db->query($sql);
+			/*
+				delete payment from table payment
+			*/
+			$sql = "DELETE FROM payment WHERE OrderID = '$order_id'";
+			$this->db->query($sql);
+			/*
+				update balance in table companyname
+			*/
+			$sql = "SELECT Balance FROM companyname WHERE CompanyName='$company_name'";
+			$query = $this->db->query($sql);
+			$new_balance = $query->row(0)->Balance-$total_price;
+			$sql = "UPDATE companyname 
+					SET Balance='$new_balance' 
+					WHERE CompanyName='$company_name'";
+			$this->db->query($sql);
+		}
 	}
 
 	public function delete_order_detail($order_detail){

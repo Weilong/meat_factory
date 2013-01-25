@@ -174,7 +174,7 @@
                 </table>
             </div>
             <div>
-                <button class="btn btn-danger">删除</button>
+                <button id="order_delete" class="btn btn-danger">删除</button>
             </div>
             <!-- Modal -->
             <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -200,8 +200,8 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button id="order_modal_delete" class="btn btn-danger">删除</button>
-                <button id="order_modal_print" class="btn btn-primary">打印</button>
+                <button id="order_detail_delete" class="btn btn-danger">删除</button>
+                <button id="order_detail_print" class="btn btn-primary">打印</button>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
               </div>
             </div>
@@ -391,6 +391,10 @@
                 click search button to get corresponding orders
             */
             $("#search_order").click(function(){
+            	if (!isValidDate($("#start_date").val()) ||!isValidDate($("#end_date").val())){
+                    alert("日期格式不正确\n");
+                    return;
+                }
                 search_order()
             });
             
@@ -404,7 +408,7 @@
                     $(this).closest("table").find(":checkbox").attr('checked', this.checked)
             });
 
-            $("#order_modal_delete").click(function(){
+            $("#order_detail_delete").click(function(){
                 var order_detail = {}, products = {};
                 order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
                 var x=0;
@@ -417,7 +421,7 @@
                         products[x]=product_name;
                         x++;
                     }      
-                })
+                });
                 if ($.isEmptyObject(products)){
                     return;
                 }
@@ -429,14 +433,42 @@
                         data: {order_detail: JSON.stringify(order_detail)},
                         success: function(data){
                             alert("delete");
-                            for (var i=0;i<x;i++){
-                                view_order_detail(order_detail["order_id"]);
-                                search_order();
-                            }
+                            view_order_detail(order_detail["order_id"]);
+                            search_order();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
+
+			$("#order_delete").click(function(){
+				
+				var orders = {};
+				var x = 0;
+				$("#search_result_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var order_id = childrens.eq(1).text();
+                    var checkbox = childrens.eq(0).children("input");
+
+                    if (checkbox.prop("checked")){
+                        orders[x]=order_id;
+                        x++;
+                    }      
+                });
+                if ($.isEmptyObject(orders)){
+                    return;
+                }
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/remove_order",
+                        data: {orders: JSON.stringify(orders)},
+                        success: function(data){
+                            alert("delete");
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+			});
 
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
