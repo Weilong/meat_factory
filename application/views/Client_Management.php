@@ -202,7 +202,7 @@
                         <table id='results_table' class='client_name table table-striped table-hover'>
                         <thead>
                             <tr>
-                                <th><input title="select all" id="all" type="checkbox"></th>
+                                <!-- <th><input title="select all" id="all" type="checkbox"></th> -->
                                 <th>公司全称</th><!-- click to view detail and edit -->
                                 <th>公司简称</th>
                                 <th>公司地址</th>
@@ -242,9 +242,9 @@
 													$('#results_table td').remove();
 													for(x=0;x<obj.length;x++){
 														
-														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
+														var tr = $("<tr>").addClass(obj[x].id).appendTo($("#results_table tbody"));
 														var companyid=obj[x].id;
-															$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
+															//$("<input type=checkbox>").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
 															$("<td>").text(obj[x].companyname).appendTo(tr);
 															$("<td>").text(obj[x].contactname).appendTo(tr);
 															$("<td>").text(obj[x].address).appendTo(tr);
@@ -253,7 +253,7 @@
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<td>").text(obj[x].area).appendTo(tr);
 															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
-															$("<i title='delete'>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 													}
 												}
 											};
@@ -338,6 +338,18 @@
                 <tr><td>洲：</td><td><input type="text" name='delivery_state'id="delivery_state" /></td></tr>
                 <tr><td>国家：</td><td><input type="text" name='delivery_country'id="delivery_country" /></td></tr>
                 <tr><td>邮编：</td><td><input type="text" name='delivery_postcode' id="delivery_postcode"/></td></tr>
+                <tr><td>区域：</td><td><select name="delivery_area" id="delivery_area">
+                					  		<option value="area1">Area1</option>
+                                            <option value="area2">Area2</option>
+                                            <option value="area3">Area3</option>
+                                            <option value="area4">Area4</option>
+                                            <option value="area5">Area5</option>
+                                            <option value="area6">Area6</option>
+                                            <option value="area7">Area7</option>
+                                            <option value="area8">Area8</option>
+                                            <option value="area9">Area9</option>
+                                            <option value="area10">Area10</option>
+                                      </select></td></tr>
                 <tr><td><button id="save_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
         </table>
 
@@ -408,7 +420,8 @@
 												$("#company_phone").val(companytelephone);
 												$("#company_fax").val(companyfax);
 												$("#company_mobile").val(companymobile);
-												$("#company_email").val(companyemail);				
+												$("#company_email").val(companyemail);
+												$("#delivery_area").val(companyarea);			
 											}
 										}
 									};
@@ -436,7 +449,8 @@
 									var deliverystate = $('#delivery_state').val();
 									var deliverycountry = $('#delivery_country').val();
 									var deliverypostcode = $('#delivery_postcode').val();
-									var txt = "{'id':'"+companyid+"','name':'" + companyname+"','contact':'" + companycontact+"','type':'" + companytype+"','address':'" + companyaddress+"','suburb':'" + companysuburb+"','city':'" + companycity+"','state':'" + companystate+"','country':'" + companycountry+"','postcode':'" + companypostcode+"','phone':'" + companyphone+"','fax':'" + companyfax+"','mobile':'" + companymobile+"','email':'" + companyemail+"','address2':'" + deliveryaddress+"','suburb2':'" + deliverysuburb+"','city2':'" + deliverycity+"','state2':'" + deliverystate+"','country2':'" + deliverycountry+"','postcode2':'" + deliverypostcode+"'}";
+									var deliveryarea = $('#delivery_area').val();
+									var txt = "{'id':'"+companyid+"','name':'" + companyname+"','contact':'" + companycontact+"','type':'" + companytype+"','address':'" + companyaddress+"','suburb':'" + companysuburb+"','city':'" + companycity+"','state':'" + companystate+"','country':'" + companycountry+"','postcode':'" + companypostcode+"','phone':'" + companyphone+"','fax':'" + companyfax+"','mobile':'" + companymobile+"','email':'" + companyemail+"','address2':'" + deliveryaddress+"','suburb2':'" + deliverysuburb+"','city2':'" + deliverycity+"','state2':'" + deliverystate+"','country2':'" + deliverycountry+"','postcode2':'" + deliverypostcode+"','area':'" + deliveryarea+"'}";
 									var jsonArray = eval('('+txt+')');
 									var ajaxobj={
 										type:'post',
@@ -454,6 +468,26 @@
 									};
 									$.ajax(ajaxobj);
                             });
+							$('button.delete_btn').live(
+								"click",function(){
+									var confirmalert = confirm("Are you want to remove it");
+									if(confirmalert == true)
+									{
+										/* confirm remove client or supplier */
+										var companyid = $(this).attr('id');
+										var ajaxobj = {
+											type:'post',
+											url:'client_edit/client_delete',
+											data:{company:companyid},
+											success:function(){
+												$('tr.'+companyid+' td').remove();
+											}
+										};
+										$.ajax(ajaxobj);
+										//$('#results_table td').remove();
+									}
+								}
+							);
 
 							$('input#all').click(function(e) {
 								if($('input#all').attr('checked'))
