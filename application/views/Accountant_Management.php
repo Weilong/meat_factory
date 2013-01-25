@@ -65,7 +65,7 @@
                         </div>
                         <div class="retailpayment">
                         	<table>
-                            	<tr><td><label>零售金额：<input type="text" name="retailamount"  /></label></td></tr>
+                            	<tr><td><label>零售金额：<input id="retail_amount" type="text"/></label></td></tr>
                                 <tr><td><button id="retail_submit"  class="btn btn-primary">入账</button></td></tr>
                             </table>
                         </div>
@@ -261,7 +261,7 @@
                             }
                         };
                         $.ajax(ajaxOpts);
-                    })
+                    });
 
                     $("#company_submit").click(function(){
                         if ($("#company_name").val()==null){
@@ -285,7 +285,26 @@
                             }
                         };
                         $.ajax(ajaxOpts);
-                    })
+                    });
+
+                    $("#retail_submit").click(function(){
+                        if (isNaN($("#retail_amount").val()) || $("#retail_amount").val()==""){
+                            alert("请输入支付金额");
+                            return;
+                        }
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_accountant/add_profit",
+                            data: {company_name : "Retail",
+                                    amount : $("#retail_amount").val(),
+                                    method : "Cash"},
+                            success: function(data){
+                                alert("入账成功！");
+                            }
+                        };
+                        $.ajax(ajaxOpts);
+                    });
 				</script>
          </div>
      </div>

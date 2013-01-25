@@ -23,8 +23,10 @@ class Manage_accountant extends CI_Controller {
 		$amount = $this->input->post("amount");
 		$method = $this->input->post("method");
 		$new_balance = $this->accountant->insert_profit($company_name, $amount, $method);
-		$response = json_encode($new_balance);
-		echo $response;
+		if ($new_balance!=null){
+			$response = json_encode($new_balance);
+			echo $response;
+		}	
 	}
 }
 

@@ -24,14 +24,17 @@ class Accountant extends CI_Model {
 		/*
 			update balance of company
 		*/
-		$sql = "SELECT Balance FROM companyname WHERE CompanyName = '$company_name'";
-		$query = $this->db->query($sql);
-		$new_balance = $query->row(0)->Balance-$amount;
-		$sql = "UPDATE companyname 
-				SET Balance='$new_balance' 
-				WHERE CompanyName = '$company_name'";
-		$this->db->query($sql);
-		return $new_balance;
+		if ($company_name!="Retail")
+		{
+			$sql = "SELECT Balance FROM companyname WHERE CompanyName = '$company_name'";
+			$query = $this->db->query($sql);
+			$new_balance = $query->row(0)->Balance-$amount;
+			$sql = "UPDATE companyname 
+					SET Balance='$new_balance' 
+					WHERE CompanyName = '$company_name'";
+			$this->db->query($sql);
+			return $new_balance;
+		}
 	}
 }
 ?>
