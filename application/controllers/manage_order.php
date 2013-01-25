@@ -70,5 +70,6 @@ class Manage_order extends CI_Controller {
 	}
 }
 
-/* End of file customers.php */
-/* Location: ./application/controllers/customers.php */
+/* End of file manage_order.php */
+/* Location: ./application/controllers/manage_order.php */
+?>

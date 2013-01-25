@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="costpayment">
-                	<p><h3>成本预算</h3></p>
+                	<p><h3>成本添加</h3></p>
                     <form method="post" id="costbalance" action="<?php echo base_url().'add_cost/add_cost_balance'; ?>" >
                       <fieldset>
                         <label>成本类型</label>
