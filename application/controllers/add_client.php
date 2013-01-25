@@ -75,10 +75,16 @@ class add_client extends CI_Controller {
 					'Website'=>$client_delivery_area,
 					'StartDate'=>$start_date
 			  );
-			  
+			  $newclientcompanyname = array(
+			  		'CompanyName'=>$current_name,
+					'Description'=>$current_name,
+					'Balance'=>0,
+					'Date'=>$start_date,
+					'Comment'=>''
+			  );
 			  //insert new client to table named customer
 			  $this->db->insert('customer', $newclientdetail); 
-			  
+			  $this->db->insert('companyname',$newclientcompanyname);
 			  //return back
 			  echo "<script language='javascript' type='text/javascript'>alert('添加新客户成功')</script>";
 			  header("Location:".base_url()."page?page=client_management");

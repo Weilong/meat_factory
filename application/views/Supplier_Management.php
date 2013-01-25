@@ -158,7 +158,7 @@
                         <table id="results_table" class='client_name table table-striped table-hover'>
                             <thead>
                                 <tr>
-                                    <th><input title="select all" id="all" type="checkbox"></th>
+                                    <!-- <th><input title="select all" id="all" type="checkbox"></th> --> 
                                     <th>公司全称</th><!-- click to view detail and edit -->
                                     <th>公司简称</th>
                                     <th>公司地址</th>
@@ -240,10 +240,10 @@
 													var x=0; //for loop with the json file length
 													$('#results_table td').remove();
 													for(x=0;x<obj.length;x++){
-														var tr = $("<tr>").addClass(obj[x].companyname).appendTo($("#results_table tbody"));
+														var tr = $("<tr>").addClass(obj[x].id).appendTo($("#results_table tbody"));
 														var companyid=obj[x].id;
 														var company = obj[x].companyname;
-															$("<input type=checkbox title="+company +" id="+companyid+">").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
+															//$("<input type=checkbox title="+company+" "+"id="+companyid+">").addClass("delete"+x).addClass("input-small").appendTo($("<td>").appendTo(tr));
 															$("<td>").text(obj[x].companyname).appendTo(tr);
 															$("<td>").text(obj[x].contactname).appendTo(tr);
 															$("<td>").text(obj[x].address).appendTo(tr);
@@ -251,7 +251,7 @@
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<i id="+companyid+">").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
-															$("<i title='delete'>").addClass("icon-trash").appendTo($("<td>").appendTo(tr));
+															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 													}
 												}
 											};
@@ -345,7 +345,29 @@
 									};
 									$.ajax(ajaxobj);
                             });
-
+							//delete the supplier
+							$('button.delete_btn').live(
+								"click", function(e){
+									var confirmalert = confirm("Are you want to remove it");
+									if(confirmalert == true)
+									{
+										/* confirm remove client or supplier */
+										var companyid = $(this).attr('id');
+										var ajaxobj = {
+											type:'post',
+											url:'client_edit/supplier_delete',
+											data:{company:companyid},
+											success:function(){
+												$('tr.'+companyid+' td').remove();
+											}
+										};
+										$.ajax(ajaxobj);
+										//$('#results_table td').remove();
+									}
+								}
+							);
+														
+							/* checkbox control
 							$('input#all').click(function(e) {
 								if($('input#all').attr('checked'))
 								{
@@ -356,6 +378,8 @@
 									$('input').attr('checked',false);
 								}
                             });
+							*/
+							//close the company detail screen
 							$('button.close').click(function(e) {
                                $('.client_supplier').animate({
 								   	width:'0px',height:'0px',opacity:'0'},'slow');
