@@ -185,6 +185,24 @@ i:hover{
 	width:auto;
 	margin:0px auto;
 }
+
+/*product edit */
+.product_edit
+{
+	visibility:hidden;
+	background:#FFF;
+	width:0px;
+	height:0px;
+	position:fixed;
+	top:15%;
+	left:20%;
+	overflow:auto;	
+}
+.product_edit_detail
+{
+	width:auto;
+	margin:0px auto;
+}
 /*
 .table-scrollable-wrapper thead tr{
     position:relative;

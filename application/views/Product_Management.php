@@ -270,57 +270,36 @@
                 	<p><h3>商品管理</h3></p>
                     <div>
                         	<label>产品名</label>
-                            <select name="productname"></select> 
-                            <button type="submit" class="btn btn-primary"/>查询</button>
+                            <select name="category_name" id="category_name">
+                            	<option value="All">All</option>
+                            	<option value="Beef">Beef</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Duck">Duck</option>
+                                <option value="Lamb">Lamb</option>
+                                <option value="Pork">Pork</option>
+                                <option value="Stock">Stock</option>
+                                <option value="Other">Other</option>
+                            </select> 
+                            <button id="search_category" class="btn btn-primary"/>查询</button>
                     </div>
                     <hr />
                     <div>
-                        <table class="table table-striped table-hover">
+                        <table id="category_search_result" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox"></th>
                                         <th>产品名</th>
                                         <th>产品描述</th>
                                         <th>单价</th>
+                                        <th>库存</th>
                                         <th>单位</th>
                                         <th>类别</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
+                                    
                                 </tbody>
                             </table>
-                    </div>
-                    <div>
-                        <button type="submit" class="btn btn-danger">删除</button>
-                        <button type="submit" class="btn btn-primary">保存更改</button>
                     </div>
                 </div>
             </div>
@@ -341,9 +320,111 @@
 							$('.addnewproduct').animate({height:'0px'},"fast");
                             $('.productmanagement').animate({height:'100%'},"slow");	
                         });
+						$('button#search_category').click(function(e) {
+                            var category = $('select#category_name').val();
+							var obj = {
+								type:"post",
+								url:"productlist/categorysearch",
+								data:{product_category:category},
+								success:function(result_data)
+								{
+									if(result_data.length==0)
+									{
+										$('#category_search_result td').remove();
+									}
+									else
+									{
+										var collection = eval('('+result_data+')');
+										$('#category_search_result td').remove();
+										var i=0;
+										for(i=0;i<collection.length;i++)
+										{
+											var productid = collection[i].id;
+											var productname=collection[i].name;
+											var productdescription=collection[i].description;
+											var productstock = collection[i].stock;
+											var productunit = collection[i].productunits;
+											var productprice = collection[i].price;
+											var productcategory=collection[i].category;
+											var tr = $("<tr id='"+productid+"'>").appendTo($("#category_search_result tbody"));
+											$("<td>").text(productname).appendTo(tr);
+											$("<td>").text(productdescription).appendTo(tr);
+											$("<td>").text(productprice).appendTo(tr);
+											$("<td>").text(productstock).appendTo(tr);
+											$("<td>").text(productunit).appendTo(tr);
+											$("<td>").text(productcategory).appendTo(tr);
+											$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='product_edit_btn' title='edit' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+											$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='product_delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+										}
+									}
+								}
+							};
+							$.ajax(obj);
+                        });
                     });
-
-                    $(function() {
+					$('button.product_edit_btn').live(
+						'click',function(e) {
+							var productid = $(this).attr('id');
+									var ajaxobj = {
+										type:'post',
+										url : 'productlist/info_product',
+										data:{product:productid},
+										success:function(data){
+											$('.product_edit').animate({width:'50%',height:'50%',opacity:'1'},'slow');
+											$('.product_edit').css('visibility','visible');
+											if(data.length==0)
+											{
+												alert('No any Data, Please remove this wrong product')
+												$('.product_edit').animate({
+								   				width:'0px',height:'0px',opacity:'0'},'slow');
+											}
+											else
+											{
+												var collection = eval('('+data+')');
+												var i=0;
+												for(i=0;i<collection.length;i++)
+												{
+													var productid = collection[i].id;
+													var productname=collection[i].name;
+													var productdescription=collection[i].description;
+													var productstock = collection[i].stock;
+													var productunit = collection[i].productunits;
+													var productprice = collection[i].price;
+													var productcategory=collection[i].category;
+													$('#pid').val(productid);
+													$('#pn').val(productname);
+													$('#intro').val(productdescription);
+													$('#single_product_category').val(productcategory);
+													$('#per_dollar').val(productprice);
+													$('#pu').val(productunit);
+													$('#st').val(productstock);
+												}
+											}
+										}
+									};
+									$.ajax(ajaxobj);
+						}
+                    );
+					$('button.product_delete_btn').live(
+						'click',function() {
+							var productid = $(this).attr('id');
+                        	var confirmation = confirm('是否删除此项？(Remove it?)');
+							if(confirmation==true)
+							{
+								$('#category_search_result td').remove();	
+								var obj = {
+									type:'post',
+									url:'productlist/delete_product',
+									data:{product:productid},
+									success:function(data){
+										alert(data);
+									}
+								};
+								$.ajax(obj);
+							}
+						}
+					);
+					$(function() {
                         var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
                         calender.datepicker("setDate", new Date());
                     });
@@ -351,3 +432,67 @@
          </div>
          
      </div>
+<div class='product_edit'>
+	<button class="close" ><i class="icon-remove"></i></button>
+	<div class="product_edit_detail">
+    	<table class="product_edit_detail">
+        	<thead>
+            </thead>
+            <tbody>
+            	<tr><td>产品ID：</td><td><input type="text" name='pid' id="pid" readonly="readonly"/></td></tr>
+            	<tr><td>产品名称：</td><td><input type="text" name='pn' id='pn' readonly="readonly"/></td></tr>
+                <tr><td>产品描述</td><td><textarea name='intro' id='intro'></textarea></td></tr>
+                <tr><td>类别：</td><td><select name="single_product_category" id="single_product_category">
+                                            <option value="Beef">Beef</option>
+                                            <option value="Chicken">Chicken</option>
+                                            <option value="Duck">Duck</option>
+                                            <option value="Lamb">Lamb</option>
+                                            <option value="Pork">Pork</option>
+                                            <option value="Stock">Stock</option>
+                                            <option value="Other">Other</option>
+                                        </select> 
+                                </td></tr>
+                <tr><td>单价：</td><td><input type="text" name='per_dollar' id="per_dollar"/></td></tr>
+                <tr><td>单位：</td><td><input type="text" name='pu'id="pu" /></td></tr>
+                <tr><td>库存：</td><td><input type="text" name='st' id="st"/></td></tr>
+                <tr><td><button id="save_product_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
+            </tbody>
+        </table>
+	</div>
+</div>
+<script language="javascript" type="text/javascript">
+							$('button#save_product_change').click(function(e) {
+                                var pid = $('#pid').val();
+								var pn=	$('#pn').val();
+								var intro=$('#intro').val();
+								var spc=$('#single_product_category').val();
+								var pd=	$('#per_dollar').val();
+								var pu=	$('#pu').val();
+								var st=	$('#st').val();
+								var txt = "{'id':'"+pid+"','name':'" + pn+"','pintro':'" + intro+"','category':'" + spc+"','price':'" + pd+"','units':'" + pu+"','stocks':'" + st+"'}";
+								var jsonArray = eval('('+txt+')');
+								var ajaxobj={
+										type:'post',
+										datatype:'json',
+										url:'productlist/save_edit',
+										data:{product:jsonArray
+											},
+										success:function(data){
+											//change succeed and close
+											alert(data);
+											$('.product_edit').animate({
+								   					width:'0px',height:'0px',opacity:'0'},'slow'
+											);
+										}
+									};
+									$.ajax(ajaxobj);
+                            });
+							$('button.close').click(function(e) {
+                               $('.product_edit').animate({
+								   	width:'0px',height:'0px',opacity:'0'},'slow');
+                            });
+							$('button#close').click(function(e) {
+                                $('.product_edit').animate({
+									width:'0px',height:'0px',opacity:'0'},'slow');
+                            });
+</script>
