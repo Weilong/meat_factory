@@ -28,6 +28,15 @@ class Manage_accountant extends CI_Controller {
 			echo $response;
 		}	
 	}
+
+	public function search_profit(){
+		$start_date = $this->input->post("start");
+		$end_date = $this->input->post("end");
+		$company_name = $this->input->post("company");
+		$profits = $this->accountant->fetch_profit($start_date,$end_date,$company_name);
+		$response = json_encode($profits);
+		echo $response;
+	}
 }
 
 /* End of file manage_accountant.php */

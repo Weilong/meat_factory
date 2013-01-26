@@ -93,7 +93,7 @@
                     <div class="viewpaymentlist">
                     	<p><h5>明细查询</h5></p>
                         <div class="paymentlist">
-                        	下单日期： <input class="datepicker" type="text" name='starttime' /> 到 <input class="datepicker" type="text" name='endtime' /><br />
+                        	下单日期： <input id="start_date" class="datepicker" type="text" name='starttime' /> 到 <input id="end_date" class="datepicker" type="text" name='endtime' /><br />
                             <button id="profit_search" class="btn btn-primary">查询</button><br />
                             <hr />
                             <div class="listdetail">
@@ -307,8 +307,41 @@
                     });
 
                     $("#profit_search").click(function(){
-                        
+                        if (!isValidDate($("#start_date").val()) ||!isValidDate($("#end_date").val())){
+                            alert("日期格式不正确\n");
+                            return;
+                        }
+                        search_profit();
                     });
+
+                    function search_profit(){
+                        var ajaxOpts={
+                                type: "post",
+                                dataType: "json",
+                                url: "manage_accountant/search_profit",
+                                data: {start: $("#start_date").val(),
+                                        end: $("#end_date").val(),
+                                        company: $("#company_name").val()},
+                                success: function(data){
+                                    alert("search success");
+                                    $("#profit_table tbody").empty()
+                                    for (var i=0;i<data.length;i++){
+                                        var tr=$("<tr>").appendTo($("#profit_table tbody"));
+                                        
+                                        $("<td>").text(data[i].PaymentId).appendTo(tr);
+                                        $("<td>").text(data[i].Date).appendTo(tr);
+                                        $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                        $("<td>").text(data[i].Credit).appendTo(tr);
+                                        $("<td>").text(data[i].PayMethod).appendTo(tr);
+                                    }
+                                }
+                        };
+                        $.ajax(ajaxOpts);
+                    }
+
+                    function isValidDate(date){
+                        return date.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
+                    }
 				</script>
          </div>
      </div>

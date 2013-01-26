@@ -36,5 +36,25 @@ class Accountant extends CI_Model {
 			return $new_balance;
 		}
 	}
+
+	public function fetch_profit($start_date,$end_date,$company_name){
+		//$start_date = date('y-m-d h:i:s', strtotime($start_date));
+		//$end_date = date('y-m-d h:i:s', strtotime($end_date));
+		$sql = "";
+		if ($company_name==null){
+			$sql .= "SELECT * FROM profit WHERE Date BETWEEN '$start_date' AND '$end_date' ORDER BY PaymentId";
+		}
+		else{
+			$sql .= "SELECT * FROM profit WHERE Date BETWEEN '$start_date' AND '$end_date' AND CompanyName='$company_name' ORDER BY PaymentId";
+		}
+		$query = $this->db->query($sql);
+		$profits = array();
+		if ($query->num_rows()>0){
+			for ($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++ ){
+				$profits[$i] = $query->row($i);
+			}
+		}
+		return $profits;
+	}
 }
 ?>
