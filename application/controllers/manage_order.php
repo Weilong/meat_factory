@@ -60,7 +60,8 @@ class Manage_order extends CI_Controller {
 	}
 
 	public function remove_order(){
-
+		$orders = json_decode($this->input->post("orders"));
+		$this->customers->delete_order($orders);
 	}
 
 	public function remove_order_detail(){
@@ -69,5 +70,6 @@ class Manage_order extends CI_Controller {
 	}
 }
 
-/* End of file customers.php */
-/* Location: ./application/controllers/customers.php */
+/* End of file manage_order.php */
+/* Location: ./application/controllers/manage_order.php */
+?>

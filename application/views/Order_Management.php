@@ -174,7 +174,7 @@
                 </table>
             </div>
             <div>
-                <button class="btn btn-danger">删除</button>
+                <button id="order_delete" class="btn btn-danger">删除</button>
             </div>
             <!-- Modal -->
             <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -200,8 +200,8 @@
                 </table>
               </div>
               <div class="modal-footer">
-                <button id="order_modal_delete" class="btn btn-danger">删除</button>
-                <button id="order_modal_print" class="btn btn-primary">打印</button>
+                <button id="order_detail_delete" class="btn btn-danger">删除</button>
+                <button id="order_detail_print" class="btn btn-primary">打印</button>
                 <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
               </div>
             </div>
@@ -391,56 +391,16 @@
                 click search button to get corresponding orders
             */
             $("#search_order").click(function(){
-                var ajaxOpts={
-                        type: "post",
-                        dataType: "json",
-                        url: "manage_order/search_order",
-                        data: {start: $("#start_date").val(),
-                                end: $("#end_date").val(), 
-                                company: $("#search_company_name").val(), 
-                                status: $("#status").val()},
-                        success: function(data){
-                            $("#search_result_table tbody").empty()
-                            for (var i=0;i<data.length;i++){
-                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
-                                
-                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
-                                $("<td>").text(data[i].OrderID).appendTo(tr);
-                                $("<td>").text(data[i].OrderDate).appendTo(tr);
-                                $("<td>").text(data[i].CompanyName).appendTo(tr);
-                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
-                                $("<td>").text(data[i].Status).appendTo(tr);
-                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
-                                $("<td>").text(data[i].Comment).appendTo(tr);
-                                $("<td>").append($("<button>").addClass("btn view_button").text("View")).appendTo(tr);   
-                            }
-                        }
-                };
-                $.ajax(ajaxOpts);
+            	if (!isValidDate($("#start_date").val()) ||!isValidDate($("#end_date").val())){
+                    alert("日期格式不正确\n");
+                    return;
+                }
+                search_order()
             });
             
             $(".view_button").live("click", function(){
                 var order_id = $(this).closest("tr").children().eq(1).text();
-                var ajaxOpts={
-                        type: "post",
-                        dataType: "json",
-                        url: "manage_order/search_order_detail",
-                        data: {order_id: order_id},
-                        success: function(data){
-                            $("#modal_order_table tbody").empty().attr("id",order_id);                          
-                            for (var x=0;x<data.length;x++){
-                                var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
-                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
-                                $("<td>").text(data[x].ProductName).appendTo(tr);
-                                $("<td>").text(data[x].Description).appendTo(tr);
-                                $("<td>").text(data[x].Price).appendTo(tr);
-                                $("<td>").text(data[x].Unit).appendTo(tr);
-                                $("<td>").text(data[x].Category).appendTo(tr);
-                                $("<td>").text(data[x].Qty).appendTo(tr);
-                            }
-                        }
-                };
-                $.ajax(ajaxOpts);
+                view_order_detail(order_id);
                 $("#orderModal").modal({show:true});               
             });
             //select or unselect all checkboxes
@@ -448,15 +408,23 @@
                     $(this).closest("table").find(":checkbox").attr('checked', this.checked)
             });
 
-            $("#order_modal_delete").click(function(){
+            $("#order_detail_delete").click(function(){
                 var order_detail = {}, products = {};
                 order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
                 var x=0;
                 $("#modal_order_table tbody tr").each(function(){
                     var childrens = $(this).children();
-                    products[x]=childrens.eq(1).text();
-                    x++;
-                })
+                    var product_name = childrens.eq(1).text();
+                    var checkbox = childrens.eq(0).children("input");
+
+                    if (checkbox.prop("checked")){
+                        products[x]=product_name;
+                        x++;
+                    }      
+                });
+                if ($.isEmptyObject(products)){
+                    return;
+                }
                 order_detail["products"] = products;
                 var ajaxOpts={
                         type: "post",
@@ -465,10 +433,42 @@
                         data: {order_detail: JSON.stringify(order_detail)},
                         success: function(data){
                             alert("delete");
+                            view_order_detail(order_detail["order_id"]);
+                            search_order();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
+
+			$("#order_delete").click(function(){
+				
+				var orders = {};
+				var x = 0;
+				$("#search_result_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var order_id = childrens.eq(1).text();
+                    var checkbox = childrens.eq(0).children("input");
+
+                    if (checkbox.prop("checked")){
+                        orders[x]=order_id;
+                        x++;
+                    }      
+                });
+                if ($.isEmptyObject(orders)){
+                    return;
+                }
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/remove_order",
+                        data: {orders: JSON.stringify(orders)},
+                        success: function(data){
+                            alert("delete");
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+			});
 
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
@@ -498,6 +498,58 @@
                 });
                 order["products"] = products;
                 return order;
+            }
+
+            function search_order(){
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order",
+                        data: {start: $("#start_date").val(),
+                                end: $("#end_date").val(), 
+                                company: $("#search_company_name").val(), 
+                                status: $("#status").val()},
+                        success: function(data){
+                            $("#search_result_table tbody").empty()
+                            for (var i=0;i<data.length;i++){
+                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
+                                
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
+                                $("<td>").text(data[i].OrderID).appendTo(tr);
+                                $("<td>").text(data[i].OrderDate).appendTo(tr);
+                                $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
+                                $("<td>").text(data[i].Status).appendTo(tr);
+                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
+                                $("<td>").text(data[i].Comment).appendTo(tr);
+                                $("<td>").append($("<button>").addClass("btn view_button").text("View")).appendTo(tr);   
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+            }
+
+            function view_order_detail(order_id){
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order_detail",
+                        data: {order_id: order_id},
+                        success: function(data){
+                            $("#modal_order_table tbody").empty().attr("id",order_id);                          
+                            for (var x=0;x<data.length;x++){
+                                var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
+                                $("<td>").text(data[x].ProductName).appendTo(tr);
+                                $("<td>").text(data[x].Description).appendTo(tr);
+                                $("<td>").text(data[x].Price).appendTo(tr);
+                                $("<td>").text(data[x].Unit).appendTo(tr);
+                                $("<td>").text(data[x].Category).appendTo(tr);
+                                $("<td>").text(data[x].Qty).appendTo(tr);
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
             }
 
             function isValidDate(date){
