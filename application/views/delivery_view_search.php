@@ -62,8 +62,9 @@
 					</script>
                 </div>
                 <script language="javascript" type="text/javascript">
-                    $(function() {
-                        $( ".datepicker" ).datepicker();
+                   $(function() {
+                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                        calender.datepicker("setDate", new Date());
                     })
                 </script>
             </div>
