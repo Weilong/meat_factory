@@ -41,59 +41,104 @@
             	<div class="intoproduct">
                 	<p><h3>入库商品管理</h3></p>
                 	<div>
-                      <form>
                           <fieldset>
-                            <legend>产品信息</legend>
+                            <legend><h5>产品信息</h5></legend>
                                 <div class="row">
                                     <div class="span4">
                                         <label>产品名称</label>
-                                        <select>
-                                            <option>test1</option>
-                                            <option>test2<option>
-                                        </select><br />
+                                        <input name='goods' id='goods' type="text" />
                                         <label>供应商</label>
-                                        <select>
-                                            <option>test1</option>
-                                            <option>test2<option>
+                                        <select name='supplier_name' id='supplier_name'>
                                         </select><br />
                                         <label>描述</label>
-                                        <textarea rows="6"></textarea><br />
+                                        <textarea rows="6" name="comments" id="comments"></textarea><br />
                                     </div>
+                                    <script language="javascript" type="text/javascript">
+										$(document).ready(function(e) {
+                                            $.getJSON(
+												'productlist/supplier',
+												function(data){
+													for (var x = 0;x<data.length;x++){
+														var opt = $("<option>").appendTo("#supplier_name");
+														opt.text(data[x].companyname);
+														opt.val(data[x].companyname);
+													}
+												}
+											);
+                                        });
+									</script>
                                     <div class="span5">
                                         <label>单价</label>
-                                        <input type="text"></input>
+                                        <input type="number" id="goodsprice" name="goodsprice"></input>
                                         <label>数量</label>
-                                        <input type="text"></input>
+                                        <input type="number" id="goodsqty" name="goodsqty"></input>
                                         <label>单位</label>
-                                        <input type="text"></input>
+                                        <input type="text" id="goodsunits" name="goodsunits"></input>
                                         <label>总价</label>
-                                        <span class="uneditable-input"></span>
+                                        <input type="number" id="goodsamount" name="goodsamount" readonly="readonly"/>
                                         <br />
-                                        <button type="submit" class="btn btn-primary">添加</button>
-                                        <button type="submit" class="btn">清空</button>
+                                        <button id="confirm_btn" class="btn btn-primary">添加</button>
+                                        <button id="reset_btn" class="btn btn-danger">清空</button> 
                                     </div>
                                 </div>  
                           </fieldset>
-                        </form>
                     </div>
+                    <script language="javascript" type="text/javascript">
+						$(document).ready(function(e) {
+							$('button#confirm_btn').click(function(e) {
+								var productsname = $('#goods').val();
+								var companyname = $('#supplier_name').val();
+								var comments = $('#comments').val();
+								var qty = $('input#goodsqty').val();
+								var units=$('input#goodsunits').val();
+								var price = $('input#goodsprice').val();
+								var amount = qty*price;
+								amount = (amount/100)*100;
+								$('input#goodsamount').val(amount);
+								var txt = "{'product':'"+productsname+"', 'supplier':'"+companyname+"', 'comments':'"+comments+"', 'qty':'"+qty+"', 'price':'"+price+"', 'unit':'"+units+"', 'amountprice':'"+amount+"'}";
+								var jsonArray = eval('('+txt+')');
+								var confirm_message = confirm('总计：$'+amount);
+								if(confirm_message == true)
+								{
+									var ajaxobj ={
+										type:'post',
+										datatype:'json',
+										url:'productlist/savegoods',
+										data:{newproduct:jsonArray}
+									};
+									$.ajax(ajaxobj);
+								}
+								else
+								{
+									window.location('<?php echo base_url().'page?page=product_management' ?>');
+								}
+                            });
+							$('button#reset_btn').click(function(e) {
+                                $('#goods').val('');
+								$('#supplier_name').val('');
+								$('#comments').val('');
+								$('input#goodsqty').val('');
+								$('input#goodsunits').val('');
+								$('input#goodsprice').val('');
+								$('#goodsamount').val('');
+                            });
+                        });
+					</script>
                     <hr />
                     <div>
                         <div>
-                            <form class="form-inline">
-                                <label>进货日期</label>
+                                <label><h5>进货日期</h5></label>
                                 <!-- the input for date needs to be improved so that user can 
                                 select date from a drop-down calendar straight away -->
-                                <input class="datepicker" type="text">
+                                <input class="datepicker" id="startdate" type="text">
                                 到
-                                <input class="datepicker" type="text">
-                                <button type="submit" class="btn btn-primary">搜索</button>
-                            </form>
+                                <input class="datepicker" id="enddate" type="text">
+                                <button id="search_btn" class="btn btn-primary">搜索</button>
                         </div>
                         <div>
-                            <table class="table table-striped table-hover">
+                            <table id="search_list" class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th><input type="checkbox"></th>
                                         <th>产品名</th>
                                         <th>供应商</th>
                                         <th>单价</th>
@@ -105,48 +150,68 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <div>
-                            <!--<button type="submit" class="btn btn-primary">修改</button> -->
-                            <button type="submit" class="btn btn-danger">删除</button>
-                        </div>
                     </div>
                 </div>
+                <script language="javascript" type="text/javascript">
+					$(document).ready(function(e) {
+						$('button#search_btn').click(function(e) {
+							var start_time=$('#startdate').val();
+							var end_time= $('#enddate').val();
+							var ajaxobj = {
+								type:'post',
+								url:'productlist/searchresult',
+								data:{start_date:start_time,end_date:end_time},
+								success:function(data){
+									var goods = eval('('+data+')');
+									$('#search_list td').remove();
+									var i = 0;
+									for(i=0;i<goods.length;i++)
+									{
+										var productid = goods[i].id;
+										var productsname = goods[i].productordered;
+										var productsupplier=goods[i].supplier;
+										var productprice = goods[i].price;
+										var productqty = goods[i].qty;
+										var productunit = goods[i].units;
+										var productamount=goods[i].amount;
+										var productintodate=goods[i].intodate;
+										var tr = $("<tr id='"+productid+"'>").appendTo($("#search_list tbody"));
+										$("<td>").text(productsname).appendTo(tr);
+										$("<td>").text(productsupplier).appendTo(tr);
+										$("<td>").text(productprice).appendTo(tr);
+										$("<td>").text(productqty).appendTo(tr);
+										$("<td>").text(productunit).appendTo(tr);
+										$("<td>").text(productamount).appendTo(tr);
+										$("<td>").text(productintodate).appendTo(tr);
+										$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+									}
+								}
+							};
+							$.ajax(ajaxobj);
+						});	
+						$('button.delete_btn').live(
+							"click",function(e){
+								var confirmalert = confirm("Are you want to remove it");
+								if(confirmalert==true)
+								{
+									var companyid = $(this).attr('id');
+									var ajaxobj = {
+											type:'post',
+											url:'productlist/searchdelete',
+											data:{orderid:companyid},
+											success:function(){
+												$('tr#'+companyid+' td').remove();
+											}
+										};
+										$.ajax(ajaxobj);
+								}
+							}
+						);
+					});
+				</script>
                 <div class="addnewproduct">
                 	<p><h3>添加新商品</h3></p>
                     <form method="post" id="newproduct" action="add_new_product/add_product">
@@ -204,11 +269,9 @@
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
                     <div>
-                    	<form class="form-inline" method="post">
                         	<label>产品名</label>
                             <select name="productname"></select> 
                             <button type="submit" class="btn btn-primary"/>查询</button>
-                        </form>
                     </div>
                     <hr />
                     <div>
