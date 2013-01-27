@@ -70,7 +70,16 @@ class Accountant extends CI_Model {
 				$balances[$i] = $query->row($i);
 			}
 		}
-		return $balances;
+		return $balances; 
+	}
+
+	public function update_balance($balances){
+		foreach($balances as $balance){
+			$sql = "UPDATE companyname 
+					SET Balance='$balance[balance]', Comment='$balance[comment]' 
+					WHERE AccountID='$balance[account_id]'";
+			$this->db->query($sql);
+		}
 	}
 }
 ?>

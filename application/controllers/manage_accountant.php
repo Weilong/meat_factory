@@ -44,6 +44,11 @@ class Manage_accountant extends CI_Controller {
 		$response = json_encode($balances);
 		echo $response;
 	}
+
+	public function change_balance(){
+		$balances = json_decode($this->input->post("balances"),true);
+		$this->accountant->update_balance($balances);
+	}
 }
 
 /* End of file manage_accountant.php */

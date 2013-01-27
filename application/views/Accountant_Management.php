@@ -188,6 +188,7 @@
                         <tbody>
                         </tbody>
                     </table>
+                    <button id="save_balance" class="btn btn-primary">保存</button>
                     </div>
                 </div>
             </div>
@@ -307,13 +308,48 @@
                                         $("<td>").text(data[i].AccountID).appendTo(tr);
                                         $("<td>").text(data[i].CompanyName).appendTo(tr);
                                         $("<td>").text(data[i].ContactName).appendTo(tr);
-                                        $("<td>").append($("<input type=text>").addClass("edit-balance").addClass("input-small").val((data[i].Balance))).appendTo(tr);
+                                        $("<td>").append($("<input type=text>").addClass("edit-balance").addClass("input-small").val((data[i].Balance)).change(change_balance)).appendTo(tr);
                                         $("<td>").append($("<input type=text>").addClass("edit-comment").addClass("input-small").val((data[i].Comment))).appendTo(tr);
                                     }
                             }
                         };
                         $.ajax(ajaxOpts);
                     });
+
+                    $("#save_balance").click(function(){
+                        var balances = {};  //make it an object instead of array
+                        var x=0
+                        $("#balance_table tbody tr").each(function(){
+                            var childrens = $(this).children();
+                            var account = {};
+                            ;
+                            account["account_id"] = parseInt(childrens.eq(0).text());
+                            //account["company_name"] = childrens.eq(1).text();
+                            //account["contact_name"] = childrens.eq(2).text();
+                            account["balance"] = parseFloat(childrens.eq(3).find(".edit-balance").val());
+                            account["comment"] = childrens.eq(4).find(".edit-comment").val();
+                            balances[x] = account;
+                            x++;
+                        });
+
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_accountant/change_balance",
+                            data: {balances: JSON.stringify(balances)},
+                            success: function(data){
+                                alert("Balance updated");
+                            }
+                        };
+                        $.ajax(ajaxOpts);
+                    });
+
+                    function change_balance(){
+                        //need validation: cant be negative, alphabet or other symbols
+                        if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                            $(this).val(0);
+                        }
+                    }
 
                     function search_profit(){
                         var ajaxOpts={
