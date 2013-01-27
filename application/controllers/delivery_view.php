@@ -6,6 +6,7 @@
 		   {
 				parent::__construct();
 				$this->load->model("delivery");
+				$this->load->model("invoice");
 		   }
 		   
 			public function load_delivery_detail()
@@ -62,7 +63,21 @@
 			}
 			public function print_order_detail()
 			{
-				$this->load->view('delivery_print');
+				if($_GET)
+				{
+					$orderid=$_GET['orderid'];
+					$accountname=$_GET['accountname'];
+					$orderdetail=$this->invoice->get_order_detail($orderid);
+					$invoicedetail=$this->invoice->get_invoice_detail($orderid);
+					$accountdetail=$this->invoice->get_client_contact($accountname);
+				}
+				$data['account']=$accountname;
+				$data['orderdetail']=json_encode($orderdetail);
+				$data['invoicedetail']=json_encode($invoicedetail);
+				$data['accountdetail']=json_encode($accountdetail);
+				$this->load->view('includes/header');
+				$this->load->view('delivery_print',$data);
+				$this->load->view('includes/footer');
 			}
 		}
 

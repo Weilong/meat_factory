@@ -203,6 +203,46 @@ i:hover{
 	width:auto;
 	margin:0px auto;
 }
+
+/* invoice */
+.invoice
+{
+	width:960px;
+	height:auto;
+	margin:0px auto;
+	text-align:center;
+	overflow:hidden;
+}
+.invoice_head
+{
+	width:100%;
+	height:300px;
+}
+#client_info
+{
+	width:450px;
+	height:auto;
+	text-align:left;
+	float:left;
+}
+#invoice_info
+{
+	width:450px;
+	height:auto;
+	text-align:right;
+	float:right;
+}
+#invoice_detail
+{
+	height:auto;
+	width:100%;
+}
+#invoice_footer
+{
+	width:100%;
+	text-align:right;
+	height:auto;
+}
 /*
 .table-scrollable-wrapper thead tr{
     position:relative;
