@@ -67,7 +67,7 @@ class add_supplier extends CI_Controller {
 					'Fax'=>$faxnum,
 					'Telephone'=>$phone,
 					'Email'=>$email,
-					'Website'=>$client_delivery_area,
+					'Area'=>$client_delivery_area,
 					'StartDate'=>$start_date
 			  );
 			  

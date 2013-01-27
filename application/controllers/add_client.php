@@ -72,12 +72,12 @@ class add_client extends CI_Controller {
 					'Fax'=>$faxnum,
 					'Telephone'=>$phone,
 					'Email'=>$email,
-					'Website'=>$client_delivery_area,
+					'Area'=>$client_delivery_area,
 					'StartDate'=>$start_date
 			  );
 			  $newclientcompanyname = array(
 			  		'CompanyName'=>$current_name,
-					'Description'=>$current_name,
+					'ContactName'=>$current_name,
 					'Balance'=>0,
 					'Date'=>$start_date,
 					'Comment'=>''
