@@ -37,6 +37,13 @@ class Manage_accountant extends CI_Controller {
 		$response = json_encode($profits);
 		echo $response;
 	}
+
+	public function search_balance(){
+		$company_name = $this->input->post("company");
+		$balances = $this->accountant->fetch_company_balance($company_name);
+		$response = json_encode($balances);
+		echo $response;
+	}
 }
 
 /* End of file manage_accountant.php */

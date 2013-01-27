@@ -56,5 +56,21 @@ class Accountant extends CI_Model {
 		}
 		return $profits;
 	}
+
+	public function fetch_company_balance($company_name){
+		$sql ="SELECT AccountID, CompanyName, Balance, ContactName, Comment FROM companyname";
+		if ($company_name!="All"){
+			$sql .= " WHERE CompanyName='$company_name'";
+		}
+		$sql .= " ORDER BY AccountID";
+		$query = $this->db->query($sql);
+		$balances = array();
+		if ($query->num_rows()>0){
+			for ($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++ ){
+				$balances[$i] = $query->row($i);
+			}
+		}
+		return $balances;
+	}
 }
 ?>

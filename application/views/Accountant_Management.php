@@ -165,19 +165,17 @@
                 <div class="viewbalance">
                 	<p><h3>客户账户余额查询</h3></p>
                     <div>
-                     <form>
                       <fieldset>
                        <label><h5>公司</h5></label>
-                        <select>
-                            <option>test1</option>
-                            <option>test2<option>
+                        <select id="balance_company_name">
+                            <option>All</option>
                         </select><br />
-                        <button type="button" class="btn btn-primary">查询</button>
+                        <button id="balance_search" type="button" class="btn btn-primary">查询</button>
                       </fieldset>
-                    </form>
                     </div>
+                    <hr />
                     <div>
-                    <table class="table table-striped table-hover">
+                    <table id="balance_table" class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -188,27 +186,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                            </tr>
-                            <tr>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                            </tr>
-                            <tr>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                                <td>n/a</td>
-                            </tr>
                         </tbody>
                     </table>
                     </div>
@@ -243,6 +220,8 @@
                             //loop through all items in the JSON array
                             for (var x = 0;x<data.length;x++){
                                 var opt = $("<option>").appendTo("#company_name");
+                                opt.text(data[x].companyname);
+                                var opt = $("<option>").appendTo("#balance_company_name");
                                 opt.text(data[x].companyname);
                             }
                             //set the selected item to blank
@@ -312,6 +291,28 @@
                             return;
                         }
                         search_profit();
+                    });
+
+                    $("#balance_search").click(function(){
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_accountant/search_balance",
+                            data: {company : $("#balance_company_name").val()},
+                            success: function(data){
+                                $("#balance_table tbody").empty()
+                                    for (var i=0;i<data.length;i++){
+                                        var tr=$("<tr>").appendTo($("#balance_table tbody"));
+                                        
+                                        $("<td>").text(data[i].AccountID).appendTo(tr);
+                                        $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                        $("<td>").text(data[i].ContactName).appendTo(tr);
+                                        $("<td>").append($("<input type=text>").addClass("edit-balance").addClass("input-small").val((data[i].Balance))).appendTo(tr);
+                                        $("<td>").append($("<input type=text>").addClass("edit-comment").addClass("input-small").val((data[i].Comment))).appendTo(tr);
+                                    }
+                            }
+                        };
+                        $.ajax(ajaxOpts);
                     });
 
                     function search_profit(){
