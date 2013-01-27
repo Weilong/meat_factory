@@ -38,10 +38,10 @@
             <div class = "main-content">
             	<div class="delivery_view">
                 	<p><h3>送货情况预览</h3></p>
-                    <form class="form-inline" method="post" action="<?php echo base_url().'delivery_view/load_delivery_detail'; ?>">
+                    <form class="form-inline" method="post" action="<?=base_url().'delivery_view/load_delivery_detail'; ?>">
                     	<table>
                         	<tr>
-                                <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?php echo date('Y-m-d'); ?>' /></td>
+                                <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?=date('Y-m-d'); ?>' /></td>
                             	<td width="10"></td><td><input type="button" class="btn btn-primary" id="searching" value="查询" /></td>
                             </tr>
                         </table>
@@ -60,10 +60,10 @@
 									$status = "completed";
 						?>
 									<tr>
-                                        <td id='driver<? echo $row->id ?>'><? echo $row->id ?></td>
-                                        <td><? echo $row->companyname ?></td>
-                                        <td><? echo $row->contactname ?></td>
-                                        <td><? echo $row->deliverydate ?></td>
+                                        <td id='driver<?=$row->id ?>'><? echo $row->id ?></td>
+                                        <td><?=$row->companyname ?></td>
+                                        <td><?=$row->contactname ?></td>
+                                        <td><?=$row->deliverydate ?></td>
                                         <td><? if($row->status==$status)
 												{
 													echo $row->driver;
@@ -71,8 +71,8 @@
 												else
 												{
 											?>
-                                            		<select name='selectdriver' class="driver<? echo $row->id ?>">
-                                        			<option value='<? echo $row->driver; ?>'><? echo $row->driver; ?></option>
+                                            		<select name='selectdriver' class="driver<?=$row->id ?>">
+                                        			<option value='<?=$row->driver; ?>'><?=$row->driver; ?></option>
                                         	<? 
 													foreach($drivers as $rows)
 												  	{
@@ -80,7 +80,7 @@
 														if($delivery_drivers!=$row->driver)
 														{
 											?>
-                                                			<option value='<? echo $delivery_drivers; ?>'><? echo $delivery_drivers; ?></option>
+                                                			<option value='<?=$delivery_drivers; ?>'><?=$delivery_drivers; ?></option>
                                             <?
 														}
 													}
@@ -88,9 +88,9 @@
 											?>
                                             </select>
                                         </td>
-                                        <td><? echo $row->suburb ?></td>
-                                        <td><? echo $row->area ?></td>
-                                        <td><a href='print_order_detail' id="<? echo $row->id ?>" target="_blank">Print</a></td>
+                                        <td><?=$row->suburb ?></td>
+                                        <td><?=$row->area ?></td>
+                                        <td><a href='<?=base_url().'?c=delivery_view&m=print_order_detail&orderid='.$row->id ?>'><i class='icon-print' id="<?=$row->id ?>" title='print'></i></a></td>
                                         <td>
                                         	<?
                                             	if($row->status==$status)
@@ -102,7 +102,7 @@
 												else
 												{
                                             ?>
-                                            <button id='<? echo $row->id ?>' >Complete</button>
+                                            <button id='<?=$row->id ?>' >Complete</button>
                                             <?
 												}
 											?>
@@ -110,9 +110,9 @@
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
-                                            $('.driver<? echo $row->id ?>').change(function(){
-                                              	var newdriver = $(".driver<? echo $row->id ?>").val();
-												var order_id = <? echo $row->id ?>;
+                                            $('.driver<?=$row->id ?>').change(function(){
+                                              	var newdriver = $(".driver<?=$row->id ?>").val();
+												var order_id = <?=$row->id ?>;
 												var ajaxobj = 
 												{
 													type: "post",

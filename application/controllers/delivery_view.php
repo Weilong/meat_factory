@@ -60,6 +60,10 @@
 					$orderid =$this->input->post('orderid');
 					$this->delivery->change_delivery_driver($orderid,$driver);
 			}
+			public function print_order_detail()
+			{
+				$this->load->view('delivery_print');
+			}
 		}
 
 ?>
