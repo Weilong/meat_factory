@@ -161,7 +161,7 @@
                             <th><input class="select-all" type="checkbox"></th>
                             <th>订单号</th>
                         	<th>下单日期</th>
-                            <th>公司名字</th>
+                            <th>公司名</th>
                             <th>送货日期</th>
                             <th>送货进程</th>
                             <th>总价</th>

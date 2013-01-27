@@ -360,7 +360,6 @@
                                         end: $("#end_date").val(),
                                         company: $("#company_name").val()},
                                 success: function(data){
-                                    alert("search success");
                                     $("#profit_table tbody").empty()
                                     for (var i=0;i<data.length;i++){
                                         var tr=$("<tr>").appendTo($("#profit_table tbody"));

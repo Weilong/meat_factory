@@ -39,95 +39,126 @@
                             <tr>
                                 <td>
                                     <label>公司名称</label> 
-                                    <select name="companyname"></select>
+                                    <select id="company">
+                                        <option>All</option>
+                                    </select>
                                     <label>日期</label> 
-                                    <input class="datepicker" type="text" name="startdate" style="width:127px;" /> 
-                                    到 
-                                    <input class="datepicker" type="text" name="enddate" style="width:127px;"/>
+                                    <input id="start_date" class="datepicker" type="text" style="width:127px;" /> 
+                                    <label>到</label> 
+                                    <input id="end_date" class="datepicker" type="text" style="width:127px;"/>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <label>产品名称</label>
-                                    <select name="productname"></select>
+                                    <select id="product">
+                                        <option>All</option>
+                                    </select>
                                     <label>类型</label> 
-                                    <select name="incometype" style="width:120px;">
-                                        <option value="0">ALL</option>
-                                        <option value="1">收入</option>
-                                        <option value="2">支出</option>
+                                    <select id="income_type" style="width:120px;">
+                                        <option>All</option>
+                                        <option>Credit</option>
+                                        <option>Debit</option>
                                     </select>
                                     <label>支付方式</label> 
-                                    <select name="paytype" style="width:120px";>
-                                        <option value="0">ALL</option>
-                                        <option value="1">Cash</option>
-                                        <option value="2">Cheque</option>
+                                    <select id="payment_method" style="width:120px";>
+                                        <option>All</option>
+                                        <option>Cash</option>
+                                        <option>Cheque</option>
                                     </select>
                                     
                                 </td>
                             </tr>
-                            <tr>
-                                <td align="right"><button type="submit" class="btn btn-primary">查询</button></td>
-                            </tr>
                         </table>
                     </form>
+                    <div>
+                        <button id="income_search" class="btn btn-primary">查询</button>
+                    </div>
                 </div>
-                <div class="searchresultview">
-                    <table class="table table-striped table-hover">
-                                <thead>
-                                    <tr>
-                                        <th><input type="checkbox"></th>
-                                        <th>ProductName</th>
-                                        <th>CompanyName</th>
-                                        <th>PayMethod</th>
-                                        <th>Date</th>
-                                        <th>Debit</th>
-                                        <th>Credit</th>
-                                        <th>Comment</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                    <tr>
-                                        <td><input type="checkbox"></td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <td>n/a</td>
-                                        <th><i class="icon-edit"></i><i class="icon-trash"></i></th>
-                                    </tr>
-                                </tbody>
-                            </table>
+                <hr />
+                <div>
+                    <div class="searchresultview">
+                        <table id="income_table" class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ProductName</th>
+                                    <th>CompanyName</th>
+                                    <th>PayMethod</th>
+                                    <th>Date</th>
+                                    <th>Debit</th>
+                                    <th>Credit</th>
+                                    <th>Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div align="right">
+                        <label>收支总和：<input type="text" id="total_amount" class="input-small" readonly></label>
+                    </div>
                 </div>
                 <script languange="javascript" type="text/javascript">
-                    $(function() {
-                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
-                        calender.datepicker("setDate", new Date());
+                    $(document).ready(function(){
+                        $(function() {
+                            var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                            calender.datepicker("setDate", new Date());
+                        });
+
+                        //retrieve all company names from database to display on page
+                        $.getJSON("manage_order/get_company_name", function(data){
+
+                            //loop through all items in the JSON array
+                            for (var x = 0;x<data.length;x++){
+                                var opt = $("<option>").appendTo("#company");
+                                opt.text(data[x].companyname);
+                            }
+                        });
+
+                        $.getJSON("income_report/get_product_name", function(data){
+
+                            //loop through all items in the JSON array
+                            for (var x = 0;x<data.length;x++){
+                                var opt = $("<option>").appendTo("#product");
+                                opt.text(data[x].ProductName);
+                            }
+                        });
+
+                        $("#income_search").click(function(){
+                            var ajaxOpts={
+                                type: "post",
+                                dataType: "json",
+                                url:  "income_report/get_income",
+                                data: {company:$("#company").val(),
+                                        product:$("#product").val(),
+                                        start: $("#start_date").val(),
+                                        end: $("#end_date").val(),
+                                        income_type: $("#income_type").val(),
+                                        payment_method: $("#payment_method").val()},
+                                success: function(data){
+                                    alert("report income");
+                                    $("#income_table tbody").empty()
+                                    var income_list = data[0];
+                                    var total_amount = data[1];
+                                    //alert(income_list.length);
+                                    for (var i=0;i<income_list.length;i++){
+                                        var tr=$("<tr>").appendTo($("#income_table tbody"));
+                                        
+                                        $("<td>").text(income_list[i].ProductName).appendTo(tr);
+                                        $("<td>").text(income_list[i].CompanyName).appendTo(tr);
+                                        $("<td>").text(income_list[i].PayMethod).appendTo(tr);
+                                        $("<td>").text(income_list[i].Date).appendTo(tr);
+                                        $("<td>").text(income_list[i].Credit).appendTo(tr);
+                                        $("<td>").text(income_list[i].Debit).appendTo(tr);
+                                        $("<td>").text(income_list[i].Comment).appendTo(tr);
+                                    }
+                                    $("#total_amount").val(total_amount);
+                                }
+                            };
+                            $.ajax(ajaxOpts);
+                        });
                     });
+                    
                 </script>
             </div>
          </div>

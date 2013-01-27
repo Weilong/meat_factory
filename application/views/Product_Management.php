@@ -269,7 +269,7 @@
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
                     <div>
-                        	<label>产品名</label>
+                        	<label>产品类型</label>
                             <select name="category_name" id="category_name">
                             	<option value="All">All</option>
                             	<option value="Beef">Beef</option>
