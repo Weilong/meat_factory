@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- 主机: localhost
--- 生成日期: 2013 年 01 月 21 日 00:37
+-- 生成日期: 2013 年 01 月 27 日 02:05
 -- 服务器版本: 5.5.16
 -- PHP 版本: 5.3.8
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `companyname` (
   `Date` date NOT NULL,
   `Comment` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`AccountID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=689 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=690 ;
 
 --
 -- 转存表中的数据 `companyname`
@@ -187,7 +187,8 @@ INSERT INTO `companyname` (`AccountID`, `CompanyName`, `Description`, `Balance`,
 (685, '462/40 Chilli', 'Chilli Cha Cha', 0.00, '2011-07-20', NULL),
 (686, '171 Glebe', 'Sumalee Thai', 0.00, '2011-07-20', NULL),
 (687, '666Blue', 'Bluewok', 0.00, '2011-07-20', NULL),
-(688, 'Ryde', 'Ivory', 277.54, '2011-07-21', NULL);
+(688, 'Ryde', 'Ivory', 277.54, '2011-07-21', NULL),
+(689, 't1', 't1', 0.00, '2013-01-25', '');
 
 -- --------------------------------------------------------
 
@@ -222,158 +223,16 @@ CREATE TABLE IF NOT EXISTS `customer` (
   UNIQUE KEY `CompanyName` (`CompanyName`),
   UNIQUE KEY `CompanyName_2` (`CompanyName`),
   UNIQUE KEY `CompanyName_3` (`CompanyName`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1038 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- 转存表中的数据 `customer`
 --
 
 INSERT INTO `customer` (`CustomerID`, `CompanyName`, `ContactName`, `CustomerType`, `Address1`, `Address2`, `Suburb1`, `Suburb2`, `City1`, `City2`, `State1`, `State2`, `Country1`, `Country2`, `Postcode1`, `Postcode2`, `Telephone`, `Fax`, `Mobile`, `Email`, `Website`, `StartDate`) VALUES
-(58, 'MARIOS QUALITY QUAILS', '', 'Supplier', '75 ROBINSON ROAD BRINGELLY Nsw 2556', '', 'bringelly', '', '', '', '', '', '', '', '', '', '(02) 4774 8292', '(02) 4655 9989', '0414 788 881', '', 'Area1', '2011-05-06'),
-(57, 'B.E. Campbell (NSW) Pty Ltd', '', 'Supplier', '144 NEWTON ROAD, WETHERILL PARK NSW 2164 SYDNEY AUSTRALIA P.O.BOX 7042,WETHERILL PARK NSW 2164', '', 'wetherill park', '', '', '', '', '', '', '', '', '', '(02) 9725 2233', '(02) 9756 1336', '', '', '', '2011-05-06'),
-(56, 'EMPIRE MEAT WHOLESALERS PTY.LTD', '', 'Supplier', 'SYDNEY MEAT CENTRE, UNIT 5E,1-21 MADELINE STREET, STRATHFIELD SOUTH NEW 2136', 'P.O.BOX 55, STRATHFIELD SOUTH NEW 2136', 'Strathfield sou', '', '', '', '', '', '', '', '', '', '(02) 9642 8488', '(02) 9643 5796', '', '', '', '2011-05-06'),
-(55, 'BAIADA POULTRY PTY LIMITED', '', 'Supplier', 'P.O Box 21 Pendle Hill NSW 2145', '', 'Pendle Hill', '', '', '', '', '', '', '', '', '', '(02) 9842 1000 (Admi', '(02) 9688 4818', '', '', '', '2011-05-06'),
-(54, 'PENRICH POULTRY PTY LTD', '', 'Supplier', 'P.O Box 155 EME PLAINS NSW 2750', '', '', '', '', '', '', '', '', '', '', '', '(02) 9631 6500', '(02) 9631 6499', '', '', '', '2011-05-06'),
-(53, 'B&E POULTRY', '', 'Supplier', '3/21 Cooper Street Smithfield NSW 2164', '', 'Smithfield', '', '', '', '', '', '', '', '', '', '(02) 9757 3389', '(02) 9729 1389', '', '', '', '2011-05-06'),
-(52, 'DEPIRA FOOD DISTRIBUTORS (DFD)', '', 'Supplier', '184 Parramatta Road, Auburn NSW 2144', '', 'Auburn', '', '', '', '', '', '', '', '', '', '(02) 9748 8898', '(02) 9748 8886', '0418164322/ 04172683', '', '', '2011-05-06'),
-(48, 'Kuk', 'Kuk Thai', 'Client', '144 Queen Street', '', 'WOLLAHRA', '', '', '', 'NSW', '', '', '', '2025', '', '93271199', '', '0415784999', '', 'Area3', '2011-04-19'),
-(47, '5 Noodle Bar', 'Thai Riffic Noodle Bar', 'Client', 'L5, Caf   Court', '', 'WESTFIELD BONDI', '', '', '', 'NSW', '', '', '', '2022', '', '93878955', '', '', '', 'Area3', '2011-04-19'),
-(46, 'Baan Bua', 'Baan Bua Thai Restaurant', 'Client', 'Shop A5/4 Central Ave', '', 'THORNLEIGH', '', '', '', 'NSW', '', '', '', '2120', '', '98754789', '', '', '', 'Area1', '2011-04-19'),
-(42, '395C', 'Style Dish', 'Client', '395 Crown Street', '', 'SURRY HILLS', '', '', '', 'NSW', '', '', '', '2010', '', '93310859', '93324883', '', '', 'Area1', '2011-04-19'),
-(41, '78', 'Tansala Thai', 'Client', '78 Devonshire Street', '', 'SURRY HILLS', '', '', '', 'NSW', '', '', '', '2010', '', '92127198', '', '', '', 'Area1', '2011-04-19'),
-(40, '60-62', 'Tasty Thai', 'Client', '60-62 Foveaux Street', '', 'SURRY HILLS', '', '', '', 'NSW', '', '', '', '2010', '', '92810092', '', '', '', 'Area1', '2011-04-19'),
-(39, '208', 'Devonshire Thai', 'Client', '208 Devonshire Street', '', 'SURRY HILLS', '', '', '', 'NSW', '', '', '', '2010', '', '93190699', '', '', '', 'Area1', '2011-04-19'),
-(38, 'Seaforth', 'Take A Seat', 'Client', '1/533 Sydney Road', '', 'Seaforth', '', '', '', 'NSW', '', '', '', '2092', '', '99491682', '', '', '', 'Area1', '2011-04-19'),
-(37, '1/43 Blaxland', 'Arawah Thai', 'Client', 'Shop 2-3, 43 Blaxland Road', '', 'RYDE', '', '', '', 'NSW', '', '', '', '2112', '', '98071822', '', '', '', 'Area1', '2011-04-19'),
-(36, '574', 'Larn Thong Thai Restaurant', 'Client', '574 Darling Street', '', 'ROZELLE', '', '', '', 'NSW', '', '', '', '2039', '', '98105069', '', '', '', 'Area2', '2011-04-19'),
-(35, '684 Ranang', 'Ranang Thai Kitchen', 'Client', '684 Darling Street', '', 'ROZELLE', '', '', '', 'NSW', '', '', '', '2039', '', '98101544', '', '', '', 'Area2', '2011-04-19'),
-(34, 'Tong', 'Tung Tong Roong Thai', 'Client', '1A Hill Crest Road', '', 'PENNANT HILLS', '', '', '', 'NSW', '', '', '', '2120', '', '99807585', '', '', '', 'Area4', '2011-04-19'),
-(33, '3/54 To go', 'Thai to Go', 'Client', 'Shop 3, 54 Garden Street', '', 'NORTH NARRABEEN', '', '', '', 'NSW', '', '', '', '2101', '', '99139211', '', '', '', 'Area4', '2011-04-19'),
-(32, 'Curl Curl', 'Chilli Spot ', 'Client', '6A/150 Pitt Road', '', 'NORTH CURL CURL', '', '', '', 'NSW', '', '', '', '2099', '', '99057579', '', '', '', 'Area2', '2011-04-19'),
-(29, 'Qian Cao', 'Asakusa (Qian Cao)', 'Client', '119 King Street', '', 'NEWTOWN', '', '', '', 'NSW', '', '', '', '2042', '', '95198530', '', '', '', 'Area1', '2011-04-19'),
-(1024, '79 Thai', 'Thai Eatery', 'Client', '79 Military rd', '', 'Neutral Bay', '', '', '', 'NSW', '', '', '', '', '', '99092011', '99041171', '', '', 'Area4', '2011-07-20'),
-(27, '15 ', 'Ta Ta Thai', 'Client', '15 Hayes Street', '', 'NEUTRAL BAY', '', '', '', 'NSW', '', '', '', '2089', '', '403061693', '', '', '', 'Area4', '2011-04-19'),
-(26, '166-174 Sam', 'Sams Thai', 'Client', '166-174 Military Road', '', 'NEUTRAL BAY', '', '', '', 'NSW', '', '', '', '2089', '', '99041668', '', '', '', 'Area4', '2011-04-19'),
-(25, '3/107', 'Noodle Head Thai Kitchen', 'Client', 'shop 3/107 Alfred Street', '', 'NARRAWEENA', '', '', '', 'NSW', '', '', '', '2099', '', '99821688', '', '', '', 'Area1', '2011-04-19'),
-(24, '1354', 'Chilli Club', 'Client', '1354 Pittwater Road', '', 'NARRABEEN ', '', '', '', 'NSW', '', '', '', '2101', '', '99132211', '', '', '', 'Area4', '2011-04-19'),
-(152, ' 6/60', ' 555', 'Client', '6/60 Union st', '', 'Pyrmont', '', '', '', 'NSW', '', '', '', '2009', '', '95661211', '222', '111', '', 'Area1', '2011-06-20'),
-(22, 'm. m', 'Thai Mosman Restaurant', 'Client', 'Shop 7, 713-715 Military Road', '', 'MOSMAN', '', '', '', 'NSW', '', '', '', '2088', '', '99697922', '', '', '', 'Area4', '2011-04-19'),
-(21, '395', 'Thai Delight Cuisine', 'Client', '395 Illawarra Road', '', 'Marrickville', '', '', '', 'NSW', '', '', '', '2204', '', '95580922', '', '', '', 'Area1', '2011-04-19'),
-(20, '29', 'Homebush Wok Inn', 'Client', '29 Rochester Street', '', 'HOMEBUSH', '', '', '', 'NSW', '', '', '', '2140', '', '97466199', '', '', '', 'Area3', '2011-04-19'),
-(19, 'Satang Thai', 'Satang Thai Take Away', 'Client', '20 Quay Street ', '', 'HAYMARKET', '', '', '', 'NSW', '', '', '', '2000', '', '92800956', '', '', '', 'Area1', '2011-04-19'),
-(151, '1425', 'Lake Side Thai', 'Client', '1425 Pittwater rd', '', 'Narrabeen', '', '', '', 'NSW', '', '', '', '2101', '', '99706766', '99706077', '', '', 'Area4', '2011-06-20'),
-(17, '249', 'Tom-Yum Tum-Gang Thai Takeway', 'Client', '249 Glebe Point Road', '', 'GLEBE', '', '', '', 'NSW', '', '', '', '2037', '', '80650859', '', '', '', 'Area1', '2011-04-19'),
-(14, '26', 'Spanish Tapas', 'Client', '26 Glebe Point Road', '', 'GLEBE', '', '', '', 'NSW', '', '', '', '2037', '', '95719005', '', '', '', 'Area1', '2011-04-19'),
-(13, 'star', 'Star of Thailand', 'Client', '156 Victoria Road', '', 'GLADSVILLE', '', '', '', 'NSW', '', '', '', '2111', '', '98172056', '', '', '', 'Area2', '2011-04-19'),
-(12, 'Singha', 'Singha Thai', 'Client', '1st Floor, 40-42 Bantry Bay Road', '', 'FRENCH FOREST', '', '', '', 'NSW', '', '', '', '2086', '', '94531287', '', '', '', 'Area4', '2011-04-19'),
-(192, 'Intra ', 'Intra Thai', 'Client', '152 Lyons rd', '', 'Drummoyne', '', '', '', 'NSW', '', '', '', '2047', '', '91813259/91813299', '', '', '', 'Area1', '2011-07-02'),
-(10, 'Coco Rice', 'Coconut Rice', 'Client', 'Shop G10 Midway Shopping Centre, 117 North Road', '', 'DENISTONE EAST', '', '', '', 'NSW', '', '', '', '2112', '', '98882963', '', '', '', 'Area2', '2011-04-19'),
-(9, 'mon 123 little', 'Little Thailand', 'Client', '123 Georges River Road', '', 'CROYDON PARK', '', '', '', 'NSW', '', '', '', '2133', '', '97164888', '', '', '', '', '2011-04-19'),
-(8, '79', 'Crow Zone Cafe', 'Client', '79 Willoughby Road', '', 'CROWS NEST', '', '', '', 'NSW', '', '', '', '2065', '', '94397214', '', '', '', 'Area1', '2011-04-19'),
-(206, 'Thai Riffic Noodle Bar 1', 'Thai Riffic Noodle Bar', 'Client', 'Level 5, Cafe court,Westfield', '', 'Bondi Junction', '', '', '', 'NSW', '', '', '', '', '', '93878955', '', '', '', 'Area3', '2011-07-02'),
-(4, 'Intra Thai', 'Intra Thai Bondi Beach', 'Client', '88-90 Curlewis Street', '', 'BONDI BEACH', '', '', '', 'NSW', '', '', '', '2026', '', '91303342', '', '', '', 'Area3', '2011-04-19'),
-(2, 'Big John', 'Big John''s Pizza & Kitchen', 'Client', '199 Bondi Road', '', 'BONDI', '', '', '', 'NSW', '', '', '', '2026', '', '93691233', '', '', '', 'Area3', '2011-04-19'),
-(1, '253', 'Thai Fire Fry', 'Client', '253 Bondi Road', '', 'BONDI', '', '', '', 'NSW', '', '', '', '2026', '', '93006600', '', '', '', 'Area3', '2011-04-19'),
-(59, 'PEPE S DUCKS PTY LTD', '', 'Supplier', '17 WLKER STREET SOUTH WINDSOR NSW 2756', '', 'south windsor', '', '', '', '', '', '', '', '', '', '(02) 4577 4233', '(02) 4577 4067', '', '', '', '2011-05-06'),
-(60, 'PIROVIC ENTERPRISES PTY LTD', '', 'Supplier', '192 SIXTH AVENUE, LLANDILO, NSW 2747', '', 'llandilo', '', '', '', '', '', '', '', '', '', '(02) 4777 4176', '(02) 4777 4871', '', '', '', '2011-05-06'),
-(61, 'BEEF PRODUCERS AUSTRALIA PTY LTD', '', 'Supplier', '1-21 MADELINE, SOUTH STRATHFIELD NSW 2136', 'P.O.BOX 266,LIDCOMBE NSW 2141 AUSTRALIA', 'lidcome', '', '', '', '', '', '', '', '', '', '(02) 9642 0355', '(02) 9642 0311', '', '', '', '2011-05-06'),
-(62, 'CORAL PARK PASTORAL MEAT TRADING COMPANY', '', 'Supplier', 'SYDNEY MEAT CENTRE, UNIT 5E,1-21 MADELINE STREET, STRATHFIELD SOUTH NEW 2136', 'P.O.BOX 55, STRATHFIELD SOUTH NEW 2136', 'Strathfield sou', '', '', '', '', '', '', '', '', '', '(02) 9742 6044(Sales', '(02) 9742 6755', '', '', '', '2011-05-06'),
-(63, 'D.R. JOHNSTON GROUP (SYDNEY) ADIVISION OF JBS AUST', '', 'Supplier', '43 WENTWORTH ST. GREENACRE NSW 2190', 'P.O BOX 228, GREENACRE. 2190', 'greenacre', '', '', '', '', '', '', '', '', '', '(02) 9742 3944', '(02) 9742 3955', '', '', '', '2011-05-06'),
-(64, 'MIDFIELD TRADING PTY LTD(NSW)', '', 'Supplier', '247 CORMACK ROAD WINGFIELD SA 5013', '', 'wingfield', '', '', '', '', '', '', '', '', '', '(02) 8746 0644', '(02) 8746 0955', '', '', '', '2011-05-06'),
-(127, '98 seat', 'south east asia thai', 'Client', '98 yarrara rd, pennant hills', '', 'pennant hills', '', 'sydney', '', 'NSW', '', '', '', '2120', '', '94849393', '', '', '', 'Area4', '2011-06-20'),
-(207, 'Thai Riffic 2 Randwick', 'Thai Riffic Randwick', 'Client', '46 Perouse Road cnr st Pauls st', '', 'Randwick', '', '', '', 'NSW', '', '', '', '', '', '93265544', '', '', '', 'Area3', '2011-07-02'),
-(128, 'Manjits', 'Manjits Caterers&Restaurant', 'Client', '360 Darling Street, Balmain', '', 'Balmain', '', 'Sydney', '', 'NSW', '', '', '', '2041', '', '02 98183699', '02 98184160', '0413588804', 'deep@concordfunctioncentre.com.au', 'Area4', '2011-06-20'),
-(129, '324', 'Bank Hotel Sumalee Thai Restaurant', 'Client', '324 King St, Newtown', '', 'Newtown', '', 'Sydney', '', 'NSW', '', '', '', '2042', '', '02 85681980', '02 85681999', '02 85681900', 'enquiries@bankhotel.com.au', 'Area1', '2011-06-20'),
-(130, '76', 'Chilli Club Thai', 'Client', '76 Spring Streeet', '', 'Bondi Junction', '', 'Sydney', '', 'NSW', '', 'Australia', '', '2022', '', '02 9388 0156', '', '02 93877099', '', 'Area3', '2011-06-20'),
-(131, '105', 'Newtown Thai 2', 'Client', '105 King Street', '', 'Newtown', '', 'Sydney', '', 'NSW', '', '', '', '2042', '', '02 95191197', '', '', '', 'Area1', '2011-06-20'),
-(132, '1/125 Metang', 'Me-Tang', 'Client', '1/125 Great North Rd', '', 'Five Dock', '', 'Sydney', '', 'NSW', '', '', '', '2046', '', '02 9712 4225', '', '02 97125706', '', 'Area2', '2011-06-20'),
-(134, '337', 'NewtownThai 2 Express', 'Client', '337 King Street', '', 'Newtown', '', 'Sydney', '', 'NSW', '', '', '', '2042', '', '95165223', '', '', '', 'Area1', '2011-06-20'),
-(135, '27 Home ', '@Home Thai Cuisine', 'Client', '27 Glebe Point Road', '', 'Glebe', '', 'Sydney', '', 'NSW', '', '', '', '2037', '', '95718781', '', '95717630', '', 'Area1', '2011-06-20'),
-(137, 'Papaya', 'Papaya Thai Eatery&Cafe', 'Client', 'shop28/23-33 Middenden Rd', '', 'Camperdown', '', '', '', 'NSW', '', '', '', '2050', '', '95162877', '95162899', '', '', 'Area1', '2011-06-20'),
-(138, '768', 'Crocodile Senior Thai', 'Client', '768 George St', '', 'Hay Market', '', '', '', 'NSW', '', '', '', '2000', '', '92116630', '', '', '', 'Area1', '2011-06-20'),
-(139, '193 Thai On Work', 'Thai On Work', 'Client', '193 Glebe Point Rd', '', 'Glebe', '', '', '', 'NSW', '', '', '', '2037', '', '96609011', '', '96607333', '', 'Area1', '2011-06-20'),
-(140, 'Satang', 'Satang Thai Exclusive', 'Client', 'Shop 203/107-121, Quay st', '', 'Haymarket', '', '', '', 'NSW', '', '', '', '2000', '', '92125885', '', '', '', 'Area1', '2011-06-20'),
-(141, 'Platform Thai', 'Platform Thai', 'Client', 'Shop 8 Cross st', '', 'Breakfast Point', '', '', '', 'NSW', '', '', '', '2137', '', '87650565', '', '', '', 'Area2', '2011-06-20'),
-(142, 'Siam Kingdom', 'Siam Kingdom', 'Client', 'Shop B4"EKO" 1 Avenue of Europe', '', 'Newington', '', '', '', 'NSW', '', '', '', '2127', '', '96484760', '', '', '', 'Area5', '2011-06-20'),
-(216, 'Banyan', 'Banyan', 'Client', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0416133403', '', '', '2011-07-04'),
-(146, 'Dlish', 'Dlish Wrap&Roll', 'Client', 'Shop 2, 441-449 Elizabeth st', '', 'City', '', '', '', 'NSW', '', '', '', '2010', '', '92117172', '', '0403550667', '', 'Area1', '2011-06-20'),
-(148, 'I Thai 1', 'I Thai Restaurant&Bar', 'Client', '19 Lime st the promenade king st wharf', '', 'Sydney', '', '', '', 'NSW', '', '', '', '2000', '', '92998999', '92621577', '0488993939/0402458861', 'ithaibookings@gmail.com', 'Area1', '2011-06-20'),
-(149, '2-135 Wok Station', 'Wok Station', 'Client', '2-135 Harris st', '', 'Pyrmont', '', '', '', 'NSW', '', '', '', '2009', '', '95188911', '95188188', '0449011789', '', 'Area1', '2011-06-20'),
-(153, '43', 'Delli Hutt', 'Client', '43-45 Burns Bay Rd', '', 'Lane Cove', '', '', '', 'NSW', '', '', '', '', '', '94285557', '94285408', '', '', 'Area2', '2011-06-20'),
-(155, 'Coconut ', 'Coconut Thai Cuisine', 'Client', '190 Lyons rd', '', 'Drummoyne', '', '', '', 'NSW', '', '', '', '2047', '', '97192128/97192327', '', '0402607862', '', 'Area2', '2011-06-20'),
-(156, 'Sweet Basil', 'Sweet Basil Thai Restaurant', 'Client', '28A Princes Hwy', '', 'Sylvania', '', '', '', 'NSW', '', '', '', '2224', '', '95223188/95223788', '', '', '', 'Area5', '2011-06-20'),
-(158, 'Lasha Baba', 'Lasha Baba Turkish Food', 'Client', 'Level 5, Shop 5055 Westfield', '', 'Parramatta', '', '', '', 'NSW', '', '', '', '', '', '96357135', '', '', '', 'Area5', '2011-06-20'),
-(159, '210 Kish&Kish', 'Kish&Kish Indian Restaurant', 'Client', '210 Maroubra rd', '', 'Maroubra', '', '', '', 'NSW', '', '', '', '2035', '', '93445630/93445660', '', '', '', 'Area3', '2011-06-20'),
-(160, '212 Monza', 'Monza Thai', 'Client', '212 Maroubra rd', '', 'Maroubra', '', '', '', 'NSW', '', '', '', '2035', '', '93449992', '93449998', '', '', 'Area3', '2011-06-20'),
-(161, '40 Thai Thai', 'Thai Thai', 'Client', '40 Botany rd', '', 'Alexandria', '', '', '', 'NSW', '', '', '', '', '', '', '', '', '', 'Area2', '2011-06-20'),
-(162, '1431', 'Spice Bazaar', 'Client', '1/1431 Pittwater Rd', '', 'Narrabeen', '', '', '', 'NSW', '', '', '', '2101', '', '99707630', '', '', '', 'Area4', '2011-06-20'),
-(163, 'Chat Chai', 'Chat Chai', 'Client', '88 Darby st', '', 'Cooks Hill', '', '', '', 'NSW', '', '', '', '2300', '', '49263222', '', '', '', 'Area5', '2011-06-20'),
-(164, '2/157 Monkey', 'Monkey Magic Deli', 'Client', 'Shop 2, 157 Oxford st', '', 'Bondi Junction', '', '', '', 'NSW', '', '', '', '2022', '', '93694744', '', '', '', 'Area3', '2011-06-20'),
-(165, 'Pad Thai Chicken', 'Pad Thai Chicken', 'Client', 'Shop 512, Warringah Mall', '', 'Warringah Mall', '', '', '', 'NSW', '', '', '', '', '', '99382883', '', '', '', 'Area5', '2011-06-20'),
-(166, 'Square Catering', 'Square Catering', 'Client', '155 Miller st', '', 'North Sydney', '', '', '', 'NSW', '', '', '', '2060', '', '94600100', '94601998', '', '', 'Area4', '2011-06-20'),
-(168, '47', 'Thai Eatery 2', 'Client', '47 Majors Bay Rd', '', 'Concord', '', '', '', 'NSW', '', '', '', '', '', '97363334', '', '', '', 'Area2', '2011-06-20'),
-(169, 'Jay', 'Nuaan Jay Thai', 'Client', 'Shop 8, 81-91 Military rd', '', 'Neutral Bay', '', '', '', 'NSW', '', '', '', '2089', '', '80655628', '', '', '', 'Area4', '2011-06-20'),
-(171, '227', 'Manohra Thai Restaurant', 'Client', '227 Bondi rd', '', 'BONDI', '', '', '', 'NSW', '', '', '', '2026', '', '93000257/93650704', '', '', '', 'Area3', '2011-06-20'),
-(172, '46', 'Rockys ', 'Client', '46 Bronte rd', '', 'BONDI JUNCTION', '', '', '', 'NSW', '', '', '', '', '', '93694022', '', '', '', 'Area3', '2011-06-20'),
-(174, 'Thai Power1', 'Thai Power1 Potts Point', 'Client', '146 Vitoria st', '', 'Potts Point', '', '', '', '', '', '', '', '', '', '83540434', '', '', '', 'Area3', '2011-06-20'),
-(175, '17 Angle', 'Thai Angle House', 'Client', '17 Babbage rd', '', 'Roseville Chase', '', '', '', 'NSW', '', '', '', '2069', '', '94178899', '', '0421237357', '', 'Area4', '2011-06-20'),
-(176, 'Somnuk', 'Somnuk Thai', 'Client', '323A, Barrenjoey rd', '', 'Newport', '', '', '', 'NSW', '', '', '', '', '', '99995419', '', '', '', 'Area4', '2011-06-20'),
-(177, '315A Bhaji ', 'Bhaji South Indian Cuisine', 'Client', '315a, Barranjoey rd', '', 'Newport', '', '', '', 'NSW', '', '', '', '2106', '', '99794944/99796680', '', '0413242508', '', 'Area4', '2011-06-20'),
-(178, '1115', 'Exgiosote Thai', 'Client', '1115 Pittwater rd', '', 'Collaroy', '', '', '', 'NSW', '', '', '', '', '', '99827000', '', '', '', 'Area4', '2011-06-20'),
-(179, '3/270 Bobbin Thai', 'Bobbin Thai', 'Client', 'Shop 3, 270 Bobbin Head rd', '', 'NORTH TURRAMURRA', '', '', '', 'NSW', '', '', '', '', '', '94493604/94491064', '', '', '', 'Area4', '2011-06-20'),
-(180, 'New Shanghai', 'New Shanghai', 'Client', ' ', '', '', '', ' ', '', 'NSW', '', '', '', ' ', '', '94123358', '94122650', '422880608', 'Qun.chen@newshanghai.com.au', '', '2011-06-20'),
-(181, '26A', 'Beachside Thai', 'Client', '26A Darley rd', '', 'Manly', '', '', '', 'NSW', '', '', '', '2095', '', '99775012', '', '', '', 'Area4', '2011-06-20'),
-(182, 'Little Thai', 'Little Thai', 'Client', '9 Wilkes av', '', 'Artarmon', '', '', '', 'NSW', '', '', '', '', '', '94113389/94113398', '', '', '', 'Area4', '2011-06-20'),
-(183, '541 Kallin Lime', 'Kallin Lime Modern Thai Eatery', 'Client', '541-543 Willoughby rd', '', 'Willoughby', '', '', '', 'NSW', '', '', '', '2068', '', '99672077', '99672066', '', '', 'Area4', '2011-06-20'),
-(184, '19 Sticky Rice ', 'Sticky Rice Thai Restaurant', 'Client', '19 Scott st', '', 'Newcastle', '', '', '', 'NSW', '', '', '', '2300', '', '49270200', '', '', '', '', '2011-06-20'),
-(185, 'Sticky Rice Edgworth', 'Sticky Rice Edgworth', 'Client', 'Shop 17, 720 Main rd', '', 'Edgworth', '', '', '', 'NSW', '', '', '', '2285', '', '49530378', '49530320', '', '', 'Area5', '2011-06-20'),
-(186, 'The Grain Thai ', 'The Grain Thai Restaurant', 'Client', '54 Beaumont st', '', 'Hamilton', '', '', '', 'NSW', '', '', '', '', '', '49623444', '', '', '', 'Area5', '2011-06-20'),
-(187, 'ET Family', 'ET Family Thai Bistro', 'Client', '739 Main rd', '', 'Edgeworth', '', '', '', 'NSW', '', '', '', '2285', '', '49582222', '', '', '', 'Area5', '2011-06-20'),
-(188, 'China Doll Accessoories', 'China Doll Accessoories', 'Client', '418 Parramatta rd', '', 'Petersham', '', '', '', 'NSW', '', '', '', '2049', '', '95684318', '', '', '', '', '2011-06-20'),
-(189, '1/3', 'Lyaia Thai Restaurant', 'Client', 'Shop 1, 3-7 Cowell st', '', 'GLADESVILLE', '', '', '', 'NSW', '', '', '', '2111', '', '98794788/98794699', '', '', '', 'Area2', '2011-06-20'),
-(193, '382', 'Deliissimo', 'Client', '382 Darling st', '', 'Balmain', '', '', '', 'NSW', '', '', '', '2041', '', '98181133', '98181466', '', '', 'Area2', '2011-07-02'),
-(194, 'no.1', 'no.1', 'Client', '1 Norton st', '', 'Leichhardt', '', '', '', 'NSW', '', '', '', '', '', '95603322', '95690847', '', '', 'Area1', '2011-07-02'),
-(195, 'Power 2', 'Thai Power 2', 'Client', '220 Addison rd', '', 'Marrickville', '', '', '', 'NSW', '', '', '', '', '', '95694709', '', '', '', 'Area1', '2011-07-02'),
-(196, 'Jolly 158', 'Jolly', 'Client', '158 Norton st', '', 'Leichhardt', '', '', '', 'NSW', '', '', '', '2040', '', '95602434', '', '', '', 'Area1', '2011-07-02'),
-(197, '18 Anong', 'Anong', 'Client', '18 Hughes st', '', 'Potts Point', '', '', '', 'NSW', '', '', '', '2011', '', '93809952', '', '', '', 'Area3', '2011-07-02'),
-(198, 'Rice Chilli', 'Chilli Rice', 'Client', 'shop 4, 50-52 Spit rd', '', 'Mosman', '', '', '', 'NSW', '', '', '', '', '', '99699577', '', '', '', 'Area4', '2011-07-02'),
-(199, 'Chang', 'Chang Thai', 'Client', 'Level 1/81 Parriwi rd, The spit', '', 'Mosman', '', '', '', 'NSW', '', '', '', '2088', '', '99606668', '99692949', '', '', 'Area4', '2011-07-02'),
-(200, '51 Vi Ses', 'VI SES NI YOM', 'Client', '51 Druitt st', '', 'Sydney', '', '', '', 'NSW', '', '', '', '2000', '', '92830606', '', '', '', 'Area1', '2011-07-02'),
-(201, '335', 'Boonchu', 'Client', '335 Barrenjoey rd', '', 'Newport Beach', '', '', '', 'NSW', '', '', '', '2106', '', '99973450/99796447', '99796447', '', '', 'Area1', '2011-07-02'),
-(202, 'Hepworths', 'Hepworths Industrial Wear Pty Ltd', 'Supplier', 'Hepworths Industrial Wear Pty Ltd,P.O Box 6000', '', 'Minto', '', '', '', 'NSW', '', '', '', '2566', '', '', '', '', 'A/C 13005', NULL, '2011-07-02'),
-(203, 'New Shanghai 1', 'New Shanghai', 'Client', 'Shop B-038,Chatswood Chase', '', 'Chatswood', '', '', '', 'NSW', '', '', '', '2067', '', '94123358', '', '', '', 'Area4', '2011-07-02'),
-(204, 'New Shanghai 2', 'New Shanghai 2', 'Client', 'Shop 20,427-441 Victoria Ave', '', 'Chatswood', '', '', '', 'NSW', '', '', '', '2067', '', '94153536', '', '', '', 'Area4', '2011-07-02'),
-(205, 'New Shanghai 3', 'New Shanghai 3', 'Client', '273 Liverpool rd', '', 'Ashfield', '', '', '', 'NSW', '', '', '', '2131', '', '97977284', '', '', '', 'Area5', '2011-07-02'),
-(219, 'Thai Riffic Center Point', 'Thai Riffic Center Point', 'Client', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'Area1', '2011-07-04'),
-(218, '299', 'Home(Lucy)', 'Client', 'Shop 1, 299 Sussex St', '', 'Sydney', '', '', '', '', '', '', '', '', '', '92615058', '', '0410699866', '', 'Area1', '2011-07-04'),
-(214, 'Nina', 'Nina Ploy Thai', 'Client', '132 cnr Wairon Ave and Wamers Ave', '', 'Bondi Beach', '', '', '', 'NSW', '', '', '', '2026', '', '93651118', '', '', '', 'Area3', '2011-07-04'),
-(1003, '146 Bangkok Bar', 'Bankgkok Bar', 'Client', '146 Burns Bay Rd', '', 'Lane Cove', '', '', '', 'NSW', '', '', '', '', '', '94201388', '94203388', '0434275432', '', 'Area2', '2011-07-19'),
-(1004, 'The Imperial', 'The Imperial', 'Client', 'Shop 31,103-111 Willoughby Road,Crows Nest Plaza', '', 'CROWS NEST', '', '', '', 'NSW', '', '', '', '2065', '', '99669307', '94396686', '0402597375', '', 'Area4', '2011-07-19'),
-(1005, 'Yummi', 'Yummi Thai Food', 'Client', 'Shop F8, Sussex Centre, 401 Sussex St', '', 'City', '', '', '', 'NSW', '', '', '', '', '', '92111147', '', '', '', 'Area1', '2011-07-19'),
-(1006, 'Noodlebar', 'Noodnoodlebar', 'Client', '388 Darling st', '', 'Balmain', '', '', '', 'NSW', '', '', '', '', '', '95556990', '83992090', '', '', 'Area2', '2011-07-19'),
-(1007, 'Shing Fat', 'Shing Fat', 'Supplier', '', '', '', '', '', '', '', '', '', '', '', '', '97181646', '', '0410639882', '', NULL, '2011-07-19'),
-(1008, 'Shin Sei Ki', 'Shin Sei Ki Pty Ltd', 'Client', '', '', '', '', '', '', 'NSW', '', '', '', '', '', '97020193', '96438834', '', '', 'Area1', '2011-07-20'),
-(1009, 'Buthcer Shop', 'Buthcer Shop', 'Client', '', '', '', '', '', '', 'NSW', '', '', '', '', '', '', '', '', '', 'Area1', '2011-07-20'),
-(1010, 'Lunch Special ', 'Lunch Special ', 'Client', 'Level 2 Thai Pavilion Hotel,580 George St', '', 'Sydney', '', '', '', 'NSW', '', '', '', '', '', '', '', '0460135766', '', 'Area1', '2011-07-20'),
-(1011, '512 Time', 'Time for Thai 1', 'Client', 'Shop 512,Warringah Mall Arena Cove Food Court', '', 'Warringah Mall', '', '', '', 'NSW', '', '', '', '', '', '99382883', '', '', '', NULL, '2011-07-20'),
-(1012, '21 Time', 'Time for Thai 2', 'Client', 'Shop 21,Dee Why Shopping Center', '', 'Dee Why', '', '', '', 'NSW', '', '', '', '', '', '99823883', '', '', '', NULL, '2011-07-20'),
-(1013, '70 Lemonglass', 'Thai Lemonglass', 'Client', '70 Stanley st', '', 'Darlinghurst', '', '', '', 'NSW', '', '', '', '', '', '93602617', '', '', '', 'Area3', '2011-07-20'),
-(1014, '10 Big Chef', 'Big Chef Thai', 'Client', '10 Gray st', '', 'Bondi Junction', '', '', '', 'NSW', '', '', '', '', '', '93865722', '', '', '', 'Area3', '2011-07-20'),
-(1015, 'J T', 'J&T Thai', 'Client', '5/110 Spring st', '', 'Bondi Junction', '', '', '', 'NSW', '', '', '', '', '', '93694401', '', '', '', 'Area3', '2011-07-20'),
-(1016, 'KL', 'KL Kitchen', 'Client', '7/133 Macleay st&38 Llankelly Place', '', 'Potts Point', '', '', '', 'NSW', '', '', '', '', '', '93608789', '', '0416039088', '', 'Area3', '2011-07-20'),
-(1017, '223 Red Coco', 'Red Coco Thai', 'Client', '223 Bondi Rd', '', 'BONDI', '', '', '', 'NSW', '', '', '', '', '', '93657076', '', '', '', 'Area3', '2011-07-20'),
-(1018, '4/51 Two seats', 'Two Seats', 'Client', 'Shop4/51-57 Bayswater', '', 'Rushcutters Bay', '', '', '', 'NSW', '', '', '', '', '', '93311577', '', '', '', 'Area3', '2011-07-20'),
-(1019, '87 yong', 'Thai yong', 'Client', '87 Oxford st ', '', 'Bondi Junction ', '', '', '', 'NSW', '', '', '', '', '', '93895455', '93693164', '', '', 'Area3', '2011-07-20'),
-(1020, '1/1 Cielo', 'Cielo Cafe', 'Client', 'Shop 1/1-5 Bourke st', '', 'Mascot', '', '', '', 'NSW', '', '', '', '', '', '83388819', '', '', '', 'Area3', '2011-07-20'),
-(1021, '7 Sushi', 'Sushi Fashion', 'Client', '7 Belmore rd', '', 'Randwick', '', '', '', 'NSW', '', '', '', '', '', '93995388', '93995588', '', '', 'Area3', '2011-07-20'),
-(1022, '332 ChangTon', 'Chang Ton Thai', 'Client', '332 Penshurst st', '', 'Willoughby', '', '', '', 'NSW', '', '', '', '', '', '94176204', '94178767', '', '', 'Area4', '2011-07-20'),
-(1023, 'C M', ' Tasty Thai', 'Client', '43 Spofforth st', '', 'Cremorne', '', '', '', 'NSW', '', '', '', '', '', '99042545', '', '', '', 'Area4', '2011-07-20'),
-(1025, '557 Cinnamon', 'Cinnamon', 'Client', '557 Great North rd', '', 'Abbotsford', '', '', '', 'NSW', '', '', '', '', '', '97139133', '', '0421165499', '', 'Area1', '2011-07-20'),
-(1026, '121 Seeda', 'Seeda Thai', 'Client', '121 Enmore rd', '', ' Enmore', '', '', '', 'NSW', '', '', '', '', '', '95572345', '', '', '', 'Area1', '2011-07-20'),
-(1027, '462/40 Chilli', 'Chilli Cha Cha', 'Client', 'Shop 462,40-50 Campbell st', '', 'sydney', '', '', '', 'NSW', '', '', '', '', '', '92112025', '', '', '', 'Area1', '2011-07-20'),
-(1028, '171 Glebe', 'Sumalee Thai', 'Client', '171 Glebe Point rd', '', 'Glebe', '', '', '', 'NSW', '', '', '', '', '', '95718888', '', '', '', 'Area1', '2011-07-20'),
-(1029, '666Blue', 'Bluewok', 'Client', '666 Crown st', '', 'Surry Hills', '', '', '', 'NSW', '', '', '', '', '', '96992829', '', '', '', 'Area1', '2011-07-20'),
-(1030, 'Ryde', 'Ivory', 'Client', 'Shop4/144-148, Cox s rd', '', 'North Ryde', '', '', '', 'NSW', '', '', '', '', '', '98887773', '', '', '', 'Area1', '2011-07-21');
+(1, 'test', 'test', 'Supplier', 'test', ' ', 'test', ' ', 'test', ' ', 'NSW', ' ', ' ', ' ', '123423', ' ', '', '0', '0', ' ', 'area6', '2013-01-25'),
+(2, 'test2', 'test', 'Client', 't3', 't3', 't3', 't3', '3t', '3t', 'NSW', 'NSW', ' ', ' ', 't3', 't3', '', '0', '0', ' ', 'area3', '2013-01-25'),
+(3, 't1', 't1', 'Client', 't1', 't1', 't1', 't1', 't2', 't2', 'NSW', 'NSW', ' ', ' ', 't1', 't1', '', '0', '0', ' ', 'area6', '2013-01-25');
 
 -- --------------------------------------------------------
 
@@ -414,7 +273,7 @@ CREATE TABLE IF NOT EXISTS `intolibrary` (
   `IntoDate` date NOT NULL,
   `Comment` varchar(100) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- 转存表中的数据 `intolibrary`
@@ -789,20 +648,20 @@ CREATE TABLE IF NOT EXISTS `orderinfo` (
 --
 
 INSERT INTO `orderinfo` (`OrderID`, `CompanyName`, `DeliveryDate`, `Comment`, `Driver`, `Status`, `Address`, `Suburb`, `Area`, `Postcode`, `TotalQty`, `TotalPrice`, `OrderDate`, `CompleteDate`, `ContactName`) VALUES
-(62, ' 6/60', '2011-07-20', '', 'GaoYong', 'New', '6/60 Union st', 'Pyrmont', 'Area1', '2009', 54.50, 438.50, '2011-07-20', '2011-07-20', ''),
-(61, '299', '2011-07-20', '', 'GaoYong', 'New', '299 Sussex St', 'Sydney', 'Area1', '', 110.00, 836.20, '2011-07-20', '2011-07-20', ''),
-(59, '574', '2011-07-20', '', 'GaoYong', 'New', '574 Darling Street', 'ROZELLE', 'Area2', '2039', 63.00, 465.00, '2011-07-20', '2011-07-20', ''),
-(60, 'Thai Riffic Center Point', '2011-07-20', '', 'GaoYong', 'New', '', '', 'Area1', '', 52.70, 424.81, '2011-07-20', '2011-07-20', ''),
-(57, 'Shin Sei Ki', '2011-07-20', '', 'Ray', 'New', '', '', 'Area1', '', 166.80, 951.85, '2011-07-20', '2011-07-20', ''),
-(58, '1/125 Metang', '2011-07-20', '', 'GaoYong', 'New', '1/125 Great North Rd', 'Five Dock', 'Area2', '2046', 35.00, 393.20, '2011-07-20', '2011-07-20', ''),
-(63, '193 Thai On Work', '2011-07-20', '', 'Ray', 'New', '1193 Glebe Point Rd', 'Glebe', 'Area1', '2037', 68.80, 551.40, '2011-07-20', '2011-07-20', ''),
-(64, '249', '2011-07-20', '', 'Ray', 'New', '249 Glebe Point Road', 'GLEBE', 'Area1', '2037', 41.20, 306.80, '2011-07-20', '2011-07-20', ''),
-(65, '2-135 Wok Station', '2011-07-20', '', 'Ray', 'New', '135 Harris st', 'Pyrmont', 'Area1', '2009', 28.00, 221.20, '2011-07-20', '2011-07-20', ''),
-(66, 'Satang', '2011-07-20', '', 'Ray', 'New', 'Shop 203/107-121, Quay st', 'Haymarket', 'Area1', '2000', 40.00, 328.00, '2011-07-20', '2011-07-20', ''),
-(67, 'Satang Thai', '2011-07-20', '', 'Ray', 'New', '20 Quay Street ', 'HAYMARKET', 'Area1', '2000', 20.00, 120.00, '2011-07-20', '2011-07-20', ''),
-(68, 'Papaya', '2011-07-20', '', 'Ray', 'New', 'shop28/23-33 Middenden Rd', 'Camperdown', 'Area1', '2050', 20.00, 160.00, '2011-07-20', '2011-07-20', ''),
+(62, ' 6/60', '2011-07-20', '', 'GaoYong', 'completed', '6/60 Union st', 'Pyrmont', 'Area1', '2009', 54.50, 438.50, '2011-07-20', '2011-07-20', ''),
+(61, '299', '2011-07-20', '', 'Ray', 'completed', '299 Sussex St', 'Sydney', 'Area1', '', 110.00, 836.20, '2011-07-20', '2011-07-20', ''),
+(59, '574', '2011-07-20', '', 'GaoYong', 'completed', '574 Darling Street', 'ROZELLE', 'Area2', '2039', 63.00, 465.00, '2011-07-20', '2011-07-20', ''),
+(60, 'Thai Riffic Center Point', '2011-07-20', '', 'GaoYong', 'completed', '', '', 'Area1', '', 52.70, 424.81, '2011-07-20', '2011-07-20', ''),
+(57, 'Shin Sei Ki', '2011-07-20', '', 'Ray', 'completed', '', '', 'Area1', '', 166.80, 951.85, '2011-07-20', '2011-07-20', ''),
+(58, '1/125 Metang', '2011-07-20', '', 'GaoYong', 'completed', '1/125 Great North Rd', 'Five Dock', 'Area2', '2046', 35.00, 393.20, '2011-07-20', '2011-07-20', ''),
+(63, '193 Thai On Work', '2011-07-20', '', 'Ray', 'completed', '1193 Glebe Point Rd', 'Glebe', 'Area1', '2037', 68.80, 551.40, '2011-07-20', '2011-07-20', ''),
+(64, '249', '2011-07-20', '', 'Ray', 'completed', '249 Glebe Point Road', 'GLEBE', 'Area1', '2037', 41.20, 306.80, '2011-07-20', '2011-07-20', ''),
+(65, '2-135 Wok Station', '2011-07-20', '', 'Ray', 'completed', '135 Harris st', 'Pyrmont', 'Area1', '2009', 28.00, 221.20, '2011-07-20', '2011-07-20', ''),
+(66, 'Satang', '2011-07-20', '', 'Ray', 'completed', 'Shop 203/107-121, Quay st', 'Haymarket', 'Area1', '2000', 40.00, 328.00, '2011-07-20', '2011-07-20', ''),
+(67, 'Satang Thai', '2011-07-20', '', 'GaoYong', 'completed', '20 Quay Street ', 'HAYMARKET', 'Area1', '2000', 20.00, 120.00, '2011-07-20', '2011-07-20', ''),
+(68, 'Papaya', '2011-07-20', '', 'Ray', 'completed', 'shop28/23-33 Middenden Rd', 'Camperdown', 'Area1', '2050', 20.00, 160.00, '2011-07-20', '2011-07-20', ''),
 (69, '27 Home ', '2011-07-20', '', 'Ray', 'New', '27 Glebe Point Road', 'Glebe', 'Area1', '2037', 23.20, 187.74, '2011-07-20', '2011-07-20', ''),
-(70, '60-62', '2011-07-20', '', 'Gordon', 'New', '60-62 Foveaux Street', 'SURRY HILLS', 'Area1', '2010', 30.60, 241.90, '2011-07-20', '2011-07-20', ''),
+(70, '60-62', '2011-07-20', '', 'Gordon', 'completed', '60-62 Foveaux Street', 'SURRY HILLS', 'Area1', '2010', 30.60, 241.90, '2011-07-20', '2011-07-20', ''),
 (71, '337', '2011-07-20', '', 'Gordon', 'New', '337 King Street', 'Newtown', 'Area1', '2042', 55.80, 437.40, '2011-07-20', '2011-07-20', ''),
 (72, '324', '2011-07-20', '', 'Gordon', 'New', '324 King St, Newtown', 'Newtown', 'Area1', '2042', 40.00, 556.50, '2011-07-20', '2011-07-20', ''),
 (73, 'Power 2', '2011-07-20', '', 'Gordon', 'New', '220 Addison rd', 'Marrickville', 'Area1', '', 76.17, 920.64, '2011-07-20', '2011-07-20', ''),
@@ -822,7 +681,7 @@ INSERT INTO `orderinfo` (`OrderID`, `CompanyName`, `DeliveryDate`, `Comment`, `D
 (87, '1354', '2011-07-20', '', 'GaoYong', 'New', '1354 Pittwater Road', 'NARRABEEN ', 'Area4', '2101', 100.00, 824.50, '2011-07-20', '2011-07-20', ''),
 (88, 'm. m', '2011-07-20', '', 'Gordon', 'New', 'Shop 7, 713-715 Military Road', 'MOSMAN', 'Area4', '2088', 17.00, 133.90, '2011-07-20', '2011-07-20', ''),
 (89, '166-174 Sam', '2011-07-20', '', 'Gordon', 'New', '166-174 Military Road', 'NEUTRAL BAY', 'Area4', '2089', 27.70, 227.05, '2011-07-20', '2011-07-20', ''),
-(90, 'Jay', '2011-07-20', '', 'Gordon', 'New', 'Shop 8, 81-91 Military rd', 'Neutral Bay', 'Area4', '2089', 46.60, 322.90, '2011-07-20', '2011-07-20', ''),
+(90, 'Jay', '2011-07-20', '', 'GaoYong', 'completed', 'Shop 8, 81-91 Military rd', 'Neutral Bay', 'Area4', '2089', 46.60, 322.90, '2011-07-20', '2011-07-20', ''),
 (92, 'Shin Sei Ki', '2011-07-21', '', '', 'New', '', '', 'Area1', '', 157.02, 828.89, '2011-07-21', '2011-07-21', ''),
 (93, 'Buthcer Shop', '2011-07-21', '', '', 'New', '', '', 'Area1', '', 60.00, 90.00, '2011-07-21', '2011-07-21', ''),
 (95, 'Ryde', '2011-07-21', '', '', 'New', 'Shop4/144-148, Cox s rd', 'North Ryde', 'Area1', '', 39.60, 277.54, '2011-07-21', '2011-07-21', ''),
@@ -1215,7 +1074,8 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `Description`, `Stock`, `Unit
 (147, '2CW', 'Chicken Wing 2', 10000000, 'kg', 1.5, 'Chicken', '', ''),
 (148, '2ML', 'Chicken Maryland 2', 999999, 'kg', 3.4, 'Chicken', '', ''),
 (150, '3CF', 'Chicken Fillet 3', 10000000, 'kg', 5.6, 'Chicken', '', ''),
-(151, '3CM', 'Chicken Mince 3', 99999, 'kg', 5.3, 'Chicken', '', '');
+(151, '3CM', 'Chicken Mince 3', 99999, 'kg', 5.3, 'Chicken', '', ''),
+(152, 'Test Prope', 'test', 123, 'kg', 100, 'Other', NULL, NULL);
 
 -- --------------------------------------------------------
 
