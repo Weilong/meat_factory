@@ -155,7 +155,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 |
 */
 $config['allow_get_array']		= TRUE;
-$config['enable_query_strings'] = TRUE;
+$config['enable_query_strings'] = FALSE;
 $config['controller_trigger']	= 'c';
 $config['function_trigger']		= 'm';
 $config['directory_trigger']	= 'd'; // experimental not currently in use
@@ -357,6 +357,11 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
-
+/*
+|--------------------------------------------------------------------------
+|admin username for accountant management
+|--------------------------------------------------------------------------
+*/
+$config['admin'] = 'admin';
 /* End of file config.php */
 /* Location: ./application/config/config.php */

@@ -10,7 +10,7 @@
                     <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a>
+                    <li><a href="<?php echo base_url().'page?page=accountant_login' ?>">账目管理</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>

@@ -10,7 +10,7 @@
                     <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a>
+                    <li><a href="<?php echo base_url().'page?page=accountant_login' ?>">账目管理</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>
@@ -73,6 +73,7 @@
                     </form>
                     <div>
                         <button id="income_search" class="btn btn-primary">查询</button>
+                        <button id="export" class="btn btn-primary disabled">导出报表</button>
                     </div>
                 </div>
                 <hr />
@@ -136,11 +137,17 @@
                                         income_type: $("#income_type").val(),
                                         payment_method: $("#payment_method").val()},
                                 success: function(data){
-                                    alert("report income");
                                     $("#income_table tbody").empty()
                                     var income_list = data[0];
                                     var total_amount = data[1];
-                                    alert(income_list.length);
+
+                                    if (income_list.length>0){
+                                        $("#export").removeClass("disabled");
+                                    }
+                                    else{
+                                        $("#export").addClass("disabled")
+                                    }
+
                                     for (var i=0;i<income_list.length;i++){
                                         var tr=$("<tr>").appendTo($("#income_table tbody"));
                                         
@@ -157,8 +164,10 @@
                             };
                             $.ajax(ajaxOpts);
                         });
+                        $("#export").click(function(){
+                            
+                        });
                     });
-                    
                 </script>
             </div>
          </div>
