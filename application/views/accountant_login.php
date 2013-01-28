@@ -38,10 +38,12 @@
               </div>
             </div>
             <div class = "main-content">
-                <?php echo validation_errors(); ?>
                 <?php echo form_open('manage_accountant/accountant_validation'); ?>
                     <fieldset>
                         <legend>请输入密码</legend>
+                        <div style="color:red;">
+                            <?php echo validation_errors(); ?>
+                        </div>
                         <label>密码</label>
                         <input type="password" name="password"><br/>
                         <button type="submit" class="btn btn-primary">登录</button>
