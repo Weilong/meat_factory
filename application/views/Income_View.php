@@ -85,8 +85,8 @@
                                     <th>CompanyName</th>
                                     <th>PayMethod</th>
                                     <th>Date</th>
-                                    <th>Debit</th>
                                     <th>Credit</th>
+                                    <th>Debit</th>
                                     <th>Comment</th>
                                 </tr>
                             </thead>
@@ -140,7 +140,7 @@
                                     $("#income_table tbody").empty()
                                     var income_list = data[0];
                                     var total_amount = data[1];
-                                    //alert(income_list.length);
+                                    alert(income_list.length);
                                     for (var i=0;i<income_list.length;i++){
                                         var tr=$("<tr>").appendTo($("#income_table tbody"));
                                         

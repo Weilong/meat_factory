@@ -38,6 +38,9 @@ class Income extends CI_Model {
 			if ($company_name!="All"){
 				$sql.=" AND CompanyName='$company_name'";
 			}
+			if ($payment_method!="All"){
+				$sql.=" AND PayMethod='$payment_method'";
+			}
 			$sql.= " ORDER BY Date";
 			$credits = $this->db->query($sql);
 			if ($credits->num_rows()>0){
@@ -70,11 +73,11 @@ class Income extends CI_Model {
 					$income["ProductName"]=$debits->row($i)->ProductName;
 					$income["CompanyName"]="";
 					$income["PayMethod"]="";
-					$income["Date"]="";
+					$income["Date"]=$debits->row($i)->intoDate;
 					$income["Credit"]="";
 					$income["Debit"]=$debits->row($i)->TotalPric;
 					$income["Comment"]=$debits->row($i)->Comment;
-					$income_list[$i+count($income_list)]=$income;
+					$income_list[$i+count($income_list)-1]=$income;
 					$total_amount-=$income["Debit"];
 				}
 			}
