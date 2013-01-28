@@ -49,6 +49,35 @@ class Manage_accountant extends CI_Controller {
 		$balances = json_decode($this->input->post("balances"),true);
 		$this->accountant->update_balance($balances);
 	}
+
+	public function accountant_validation(){
+	    $this->form_validation->set_rules('password', '密码', 'trim|required|xss_clean|callback_check_password');
+	    $this->form_validation->set_message('required','请输入%s');
+	    $this->form_validation->set_message('check_password','%s错误');
+	    if($this->form_validation->run() == FALSE)
+	    {
+	      //Field validation failed.&nbsp; User redirected to login page
+	    	$this->load->view('includes/header');
+	    	$this->load->view('accountant_login');
+	    	$this->load->view('includes/footer');
+	      //redirect('page?page=accountant_login','refresh');
+	    }
+	    else
+	    {
+	      //Go to private area
+	      redirect('page?page=accountant_management','refresh');
+	    }
+	    
+	}
+
+	public function check_password($password){
+		if ($password!=$this->config->item('admin')){
+			return FALSE;
+		}
+		else{
+			return TRUE;
+		}
+	}
 }
 
 /* End of file manage_accountant.php */

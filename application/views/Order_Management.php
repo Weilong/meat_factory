@@ -13,7 +13,7 @@
             <li class="divider"></li>
             <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a></li>
             <li class="divider"></li>
-            <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a></li>
+            <li><a href="<?php echo base_url().'page?page=accountant_login' ?>">账目管理</a></li>
             <li class="divider"></li>
             <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a></li>
             <li class="divider"></li>
@@ -67,7 +67,6 @@
                                     <label>总价格</label>
                                     <input type="text" id="total_price" readonly>
                                     <br />
-                                    <!--<button type="submit" class="btn btn-primary">查看订单细节</button>-->
                                     <a href="#detailModal" role="button" id="detail_btn" class="btn btn-primary" data-toggle="modal">查看订单</a>
                                     <!-- Modal -->
                                     <div id="detailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -102,7 +101,19 @@
                 </form>
                 <div>
                     <button id="save_default" class="btn btn-primary">保存订单</button>
-                    <button id="submit_order" class="btn btn-primary">下单</button>          
+                    <button id="order_confirm_btn" class="btn btn-primary">下单</button>
+                    <!-- Modal -->
+                    <div style="top:40%;" id="order_confirm_Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-header">
+                      </div>
+                      <div class="modal-body">
+                        <span>确认添加新订单？</span>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="submit_order" class="btn btn-danger">确认</button>
+                        <button id="submit_order_cancel" class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                      </div>
+                    </div>          
                 </div>
             </div>
             <hr />
@@ -161,7 +172,7 @@
                             <th><input class="select-all" type="checkbox"></th>
                             <th>订单号</th>
                         	<th>下单日期</th>
-                            <th>公司名字</th>
+                            <th>公司名</th>
                             <th>送货日期</th>
                             <th>送货进程</th>
                             <th>总价</th>
@@ -338,6 +349,18 @@
                 $("#total_price").val(total_price);
             }
 
+            $(".qty_input").live("focusin", function(){
+                if ($(this).val()==0){
+                    $(this).val("");
+                }
+            });
+
+            $(".qty_input").live("focusout", function(){
+                if ($(this).val()==""){
+                    $(this).val(0);
+                }
+            });
+
             $("#save_default").click(function(){
 
                 if ($("#company_name").val() ==null){
@@ -359,7 +382,7 @@
             /*
                 click submit order button to add order
             */
-            $("#submit_order").click(function(){
+            $("#order_confirm_btn").click(function(){
                 var message = "";
                 if ($("#company_name").val() ==null){
                     message += "请选择公司\n";
@@ -374,7 +397,10 @@
                     alert(message);
                     return;
                 }
+                $("#order_confirm_Modal").modal({show:true});
+            });
 
+            $("#submit_order").click(function(){
                 var order = prepare_order($(this).attr("id"));
                 var ajaxOpts={
                         type: "post",
@@ -382,11 +408,12 @@
                         url: "manage_order/submit_order",
                         data: {order: JSON.stringify(order)},
                         success: function(data){
-                            alert("订单添加成功");
+                            location.reload();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
+            
             /*
                 click search button to get corresponding orders
             */

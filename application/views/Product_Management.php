@@ -10,7 +10,7 @@
                     <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=accountant_management' ?>">账目管理</a>
+                    <li><a href="<?php echo base_url().'page?page=accountant_login' ?>">账目管理</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>
@@ -269,7 +269,7 @@
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
                     <div>
-                        	<label>产品名</label>
+                        	<label>产品类型</label>
                             <select name="category_name" id="category_name">
                             	<option value="All">All</option>
                             	<option value="Beef">Beef</option>
