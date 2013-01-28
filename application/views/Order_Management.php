@@ -338,6 +338,18 @@
                 $("#total_price").val(total_price);
             }
 
+            $(".qty_input").live("focusin", function(){
+                if ($(this).val()==0){
+                    $(this).val("");
+                }
+            });
+
+            $(".qty_input").live("focusout", function(){
+                if ($(this).val()==""){
+                    $(this).val(0);
+                }
+            });
+
             $("#save_default").click(function(){
 
                 if ($("#company_name").val() ==null){
