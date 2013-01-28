@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 27, 2013 at 04:08 AM
+-- Generation Time: Jan 28, 2013 at 03:30 AM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -27,7 +27,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
 CREATE TABLE IF NOT EXISTS `companyname` (
   `AccountID` int(10) NOT NULL AUTO_INCREMENT,
-  `CompanyName` varchar(30) CHARACTER SET utf8 NOT NULL,
+  `CompanyName` varchar(50) CHARACTER SET utf8 NOT NULL,
   `ContactName` varchar(50) CHARACTER SET utf8 NOT NULL,
   `Balance` float(8,2) NOT NULL,
   `Date` date NOT NULL,
@@ -48,7 +48,7 @@ INSERT INTO `companyname` (`AccountID`, `CompanyName`, `ContactName`, `Balance`,
 (166, '60-62', '', 361.90, '2010-07-01', ''),
 (177, '208', '', 41.00, '2010-07-01', ''),
 (188, 'Seaforth', '', 0.00, '2010-07-01', ''),
-(199, '1/43 Blaxland', '', 60.00, '2010-07-01', ''),
+(199, '1/43 Blaxland', '', 113.50, '2010-07-01', ''),
 (210, '574', '', 465.00, '2010-07-01', ''),
 (221, '684 Ranang', '', 0.00, '2010-07-01', ''),
 (232, 'Tong', '', 0.00, '2010-07-01', ''),
@@ -91,7 +91,7 @@ INSERT INTO `companyname` (`AccountID`, `CompanyName`, `ContactName`, `Balance`,
 (589, '324', '', 606.50, '2010-07-01', ''),
 (590, '76', '', 16.50, '2010-07-01', ''),
 (591, '105', '', -44.00, '2010-07-01', ''),
-(592, '1/125 Metang', '', 365.00, '2010-07-01', 'metang'),
+(592, '1/125 Metang', '', 404.50, '2010-07-01', 'metang'),
 (593, '337', '', 533.40, '2010-07-01', ''),
 (594, '27 Home ', '', 307.74, '2010-07-01', ''),
 (595, 'Papaya', '', 400.00, '2010-07-01', ''),
@@ -150,7 +150,7 @@ INSERT INTO `companyname` (`AccountID`, `CompanyName`, `ContactName`, `Balance`,
 (648, 'New Shanghai 1', '', 0.00, '2010-07-01', ''),
 (649, 'New Shanghai 2', '', 0.00, '2010-07-01', ''),
 (651, 'New Shanghai 3', '', 0.00, '2010-07-01', ''),
-(652, 'Thai Riffic Center Point', '', 892.86, '2010-07-01', ''),
+(652, 'Thai Riffic Center Point', '', 887.86, '2010-07-01', ''),
 (653, '146 ', '', 0.00, '2010-07-01', ''),
 (654, '299', '', 836.20, '2010-07-01', ''),
 (655, 'Nina', '', 0.00, '2010-07-01', ''),
@@ -758,7 +758,12 @@ INSERT INTO `orderdetail` (`OrderID`, `CompanyName`, `ProductID`, `ProductName`,
 (0, '1/1 Cielo', 98, '1B/M', 'Beef Mince 1', 'kg', 4.50, 1.00, 0.00, '2011-07-20'),
 (0, '1/1 Cielo', 30, '1BDiced', 'Beef Diced 1', 'kg', 6.50, 1.00, 0.00, '2011-07-20'),
 (0, '1/1 Cielo', 31, '1BTB', 'Beef T/bone 1', 'kg', 12.00, 2.00, 0.00, '2011-07-20'),
-(162, '1/125 Metang', 31, '1BTB', 'Beef T/bone 1', 'kg', 12.00, 3.00, 0.00, '2013-01-25');
+(162, '1/125 Metang', 31, '1BTB', 'Beef T/bone 1', 'kg', 12.00, 3.00, 0.00, '2013-01-25'),
+(163, '1/125 Metang', 31, '1BTB', 'Beef T/bone 1', 'kg', 12.00, 3.00, 0.00, '2013-01-28'),
+(163, '1/125 Metang', 98, '1B/M', 'Beef Mince 1', 'kg', 4.50, 3.00, 0.00, '2013-01-28'),
+(164, '1/43 Blaxland', 98, '1B/M', 'Beef Mince 1', 'kg', 4.50, 1.00, 0.00, '2013-01-28'),
+(164, '1/43 Blaxland', 30, '1BDiced', 'Beef Diced 1', 'kg', 6.50, 2.00, 0.00, '2013-01-28'),
+(164, '1/43 Blaxland', 31, '1BTB', 'Beef T/bone 1', 'kg', 12.00, 3.00, 0.00, '2013-01-28');
 
 -- --------------------------------------------------------
 
@@ -771,7 +776,7 @@ CREATE TABLE IF NOT EXISTS `orderinfo` (
   `CompanyName` varchar(50) CHARACTER SET utf8 NOT NULL,
   `DeliveryDate` date NOT NULL,
   `Comment` text CHARACTER SET utf8 NOT NULL,
-  `Driver` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `Driver` varchar(50) CHARACTER SET utf8 NOT NULL,
   `Status` varchar(15) CHARACTER SET utf8 NOT NULL,
   `Address` varchar(100) CHARACTER SET utf8 NOT NULL,
   `Suburb` varchar(20) CHARACTER SET utf8 NOT NULL,
@@ -784,7 +789,7 @@ CREATE TABLE IF NOT EXISTS `orderinfo` (
   `ContactName` varchar(50) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`OrderID`),
   KEY `OrderID` (`OrderID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=163 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=165 ;
 
 --
 -- Dumping data for table `orderinfo`
@@ -873,6 +878,8 @@ INSERT INTO `orderinfo` (`OrderID`, `CompanyName`, `DeliveryDate`, `Comment`, `D
 (148, '1/3', '2013-01-21', '', '', 'New', 'Shop 1, 3-7 Cowell st', 'GLADESVILLE', 'Area2', '2111', 3.00, 23.00, '2013-01-21', '0000-00-00', 'Lyaia Thai Restaurant'),
 (149, '1/1 Cielo', '2013-01-21', '', '', 'New', 'Shop 1/1-5 Bourke st', 'Mascot', 'Area3', '', 3.00, 23.00, '2013-01-21', '0000-00-00', 'Cielo Cafe'),
 (150, '1/1 Cielo', '2013-01-21', '', '', 'New', 'Shop 1/1-5 Bourke st', 'Mascot', 'Area3', '', 4.00, 35.00, '2013-01-21', '0000-00-00', 'Cielo Cafe'),
+(163, '1/125 Metang', '2013-01-28', '', '', 'New', '1/125 Great North Rd', 'Five Dock', 'Area2', '2046', 6.00, 49.50, '2013-01-28', '0000-00-00', 'Me-Tang'),
+(164, '1/43 Blaxland', '2013-01-28', '', '', 'New', 'Shop 2-3, 43 Blaxland Road', 'RYDE', 'Area1', '2112', 6.00, 53.50, '2013-01-28', '0000-00-00', 'Arawah Thai'),
 (155, '1/43 Blaxland', '2013-01-22', '', '', 'New', 'Shop 2-3, 43 Blaxland Road', 'RYDE', 'Area1', '2112', 0.00, 0.00, '2013-01-22', '0000-00-00', 'Arawah Thai');
 
 -- --------------------------------------------------------
@@ -902,7 +909,10 @@ INSERT INTO `order_template` (`CompanyName`, `ProductID`, `ProductName`, `Descri
 ('121 Seeda', 98, '1B/M', 'Beef Mince 1', 'kg', 4.5, 3),
 ('121 Seeda', 30, '1BDiced', 'Beef Diced 1', 'kg', 6.5, 3),
 ('121 Seeda', 31, '1BTB', 'Beef T/bone 1', 'kg', 12, 3),
-('1/125 Metang', 31, '1BTB', 'Beef T/bone 1', 'kg', 12, 3);
+('1/125 Metang', 31, '1BTB', 'Beef T/bone 1', 'kg', 12, 3),
+('1/43 Blaxland', 98, '1B/M', 'Beef Mince 1', 'kg', 4.5, 1),
+('1/43 Blaxland', 30, '1BDiced', 'Beef Diced 1', 'kg', 6.5, 2),
+('1/43 Blaxland', 31, '1BTB', 'Beef T/bone 1', 'kg', 12, 3);
 
 -- --------------------------------------------------------
 
@@ -921,7 +931,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   `PayMethod` varchar(10) CHARACTER SET utf8 NOT NULL,
   PRIMARY KEY (`InvoiceID`),
   UNIQUE KEY `InvouiceID` (`InvoiceID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=430 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=432 ;
 
 --
 -- Dumping data for table `payment`
@@ -1085,6 +1095,7 @@ INSERT INTO `payment` (`InvoiceID`, `Date`, `OrderID`, `CompanyName`, `Debit`, `
 (390, '2011-07-21', 114, '60-62', 120.00, 0.00, 'Unpaid', ''),
 (391, '2011-07-21', 115, '78', 165.00, 0.00, 'Unpaid', ''),
 (392, '2012-01-18', 116, ' 6/60', 98.50, 0.00, 'Unpaid', ''),
+(430, '2013-01-28', 163, '1/125 Metang', 49.50, 0.00, 'Unpaid', ''),
 (429, '2013-01-25', 162, '1/125 Metang', 36.00, 0.00, 'Unpaid', ''),
 (428, '2013-01-25', 161, '121 Seeda', 69.00, 0.00, 'Unpaid', ''),
 (397, '2012-01-25', 121, ' 6/60', 16.00, 0.00, 'Unpaid', ''),
@@ -1098,6 +1109,7 @@ INSERT INTO `payment` (`InvoiceID`, `Date`, `OrderID`, `CompanyName`, `Debit`, `
 (414, '2012-02-18', 138, ' 6/60', 3285.50, 0.00, 'Unpaid', ''),
 (415, '2012-02-25', 139, ' 6/60', 3285.50, 0.00, 'Unpaid', ''),
 (417, '2013-01-06', 141, '1/43 Blaxland', 52.00, 0.00, 'Unpaid', ''),
+(431, '2013-01-28', 164, '1/43 Blaxland', 53.50, 0.00, 'Unpaid', ''),
 (422, '2013-01-22', 155, '1/43 Blaxland', 0.00, 0.00, 'Unpaid', '');
 
 -- --------------------------------------------------------
@@ -1108,7 +1120,7 @@ INSERT INTO `payment` (`InvoiceID`, `Date`, `OrderID`, `CompanyName`, `Debit`, `
 
 CREATE TABLE IF NOT EXISTS `product` (
   `ProductID` int(6) NOT NULL AUTO_INCREMENT,
-  `ProductName` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `ProductName` varchar(30) CHARACTER SET utf8 NOT NULL,
   `Description` varchar(35) CHARACTER SET utf8 NOT NULL,
   `Stock` float NOT NULL DEFAULT '0',
   `Unit` varchar(10) CHARACTER SET utf8 NOT NULL,
@@ -1253,11 +1265,11 @@ INSERT INTO `product` (`ProductID`, `ProductName`, `Description`, `Stock`, `Unit
 CREATE TABLE IF NOT EXISTS `profit` (
   `PaymentId` int(10) NOT NULL AUTO_INCREMENT,
   `Date` date NOT NULL,
-  `CompanyName` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `CompanyName` varchar(50) CHARACTER SET utf8 NOT NULL,
   `Credit` float(8,2) NOT NULL,
   `PayMethod` varchar(10) NOT NULL,
   PRIMARY KEY (`PaymentId`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=24 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
 
 --
 -- Dumping data for table `profit`
@@ -1286,4 +1298,7 @@ INSERT INTO `profit` (`PaymentId`, `Date`, `CompanyName`, `Credit`, `PayMethod`)
 (20, '2013-01-25', '1/125 Metang', 1.00, 'Cash'),
 (21, '2013-01-25', '1/125 Metang', 1.00, 'Cash'),
 (22, '2013-01-25', '1/125 Metang', 1.00, 'Cash'),
-(23, '2013-01-25', 'Retail', 5.00, 'Cash');
+(23, '2013-01-25', 'Retail', 5.00, 'Cash'),
+(24, '2013-01-28', '1/125 Metang', 5.00, 'Cash'),
+(25, '2013-01-28', '1/125 Metang', 5.00, 'Cash'),
+(26, '2013-01-28', 'Thai Riffic Center P', 5.00, 'Cash');
