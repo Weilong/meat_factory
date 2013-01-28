@@ -67,7 +67,6 @@
                                     <label>总价格</label>
                                     <input type="text" id="total_price" readonly>
                                     <br />
-                                    <!--<button type="submit" class="btn btn-primary">查看订单细节</button>-->
                                     <a href="#detailModal" role="button" id="detail_btn" class="btn btn-primary" data-toggle="modal">查看订单</a>
                                     <!-- Modal -->
                                     <div id="detailModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -102,7 +101,19 @@
                 </form>
                 <div>
                     <button id="save_default" class="btn btn-primary">保存订单</button>
-                    <button id="submit_order" class="btn btn-primary">下单</button>          
+                    <button id="order_confirm_btn" class="btn btn-primary">下单</button>
+                    <!-- Modal -->
+                    <div style="top:40%;" id="order_confirm_Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-header">
+                      </div>
+                      <div class="modal-body">
+                        <span>确认添加新订单？</span>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="submit_order" class="btn btn-danger">确认</button>
+                        <button id="submit_order_cancel" class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+                      </div>
+                    </div>          
                 </div>
             </div>
             <hr />
@@ -371,7 +382,7 @@
             /*
                 click submit order button to add order
             */
-            $("#submit_order").click(function(){
+            $("#order_confirm_btn").click(function(){
                 var message = "";
                 if ($("#company_name").val() ==null){
                     message += "请选择公司\n";
@@ -386,7 +397,10 @@
                     alert(message);
                     return;
                 }
+                $("#order_confirm_Modal").modal({show:true});
+            });
 
+            $("#submit_order").click(function(){
                 var order = prepare_order($(this).attr("id"));
                 var ajaxOpts={
                         type: "post",
@@ -394,11 +408,12 @@
                         url: "manage_order/submit_order",
                         data: {order: JSON.stringify(order)},
                         success: function(data){
-                            alert("订单添加成功");
+                            location.reload();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
+            
             /*
                 click search button to get corresponding orders
             */
