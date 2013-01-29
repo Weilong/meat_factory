@@ -78,12 +78,12 @@ class delivery extends CI_Model {
 		}
 	}
 	
-	public function change_delivery_driver($orderid, $driver)
+	public function change_delivery_driver($orderid, $driver,$status)
 	{
 		/*
 			if the delivery driver has been changed, the model will be implemented
 		*/
-		$sql="UPDATE `orderinfo` SET `Driver`='$driver' WHERE `OrderID`='$orderid'";
+		$sql="UPDATE `orderinfo` SET `Driver`='$driver',`Status`='$status' WHERE `OrderID`='$orderid'";
 		$query = $this->db->query($sql);
 		$result = $query->result();
 	}

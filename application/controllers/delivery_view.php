@@ -59,7 +59,8 @@
 			{
 					$driver=$this->input->post('drivername');
 					$orderid =$this->input->post('orderid');
-					$this->delivery->change_delivery_driver($orderid,$driver);
+					$status = 'Dispatching';
+					$this->delivery->change_delivery_driver($orderid,$driver,$status);
 			}
 			public function print_order_detail()
 			{
