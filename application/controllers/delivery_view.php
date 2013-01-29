@@ -75,9 +75,7 @@
 				$data['orderdetail']=json_encode($orderdetail);
 				$data['invoicedetail']=json_encode($invoicedetail);
 				$data['accountdetail']=json_encode($accountdetail);
-				$this->load->view('includes/header');
 				$this->load->view('delivery_print',$data);
-				$this->load->view('includes/footer');
 			}
 		}
 
