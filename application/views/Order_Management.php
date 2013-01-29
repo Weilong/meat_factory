@@ -470,7 +470,7 @@
                         url: "manage_order/remove_order_detail",
                         data: {order_detail: JSON.stringify(order_detail)},
                         success: function(data){
-                            alert("delete");
+                            alert("删除成功！");
                             view_order_detail(order_detail["order_id"]);
                             search_order();
                         }
@@ -501,7 +501,7 @@
                         url: "manage_order/remove_order",
                         data: {orders: JSON.stringify(orders)},
                         success: function(data){
-                            alert("delete");
+                            alert("删除成功！");
                             search_order();
                         }
                 };

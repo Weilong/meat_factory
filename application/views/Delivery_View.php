@@ -48,10 +48,18 @@
                     </form>
                     <!-- delivery detail in current date -->
                     <table class='table table-striped table-hover'>
-                    	<tr><th>OrderID</th><th>CompanyName</th><th>ContactName</th>
-                        	<th>DeliveryDate</th><th>Driver</th><th>Suburb</th><th>Area</th>
-                        	<th>Print</th><th>Complete</th>
-                        </tr>
+                    	<thead>
+                            <th>OrderID</th>
+                            <th>CompanyName</th>
+                            <th>ContactName</th>
+                        	<th>DeliveryDate</th>
+                            <th>Driver</th>
+                            <th>Suburb</th>
+                            <th>Area</th>
+                        	<th>Print</th>
+                            <th>Complete</th>
+                        </thead>
+                        <tbody>
                         <?php 
 							if($result!=NULL||$result!=(""))//if the array is not empty or null, then list the search result
 							{
@@ -90,7 +98,7 @@
                                         </td>
                                         <td><?=$row->suburb ?></td>
                                         <td><?=$row->area ?></td>
-                                        <td><a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></a></td>
+                                        <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="print_btn"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></button><!--</a>--></td>
                                         <td>
                                         	<?
                                             	if($row->status==$status)
@@ -102,7 +110,7 @@
 												else
 												{
                                             ?>
-                                            <button id='<?=$row->id ?>' class="btn">Complete</button>
+                                            <button id='<?=$row->id ?>' class="btn complete_btn">Complete</button>
                                             <?
 												}
 											?>
@@ -137,35 +145,193 @@
                         <?
 							}
 						?>
+                    </tbody>
                     </table>
-                    <script language="javascript" type="text/javascript">
-						$(document).ready(function(e) {
-							$('#searching').click(function(e) {
-                               	$('.form-inline').submit();
-                            });
-							$('button').click(function() {
-												var order_id = $(this).attr('id');
-												var status = "completed";
-												var obj_status = {
-													type: "post",
-													url: "change_delivery_status",
-													data: {complete_status : status, orderid: order_id},
-													success:function()
-													{
-														alert('Delivery completed');
-													}													
-												};
-												$.ajax(obj_status);
-                           });
-                        });
-					</script>
+                    <!-- Modal -->
+                    <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="orderModalLabel">订单细节</h3>
+                      </div>
+                      <div class="modal-body">
+                        <table  id="modal_order_table" class='table table-striped table-hover'>
+                            <thead>
+                                <tr>
+                                    <th><input class="select-all" type="checkbox"></th>
+                                    <th>产品名</th><!-- click to view detail and edit -->
+                                    <th>描述</th>
+                                    <th>单价</th>
+                                    <th>单位</th>
+                                    <th>种类</th>
+                                    <th>数量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                      </div>
+                      <div class="modal-footer">
+                        <button id="order_detail_delete" class="btn btn-danger">删除</button>
+                        <button id="order_detail_print" class="btn btn-primary">打印</button>
+                        <button id="order_detail_update" class="btn btn-primary">更新</button>
+                        <button id="order_detail_add" class="btn btn-primary">订单追加</button>
+                      </div>
+                    </div>
                 </div>
-                <script language="javascript" type="text/javascript">
-                    $(function() {
-                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
-                        calender.datepicker("setDate", new Date());
-                    })
-               </script>
             </div>
-         </div>    
-     </div>
+            <script language="javascript" type="text/javascript">
+                $(document).ready(function(e) {
+                    $('#searching').click(function(e) {
+                        $('.form-inline').submit();
+                    });
+                    $('.complete_btn').click(function() {
+                                        var order_id = $(this).attr('id');
+                                        var status = "completed";
+                                        var obj_status = {
+                                            type: "post",
+                                            url: "change_delivery_status",
+                                            data: {complete_status : status, orderid: order_id},
+                                            success:function()
+                                            {
+                                                alert('Delivery completed');
+                                            }                                                   
+                                        };
+                                        $.ajax(obj_status);
+                   });
+                });
+
+                $(function() {
+                    var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                    calender.datepicker("setDate", new Date());
+                })
+
+                $(".print_btn").click(function(){
+                    var order_id = $(this).closest("tr").children().eq(0).text();
+                    view_order_detail(order_id);
+                    //var status = $(this).closest("tr").children().eq(5).text()
+                    $("#order_detail_update").attr("disabled",false);
+                    $("#order_detail_delete").attr("disabled",false);
+                    $("#order_detail_add").attr("disabled",false);
+                    <?if ( $row->status =="Dispatching" || $row->status =="Completed") :?>
+                        $("#order_detail_update").attr("disabled",true);
+                        $("#order_detail_delete").attr("disabled",true);
+                        $("#order_detail_add").attr("disabled",true);
+                    <?endif; ?>
+                    $("#orderModal").modal({show:true});               
+                });
+
+                $("#order_detail_delete").click(function(){
+                    var order_detail = {}, products = {};
+                    order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
+                    var x=0;
+                    $("#modal_order_table tbody tr").each(function(){
+                        var childrens = $(this).children();
+                        var product_name = childrens.eq(1).text();
+                        var checkbox = childrens.eq(0).children("input");
+
+                        if (checkbox.prop("checked")){
+                            products[x]=product_name;
+                            x++;
+                        }      
+                    });
+                    if ($.isEmptyObject(products)){
+                        return;
+                }
+                order_detail["products"] = products;
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "remove_order_detail",
+                        data: {order_detail: JSON.stringify(order_detail)},
+                        success: function(data){
+                            alert("删除成功！");
+                            view_order_detail(order_detail["order_id"]);
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+            });
+
+            $("#order_detail_update").click(function(){
+                var order_detail = {}, products = {};
+                order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
+                var x=0;
+                $("#modal_order_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+                    product["product_name"]=childrens.eq(1).text();
+                    product["qty"]=childrens.eq(6).find("input").val();
+                    products[x]=product;
+                    x++;      
+                });
+
+                order_detail["products"] = products;
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "update_order_detail",
+                        data: {order_detail: JSON.stringify(order_detail)},
+                        success: function(data){
+                            alert("更新成功！");
+                            view_order_detail(order_detail["order_id"]);
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+            });
+
+            function search_order(){
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/search_order",
+                        data: {start: $("#start_date").val(),
+                                end: $("#end_date").val(), 
+                                company: $("#search_company_name").val(), 
+                                status: $("#status").val()},
+                        success: function(data){
+                            $("#search_result_table tbody").empty()
+                            for (var i=0;i<data.length;i++){
+                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
+                                
+                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
+                                $("<td>").text(data[i].OrderID).appendTo(tr);
+                                $("<td>").text(data[i].OrderDate).appendTo(tr);
+                                $("<td>").text(data[i].CompanyName).appendTo(tr);
+                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
+                                $("<td>").text(data[i].Status).appendTo(tr);
+                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
+                                $("<td>").text(data[i].Comment).appendTo(tr);
+                                $("<td>").append($("<a>").addClass("btn view_button").append($("<i>").addClass("icon-eye-open"))).appendTo(tr);   
+                            }
+                        }
+                };
+                $.ajax(ajaxOpts);
+            }
+
+                function view_order_detail(order_id){
+                    var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "search_order_detail",
+                            data: {order_id: order_id},
+                            success: function(data){
+                                $("#modal_order_table tbody").empty().attr("id",order_id);                          
+                                for (var x=0;x<data.length;x++){
+                                    var tr = $("<tr>").appendTo($("#modal_order_table tbody"));
+                                    $("<td>").append($("<input type='checkbox'>")).appendTo(tr); 
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
+                                    $("<td>").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<td>").append($("<input type='text'>").val(data[x].Qty).addClass("input-small")).appendTo(tr);
+                                }
+                            }
+                    };
+                    $.ajax(ajaxOpts);
+                }
+            </script>
+        </div>
+    </div>    
+</div>
