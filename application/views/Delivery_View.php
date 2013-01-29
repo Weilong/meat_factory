@@ -173,7 +173,6 @@
                       <div class="modal-footer">
                         <button id="order_detail_delete" class="btn btn-danger">删除</button>
                         <button id="order_detail_print" class="btn btn-primary">打印</button>
-                        <!--<a id="order_detail_print" class="btn btn-primary" href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">打印</a>-->
                         <button id="order_detail_update" class="btn btn-primary">更新</button>
                         <button id="order_detail_add" class="btn btn-primary">订单追加</button>
                       </div>
