@@ -40,13 +40,13 @@
 		{
 			if($startdate==$enddate)
 			{
-				$sql = "SELECT * FROM intolibrary WHERE `IntoDate`='$enddate'";
+				$sql = "SELECT * FROM intolibrary WHERE `IntoDate`='$enddate' AND `ProductName`!='Salary' AND `ProductName`!='Others'";
 				$query = $this->db->query($sql);
 				return $query;
 			}
 			else if($startdate!=$enddate)
 			{
-				$sql = "SELECT * FROM intolibrary WHERE `IntoDate`>='$startdate' AND `IntoDate`<='$enddate'";
+				$sql = "SELECT * FROM intolibrary WHERE `IntoDate`>='$startdate' AND `IntoDate`<='$enddate' AND `ProductName`!='Salary' AND `ProductName`!='Others'";
 				$query = $this->db->query($sql);
 				return $query;
 			}

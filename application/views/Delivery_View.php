@@ -90,7 +90,7 @@
                                         </td>
                                         <td><?=$row->suburb ?></td>
                                         <td><?=$row->area ?></td>
-                                        <td><a href='<?=base_url().'?c=delivery_view&m=print_order_detail&accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></a></td>
+                                        <td><a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></a></td>
                                         <td>
                                         	<?
                                             	if($row->status==$status)

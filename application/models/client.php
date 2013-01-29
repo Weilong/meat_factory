@@ -87,7 +87,7 @@
 						 $fax = $row->Fax;
 						 $mobile = $row->Mobile;
 						 $email = $row->Email;
-						 $area = $row->Website;
+						 $area = $row->Area;
 						 $result = compact(
 							'id',
 							'companyname',

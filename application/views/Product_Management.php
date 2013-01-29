@@ -353,7 +353,7 @@
 											$("<td>").text(productstock).appendTo(tr);
 											$("<td>").text(productunit).appendTo(tr);
 											$("<td>").text(productcategory).appendTo(tr);
-											$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='product_edit_btn' title='edit' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+											$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='product_edit_btn' title='edit' id='"+productid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
 											$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='product_delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
 										}
 									}
@@ -370,16 +370,18 @@
 										url : 'productlist/info_product',
 										data:{product:productid},
 										success:function(data){
-											$('.product_edit').animate({width:'50%',height:'50%',opacity:'1'},'slow');
-											$('.product_edit').css('visibility','visible');
+											//$('.product_edit').animate({width:'50%',height:'50%',opacity:'1'},'slow');
+											//$('.product_edit').css('visibility','visible');
 											if(data.length==0)
 											{
+												$('#mymodal').modal({show:true});
 												alert('No any Data, Please remove this wrong product')
 												$('.product_edit').animate({
 								   				width:'0px',height:'0px',opacity:'0'},'slow');
 											}
 											else
 											{
+												$('#mymodal').modal({show:true});
 												var collection = eval('('+data+')');
 												var i=0;
 												for(i=0;i<collection.length;i++)
@@ -432,33 +434,38 @@
          </div>
          
      </div>
-<div class='product_edit'>
-	<button class="close" ><i class="icon-remove"></i></button>
-	<div class="product_edit_detail">
-    	<table class="product_edit_detail">
-        	<thead>
-            </thead>
-            <tbody>
-            	<tr><td>产品ID：</td><td><input type="text" name='pid' id="pid" readonly="readonly"/></td></tr>
-            	<tr><td>产品名称：</td><td><input type="text" name='pn' id='pn' readonly="readonly"/></td></tr>
-                <tr><td>产品描述</td><td><textarea name='intro' id='intro'></textarea></td></tr>
-                <tr><td>类别：</td><td><select name="single_product_category" id="single_product_category">
-                                            <option value="Beef">Beef</option>
-                                            <option value="Chicken">Chicken</option>
-                                            <option value="Duck">Duck</option>
-                                            <option value="Lamb">Lamb</option>
-                                            <option value="Pork">Pork</option>
-                                            <option value="Stock">Stock</option>
-                                            <option value="Other">Other</option>
-                                        </select> 
-                                </td></tr>
-                <tr><td>单价：</td><td><input type="text" name='per_dollar' id="per_dollar"/></td></tr>
-                <tr><td>单位：</td><td><input type="text" name='pu'id="pu" /></td></tr>
-                <tr><td>库存：</td><td><input type="text" name='st' id="st"/></td></tr>
-                <tr><td><button id="save_product_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
-            </tbody>
-        </table>
-	</div>
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	<div class="modal-body">
+        <div class='product_edit'>
+            <!-- <button class="close" ><i class="icon-remove"></i></button> -->
+            <div class="product_edit_detail">
+                <table class="product_edit_detail">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr><td>产品ID：</td><td><input type="text" name='pid' id="pid" readonly="readonly"/></td></tr>
+                        <tr><td>产品名称：</td><td><input type="text" name='pn' id='pn' readonly="readonly"/></td></tr>
+                        <tr><td>产品描述</td><td><textarea name='intro' id='intro'></textarea></td></tr>
+                        <tr><td>类别：</td><td><select name="single_product_category" id="single_product_category">
+                                                    <option value="Beef">Beef</option>
+                                                    <option value="Chicken">Chicken</option>
+                                                    <option value="Duck">Duck</option>
+                                                    <option value="Lamb">Lamb</option>
+                                                    <option value="Pork">Pork</option>
+                                                    <option value="Stock">Stock</option>
+                                                    <option value="Other">Other</option>
+                                                </select> 
+                                        </td></tr>
+                        <tr><td>单价：</td><td><input type="text" name='per_dollar' id="per_dollar"/></td></tr>
+                        <tr><td>单位：</td><td><input type="text" name='pu'id="pu" /></td></tr>
+                        <tr><td>库存：</td><td><input type="text" name='st' id="st"/></td></tr>
+                        <!-- <tr><td><button id="save_product_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer"> <button id="save_product_change" class="btn btn-primary">保存</button> </div>
 </div>
 <script language="javascript" type="text/javascript">
 							$('button#save_product_change').click(function(e) {
