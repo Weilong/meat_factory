@@ -579,7 +579,7 @@
                                 $("<td>").text(data[i].Status).appendTo(tr);
                                 $("<td>").text(data[i].TotalPrice).appendTo(tr);
                                 $("<td>").text(data[i].Comment).appendTo(tr);
-                                $("<td>").append($("<button>").addClass("btn view_button").text("View")).appendTo(tr);   
+                                $("<td>").append($("<a>").addClass("btn view_button").append($("<i>").addClass("icon-eye-open"))).appendTo(tr);   
                             }
                         }
                 };

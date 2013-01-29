@@ -102,7 +102,7 @@
 												else
 												{
                                             ?>
-                                            <button id='<?=$row->id ?>' >Complete</button>
+                                            <button id='<?=$row->id ?>' class="btn">Complete</button>
                                             <?
 												}
 											?>

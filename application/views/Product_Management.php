@@ -132,7 +132,7 @@
                                 select date from a drop-down calendar straight away -->
                                 <input class="datepicker" id="startdate" type="text">
                                 到
-                                <input class="datepicker" id="enddate" type="text">
+                                <input class="datepicker" id="enddate" type="text"><br />
                                 <button id="search_btn" class="btn btn-primary">搜索</button>
                         </div>
                         <div>
@@ -186,7 +186,7 @@
 										$("<td>").text(productunit).appendTo(tr);
 										$("<td>").text(productamount).appendTo(tr);
 										$("<td>").text(productintodate).appendTo(tr);
-										$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+										$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='btn delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
 									}
 								}
 							};
@@ -279,7 +279,7 @@
                                 <option value="Pork">Pork</option>
                                 <option value="Stock">Stock</option>
                                 <option value="Other">Other</option>
-                            </select> 
+                            </select><br />
                             <button id="search_category" class="btn btn-primary"/>查询</button>
                     </div>
                     <hr />
@@ -353,8 +353,8 @@
 											$("<td>").text(productstock).appendTo(tr);
 											$("<td>").text(productunit).appendTo(tr);
 											$("<td>").text(productcategory).appendTo(tr);
-											$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='product_edit_btn' title='edit' id='"+productid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
-											$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='product_delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
+											$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='btn product_edit_btn' title='edit' id='"+productid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
+											$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='btn product_delete_btn' title='delete' id="+productid+">").appendTo($("<td>").appendTo(tr)));
 										}
 									}
 								}
@@ -435,7 +435,11 @@
          
      </div>
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
- 	<div class="modal-body">
+ 	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">商品信息</h3>
+    </div>
+    <div class="modal-body">
         <div class='product_edit'>
             <!-- <button class="close" ><i class="icon-remove"></i></button> -->
             <div class="product_edit_detail">
@@ -465,7 +469,10 @@
             </div>
         </div>
     </div>
-    <div class="modal-footer"> <button id="save_product_change" class="btn btn-primary">保存</button> </div>
+    <div class="modal-footer">
+        <button id="save_product_change" class="btn btn-primary">保存</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    </div>
 </div>
 <script language="javascript" type="text/javascript">
 							$('button#save_product_change').click(function(e) {

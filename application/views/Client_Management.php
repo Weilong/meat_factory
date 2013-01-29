@@ -252,8 +252,8 @@
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<td>").text(obj[x].area).appendTo(tr);
-															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id='"+companyid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
-															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
+															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='btn edit_btn' title='edit' id='"+companyid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
+															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='btn delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 													}
 												}
 											};
