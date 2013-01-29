@@ -98,7 +98,7 @@
                                         </td>
                                         <td><?=$row->suburb ?></td>
                                         <td><?=$row->area ?></td>
-                                        <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="print_btn"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></button><!--</a>--></td>
+                                        <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></button><!--</a>--></td>
                                         <td>
                                         	<?
                                             	if($row->status==$status)
@@ -173,6 +173,7 @@
                       <div class="modal-footer">
                         <button id="order_detail_delete" class="btn btn-danger">删除</button>
                         <button id="order_detail_print" class="btn btn-primary">打印</button>
+                        <!--<a id="order_detail_print" class="btn btn-primary" href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">打印</a>-->
                         <button id="order_detail_update" class="btn btn-primary">更新</button>
                         <button id="order_detail_add" class="btn btn-primary">订单追加</button>
                       </div>
@@ -220,6 +221,11 @@
                     $("#orderModal").modal({show:true});               
                 });
 
+                $("#order_detail_print").click(function(){
+                    var order_id = $("#modal_order_table tbody").attr("id");
+                    window.open("<?=base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
+                });
+
                 $("#order_detail_delete").click(function(){
                     var order_detail = {}, products = {};
                     order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
@@ -246,7 +252,6 @@
                         success: function(data){
                             alert("删除成功！");
                             view_order_detail(order_detail["order_id"]);
-                            search_order();
                         }
                 };
                 $.ajax(ajaxOpts);
@@ -274,40 +279,10 @@
                         success: function(data){
                             alert("更新成功！");
                             view_order_detail(order_detail["order_id"]);
-                            search_order();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
-
-            function search_order(){
-                var ajaxOpts={
-                        type: "post",
-                        dataType: "json",
-                        url: "manage_order/search_order",
-                        data: {start: $("#start_date").val(),
-                                end: $("#end_date").val(), 
-                                company: $("#search_company_name").val(), 
-                                status: $("#status").val()},
-                        success: function(data){
-                            $("#search_result_table tbody").empty()
-                            for (var i=0;i<data.length;i++){
-                                var tr=$("<tr>").appendTo($("#search_result_table tbody"));
-                                
-                                $("<td>").append($("<input type='checkbox'>")).appendTo(tr);
-                                $("<td>").text(data[i].OrderID).appendTo(tr);
-                                $("<td>").text(data[i].OrderDate).appendTo(tr);
-                                $("<td>").text(data[i].CompanyName).appendTo(tr);
-                                $("<td>").text(data[i].DeliveryDate).appendTo(tr);
-                                $("<td>").text(data[i].Status).appendTo(tr);
-                                $("<td>").text(data[i].TotalPrice).appendTo(tr);
-                                $("<td>").text(data[i].Comment).appendTo(tr);
-                                $("<td>").append($("<a>").addClass("btn view_button").append($("<i>").addClass("icon-eye-open"))).appendTo(tr);   
-                            }
-                        }
-                };
-                $.ajax(ajaxOpts);
-            }
 
                 function view_order_detail(order_id){
                     var ajaxOpts={

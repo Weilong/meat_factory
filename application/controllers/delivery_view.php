@@ -68,7 +68,8 @@
 				if($_GET)
 				{
 					$orderid=$_GET['orderid'];
-					$accountname=$_GET['accountname'];
+
+					$accountname=$this->invoice->get_accountname($orderid);
 					$orderdetail=$this->invoice->get_order_detail($orderid);
 					$invoicedetail=$this->invoice->get_invoice_detail($orderid);
 					$accountdetail=$this->invoice->get_client_contact($accountname);

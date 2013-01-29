@@ -5,6 +5,16 @@ class invoice extends CI_Model {
     {
          parent::__construct();
     }
+
+    public function get_accountname($orderid){
+    	$sql="SELECT CompanyName FROM orderinfo WHERE `OrderID`='$orderid'";
+    	$query = $this->db->query($sql);
+    	if ($query->num_rows()>0){
+    		$accountname = $query->row(0)->CompanyName;
+    		return $accountname;
+    	}
+    }
+
 	public function get_order_detail($orderid)
 	{
 		$sql="SELECT * From orderdetail Where `OrderID`='$orderid'";
@@ -29,6 +39,7 @@ class invoice extends CI_Model {
 			return $orderdetail;
 		}
 	}
+
 	public function get_client_contact($accountname)
 	{
 		$sql = "SELECT * From customer Where `CompanyName`='$accountname' AND `CustomerType`='Client'";

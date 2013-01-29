@@ -536,6 +536,11 @@
                 $.ajax(ajaxOpts);
             });
 
+            $("#order_detail_print").click(function(){
+                    var order_id = $("#modal_order_table tbody").attr("id");
+                    window.open("<?=base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
+            });
+
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
                 order["company_name"] = $("#company_name").val();
