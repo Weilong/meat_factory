@@ -60,11 +60,14 @@ class Manage_accountant extends CI_Controller {
 	    	$this->load->view('includes/header');
 	    	$this->load->view('accountant_login');
 	    	$this->load->view('includes/footer');
-	      //redirect('page?page=accountant_login','refresh');
 	    }
 	    else
 	    {
 	      //Go to private area
+	    	$array = array(
+	    			'logged_in' => TRUE
+	    		);
+	    	$this->session->set_userdata($array);
 	      redirect('page?page=accountant_management','refresh');
 	    }
 	    
