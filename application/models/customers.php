@@ -133,9 +133,12 @@ class Customers extends CI_Model {
 	public function fetch_orders($start_date,$end_date,$company,$status){
 		$sql = "SELECT OrderID, OrderDate, CompanyName, DeliveryDate, Status, TotalPrice, Comment 
 				FROM orderinfo 
-				WHERE OrderDate BETWEEN '$start_date' AND '$end_date' AND Status='$status'";
+				WHERE OrderDate BETWEEN '$start_date' AND '$end_date'";
 		if ($company!="All"){
 			$sql.= " AND CompanyName='$company'"; 
+		}
+		if ($status!="All"){
+			$sql.= " AND Status='$status'";
 		}
 		$sql.=" ORDER BY OrderID";
 		$query = $this->db->query($sql);
@@ -219,15 +222,17 @@ class Customers extends CI_Model {
 		$sql = "SELECT CompanyName, TotalQty, TotalPrice FROM orderinfo WHERE OrderID='$order_id'";
 		$query = $this->db->query($sql);
 		//if all products are deleted, remove the order directly, otherwise update order
-		if ($query->row(0)->TotalPrice==$sub_price){
+		$new_qty = $query->row(0)->TotalQty - $sub_qty;
+		$new_price = $query->row(0)->TotalPrice - $sub_price;
+		
+		if ($new_price==0){
 			$sql = "DELETE FROM orderinfo WHERE OrderID='$order_id'";
 			$this->db->query($sql);
 			$sql = "DELETE FROM payment WHERE OrderID='$order_id'";
 			$this->db->query($sql);
 		}
 		else{
-			$new_qty = $query->row(0)->TotalQty - $sub_qty;
-			$new_price = $query->row(0)->TotalPrice - $sub_price;
+			
 			$sql = "UPDATE orderinfo 
 					SET TotalQty='$new_qty', TotalPrice='$new_price' 
 					WHERE OrderID='$order_id'";
@@ -244,6 +249,74 @@ class Customers extends CI_Model {
 		$sql = "SELECT Balance FROM companyname WHERE CompanyName='$company_name'";
 		$query = $this->db->query($sql);
 		$new_balance = $query->row(0)->Balance-$sub_price;
+		$sql = "UPDATE companyname 
+				SET Balance='$new_balance' 
+				WHERE CompanyName='$company_name'";
+		$this->db->query($sql);
+	}
+
+	public function update_order_detail($new_order_detail){
+		$order_id = $new_order_detail["order_id"];
+		$products = $new_order_detail["products"];
+		$sub_qty = 0;
+		$sub_price = 0;
+		/*
+			update corresponding records in table orderdetail
+		*/
+		foreach($products as $product){
+			$product_name = $product["product_name"];
+			$qty = $product["qty"];
+			$sql = "SELECT Qty, Price FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
+			$query = $this->db->query($sql);
+			$sub_qty += ($qty-$query->row(0)->Qty);
+			$sub_price += ($qty*$query->row(0)->Price - $query->row(0)->Qty*$query->row(0)->Price);
+			if ($qty==0){
+				$sql = "DELETE FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
+				$this->db->query($sql);
+			}
+			else
+			{
+				$sql = "UPDATE orderdetail 
+					SET Qty='$qty' 
+					WHERE OrderID='$order_id' AND ProductName='$product_name'";
+				$this->db->query($sql);
+			}	
+		}
+		/*
+			update record in table orderinfo, table payment and companyname
+		*/
+		$sql = "SELECT CompanyName, TotalQty, TotalPrice FROM orderinfo WHERE OrderID='$order_id'";
+		$query = $this->db->query($sql);
+
+		$new_qty = $query->row(0)->TotalQty + $sub_qty;
+		$new_price = $query->row(0)->TotalPrice + $sub_price;
+
+		if ($new_price==0){
+			$sql = "DELETE FROM orderinfo WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+			$sql = "DELETE FROM payment WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+		}
+		else
+		{
+			$sql = "UPDATE orderinfo 
+					SET TotalQty='$new_qty', TotalPrice='$new_price' 
+					WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+			$sql = "UPDATE payment 
+					SET Debit='$new_price' 
+					WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+		}
+		
+
+		/*
+			update record in table companyname
+		*/
+		$company_name = $query->row(0)->CompanyName;
+		$sql = "SELECT Balance FROM companyname WHERE CompanyName='$company_name'";
+		$query = $this->db->query($sql);
+		$new_balance = $query->row(0)->Balance + $sub_price;
 		$sql = "UPDATE companyname 
 				SET Balance='$new_balance' 
 				WHERE CompanyName='$company_name'";

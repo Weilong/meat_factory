@@ -152,6 +152,7 @@
                             </select>
                             <label>状态</label>
                             <select id="status">
+                                <option>All</option>
                                 <option>New</option>
                                 <option>Dispatching</option>
                                 <option>Complete</option>
@@ -213,7 +214,8 @@
               <div class="modal-footer">
                 <button id="order_detail_delete" class="btn btn-danger">删除</button>
                 <button id="order_detail_print" class="btn btn-primary">打印</button>
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                <button id="order_detail_update" class="btn btn-primary">更新</button>
+                <button id="order_detail_add" class="btn btn-primary">订单追加</button>
               </div>
             </div>
         </div>
@@ -496,6 +498,34 @@
                 };
                 $.ajax(ajaxOpts);
 			});
+            
+            $("#order_detail_update").click(function(){
+                var order_detail = {}, products = {};
+                order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
+                var x=0;
+                $("#modal_order_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+                    product["product_name"]=childrens.eq(1).text();
+                    product["qty"]=childrens.eq(6).find("input").val();
+                    products[x]=product;
+                    x++;      
+                });
+
+                order_detail["products"] = products;
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/update_order_detail",
+                        data: {order_detail: JSON.stringify(order_detail)},
+                        success: function(data){
+                            alert("更新成功！");
+                            view_order_detail(order_detail["order_id"]);
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+            });
 
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
@@ -572,7 +602,7 @@
                                 $("<td>").text(data[x].Price).appendTo(tr);
                                 $("<td>").text(data[x].Unit).appendTo(tr);
                                 $("<td>").text(data[x].Category).appendTo(tr);
-                                $("<td>").text(data[x].Qty).appendTo(tr);
+                                $("<td>").append($("<input type='text'>").val(data[x].Qty).addClass("input-small")).appendTo(tr);
                             }
                         }
                 };
