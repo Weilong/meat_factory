@@ -64,6 +64,10 @@ class Manage_accountant extends CI_Controller {
 	    else
 	    {
 	      //Go to private area
+	    	$array = array(
+	    			'logged_in' => TRUE
+	    		);
+	    	$this->session->set_userdata($array);
 	      redirect('page?page=accountant_management','refresh');
 	    }
 	    

@@ -10,11 +10,22 @@ class Page extends CI_Controller {
 		if ($this->input->get('page'))
 		{
 			$page = $this->input->get('page');
-			$this->load->view($page);
+			if ($page=="accountant_management"){
+				if ($this->session->userdata('logged_in')){
+					$this->load->view($page);
+				}
+				else{
+					redirect("page?page=accountant_login","refresh");
+				}
+			}
+			else{
+				$this->session->sess_destroy();
+				$this->load->view($page);
+			}			
 		}
 		else
 		{
-			$this->load->view('includes/main');
+			$this->load->view('order_management');
 		}
 
 		$this->load->view('includes/footer');
