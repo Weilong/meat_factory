@@ -191,7 +191,11 @@
          </div>
      </div>
 <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
- 	<div class="modal-body">
+ 	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">供应商信息</h3>
+    </div>
+    <div class="modal-body">
          <div class="client_supplier">
             <!-- <button class="close" ><i class="icon-remove"></i></button> -->
             <div class="client_supplier_detail">
@@ -222,7 +226,10 @@
             </div>
         </div>
         </div>
-    <div class="modal-footer"><button id="save_change" class="btn btn-primary">保存</button></div>
+    <div class="modal-footer">
+        <button id="save_change" class="btn btn-primary">保存</button>
+        <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    </div>
 </div>
  <script language="javascript" type="text/javascript">
 						$(document).ready(function(e) {
