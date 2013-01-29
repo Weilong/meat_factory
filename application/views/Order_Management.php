@@ -155,7 +155,7 @@
                                 <option>All</option>
                                 <option>New</option>
                                 <option>Dispatching</option>
-                                <option>Complete</option>
+                                <option>Completed</option>
                             </select>
                         </td>
                     </tr>     
@@ -430,6 +430,15 @@
             $(".view_button").live("click", function(){
                 var order_id = $(this).closest("tr").children().eq(1).text();
                 view_order_detail(order_id);
+                var status = $(this).closest("tr").children().eq(5).text()
+                $("#order_detail_update").attr("disabled",false);
+                $("#order_detail_delete").attr("disabled",false);
+                $("#order_detail_add").attr("disabled",false);
+                if (status=="Dispatching" || status=="Completed"){
+                    $("#order_detail_update").attr("disabled",true);
+                    $("#order_detail_delete").attr("disabled",true);
+                    $("#order_detail_add").attr("disabled",true);
+                }
                 $("#orderModal").modal({show:true});               
             });
             //select or unselect all checkboxes
