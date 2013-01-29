@@ -169,9 +169,10 @@ i:hover{
 }
 
 /* client and supplier edit */
-.client_supplier
+/*
+ .client_supplier
 {
-	visibility:hidden;
+	 visibility:hidden; 
 	background:#FFF;
 	width:0px;
 	height:0px;
@@ -179,14 +180,14 @@ i:hover{
 	top:15%;
 	left:20%;
 	overflow:auto;	
-}
+}*/
 .client_supplier_detail
 {
 	width:auto;
 	margin:0px auto;
 }
 
-/*product edit */
+/*product edit
 .product_edit
 {
 	visibility:hidden;
@@ -197,7 +198,7 @@ i:hover{
 	top:15%;
 	left:20%;
 	overflow:auto;	
-}
+} */
 .product_edit_detail
 {
 	width:auto;
@@ -243,6 +244,8 @@ i:hover{
 	text-align:right;
 	height:auto;
 }
+
+
 /*
 .table-scrollable-wrapper thead tr{
     position:relative;

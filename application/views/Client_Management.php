@@ -252,7 +252,7 @@
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
 															$("<td>").text(obj[x].area).appendTo(tr);
-															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
+															$("<i title='edit'>").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id='"+companyid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
 															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 													}
 												}
@@ -309,53 +309,55 @@
             </div>
          </div>
 </div>
- <div class="client_supplier">
- 	<button class="close" ><i class="icon-remove"></i></button>
-	<div class="client_supplier_detail">
-    	<table class="client_supplier_detail">
-        	   	<tr><td>公司ID：</td><td><input type="text" name='company_id' id='company_id' readonly="readonly"/></td></tr>
-                <tr><td>公司名称：</td><td><input type="text" name='company_name' id="company_name" /></td></tr>
-                <tr><td>公司简称：</td><td><input type="text" name='company_contactname' id="company_contactname"/></td></tr>
-                <tr><td>公司类型：</td><td><select name='company_type' id="company_type">
-                							<option value="Client">Client</option>
-                                            <option value="Supplier">Supplier</option>
-                						 </select>
-                                </td></tr>
-                <tr><td>公司地址：</td><td><input type="text" name='company_address'id="company_address" /></td></tr>
-                <tr><td>地区：</td><td><input type="text" name='company_suburb' id="company_suburb"/></td></tr>
-                <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
-                <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
-                <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
-                <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
-                <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
-                <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
-                <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
-                <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
-                <tr><td colspan="2"><h4>送货地址</h4></td></tr>
-                <tr><td>地址：</td><td><input type="text" name='delivery_address'id="delivery_address" /></td></tr>
-                <tr><td>地区：</td><td><input type="text" name='delivery_suburb' id="delivery_suburb"/></td></tr>
-      			<tr><td>城市：</td><td><input type="text" name='express_city' id="express_city" /></td></tr>
-                <tr><td>洲：</td><td><input type="text" name='delivery_state'id="delivery_state" /></td></tr>
-                <tr><td>国家：</td><td><input type="text" name='delivery_country'id="delivery_country" /></td></tr>
-                <tr><td>邮编：</td><td><input type="text" name='delivery_postcode' id="delivery_postcode"/></td></tr>
-                <tr><td>区域：</td><td><select name="delivery_area" id="delivery_area">
-                					  		<option value="area1">Area1</option>
-                                            <option value="area2">Area2</option>
-                                            <option value="area3">Area3</option>
-                                            <option value="area4">Area4</option>
-                                            <option value="area5">Area5</option>
-                                            <option value="area6">Area6</option>
-                                            <option value="area7">Area7</option>
-                                            <option value="area8">Area8</option>
-                                            <option value="area9">Area9</option>
-                                            <option value="area10">Area10</option>
-                                      </select></td></tr>
-                <tr><td><button id="save_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
-        </table>
-
-        
-    </div>
-   
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	<div class="modal-body">
+         <div class="client_supplier">
+            <!-- <button id='close_btn_supplier' class="close" ><i class="icon-remove"></i></button> -->
+            <div class="client_supplier_detail">
+                <table class="client_supplier_detail">
+                        <tr><td>公司ID：</td><td><input type="text" name='company_id' id='company_id' readonly="readonly"/></td></tr>
+                        <tr><td>公司名称：</td><td><input type="text" name='company_name' id="company_name" /></td></tr>
+                        <tr><td>公司简称：</td><td><input type="text" name='company_contactname' id="company_contactname"/></td></tr>
+                        <tr><td>公司类型：</td><td><select name='company_type' id="company_type">
+                                                    <option value="Client">Client</option>
+                                                    <option value="Supplier">Supplier</option>
+                                                 </select>
+                                        </td></tr>
+                        <tr><td>公司地址：</td><td><input type="text" name='company_address'id="company_address" /></td></tr>
+                        <tr><td>地区：</td><td><input type="text" name='company_suburb' id="company_suburb"/></td></tr>
+                        <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
+                        <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
+                        <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
+                        <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
+                        <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
+                        <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
+                        <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
+                        <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
+                        <tr><td colspan="2"><h4>送货地址</h4></td></tr>
+                        <tr><td>地址：</td><td><input type="text" name='delivery_address'id="delivery_address" /></td></tr>
+                        <tr><td>地区：</td><td><input type="text" name='delivery_suburb' id="delivery_suburb"/></td></tr>
+                        <tr><td>城市：</td><td><input type="text" name='express_city' id="express_city" /></td></tr>
+                        <tr><td>洲：</td><td><input type="text" name='delivery_state'id="delivery_state" /></td></tr>
+                        <tr><td>国家：</td><td><input type="text" name='delivery_country'id="delivery_country" /></td></tr>
+                        <tr><td>邮编：</td><td><input type="text" name='delivery_postcode' id="delivery_postcode"/></td></tr>
+                        <tr><td>区域：</td><td><select name="delivery_area" id="delivery_area">
+                                                    <option value="area1">Area1</option>
+                                                    <option value="area2">Area2</option>
+                                                    <option value="area3">Area3</option>
+                                                    <option value="area4">Area4</option>
+                                                    <option value="area5">Area5</option>
+                                                    <option value="area6">Area6</option>
+                                                    <option value="area7">Area7</option>
+                                                    <option value="area8">Area8</option>
+                                                    <option value="area9">Area9</option>
+                                                    <option value="area10">Area10</option>
+                                              </select></td></tr>
+                </table>
+            </div>
+          
+        </div>
+	</div>
+    <div class="modal-footer"> <button id="save_change" class="btn btn-primary">保存</button> </div>
 </div>
 <script language="javascript" type="text/javascript">
 	//get supplier detail and edit
@@ -369,8 +371,9 @@
 										url : 'client_edit/client_detail',
 										data:{companyid:company},
 										success:function(data){
-											$('.client_supplier').animate({width:'50%',height:'50%',opacity:'1'},'slow');
-											$('.client_supplier').css('visibility','visible');
+											//$('.client_supplier').animate({width:'50%',height:'50%',opacity:'1'},'slow');
+											//$('.client_supplier').css('visibility','visible');
+											$('#mymodal').modal({show:true});
 											var company = eval("("+data+")");
 											var i=0; //for loop with json file length
 											for(i=0;i<company.length;i++)

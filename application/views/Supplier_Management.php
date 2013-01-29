@@ -190,37 +190,39 @@
             </div>
          </div>
      </div>
- <div class="client_supplier">
- 	<button class="close" ><i class="icon-remove"></i></button>
-	<div class="client_supplier_detail">
-    	<table class="client_supplier_detail">
-        	<thead>
-            </thead>
-            <tbody>
-            	<tr><td>公司ID：</td><td><input type="text" name='company_id' id='company_id' readonly="readonly"/></td></tr>
-                <tr><td>公司名称：</td><td><input type="text" name='company_name' id="company_name" /></td></tr>
-                <tr><td>公司简称：</td><td><input type="text" name='company_contactname' id="company_contactname"/></td></tr>
-                <tr><td>公司类型：</td><td><select name='company_type' id="company_type">
-                							<option value="Client">Client</option>
-                                            <option value="Supplier">Supplier</option>
-                						 </select>
-                                </td></tr>
-                <tr><td>公司地址：</td><td><input type="text" name='company_address'id="company_address" /></td></tr>
-                <tr><td>地区：</td><td><input type="text" name='company_suburb' id="company_suburb"/></td></tr>
-                <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
-                <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
-                <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
-                <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
-                <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
-                <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
-                <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
-                <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
-                <tr><td><button id="save_change" class="btn btn-primary">保存</button>&nbsp; &nbsp;<button id="close" class="btn btn-danger">关闭</button></td></tr>
-            </tbody>
-        </table>
-        
-    </div>
-   
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	<div class="modal-body">
+         <div class="client_supplier">
+            <!-- <button class="close" ><i class="icon-remove"></i></button> -->
+            <div class="client_supplier_detail">
+                <table class="client_supplier_detail">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        <tr><td>公司ID：</td><td><input type="text" name='company_id' id='company_id' readonly="readonly"/></td></tr>
+                        <tr><td>公司名称：</td><td><input type="text" name='company_name' id="company_name" /></td></tr>
+                        <tr><td>公司简称：</td><td><input type="text" name='company_contactname' id="company_contactname"/></td></tr>
+                        <tr><td>公司类型：</td><td><select name='company_type' id="company_type">
+                                                    <option value="Client">Client</option>
+                                                    <option value="Supplier">Supplier</option>
+                                                 </select>
+                                        </td></tr>
+                        <tr><td>公司地址：</td><td><input type="text" name='company_address'id="company_address" /></td></tr>
+                        <tr><td>地区：</td><td><input type="text" name='company_suburb' id="company_suburb"/></td></tr>
+                        <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
+                        <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
+                        <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
+                        <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
+                        <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
+                        <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
+                        <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
+                        <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
+    <div class="modal-footer"><button id="save_change" class="btn btn-primary">保存</button></div>
 </div>
  <script language="javascript" type="text/javascript">
 						$(document).ready(function(e) {
@@ -250,7 +252,7 @@
 															$("<td>").text(obj[x].region).appendTo(tr);
 															$("<td>").text(obj[x].phone).appendTo(tr);
 															$("<td>").text(obj[x].mobile).appendTo(tr);
-															$("<i id="+companyid+">").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
+															$("<i id="+companyid+">").addClass("icon-edit").appendTo($("<button class='edit_btn' title='edit' id='"+companyid+"' data-toggle='modal' data-target='#myModal'>").appendTo($("<td>").appendTo(tr)));
 															$("<i title='delete'>").addClass("icon-trash").appendTo($("<button class='delete_btn' title='delete' id="+companyid+">").appendTo($("<td>").appendTo(tr)));
 													}
 												}
@@ -267,8 +269,9 @@
 										url : 'client_edit/supplier_detail',
 										data:{companyid:company},
 										success:function(data){
-											$('.client_supplier').animate({width:'50%',height:'50%',opacity:'1'},'slow');
-											$('.client_supplier').css('visibility','visible');
+											$('#mymodal').modal({show:true});
+											//$('.client_supplier').animate({width:'50%',height:'50%',opacity:'1'},'slow');
+											//$('.client_supplier').css('visibility','visible');
 											var company = eval("("+data+")");
 											var i=0; //for loop with json file length
 											for(i=0;i<company.length;i++)
