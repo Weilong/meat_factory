@@ -56,6 +56,7 @@ class Income extends CI_Model {
 					$income_list[$i]=$income;
 					$total_amount+=$income["Credit"];
 				}
+				
 			}
 		}
 		
@@ -86,6 +87,7 @@ class Income extends CI_Model {
 		$incomes[0]=$income_list;
 		$incomes[1]=$total_amount;
 		return $incomes;
+		
 	}
 }
 ?>

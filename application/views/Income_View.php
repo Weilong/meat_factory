@@ -73,9 +73,9 @@
                     </form>
                     <div>
                         <button id="income_search" class="btn btn-primary">查询</button>
-                        <button id="export" class="btn btn-primary disabled">导出报表</button>
+                        <a href='<?=base_url().'file/incomereport.csv'?>'>导出报表</a>
                     </div>
-                </div>
+                </div> 
                 <hr />
                 <div>
                     <div class="searchresultview">
@@ -126,7 +126,23 @@
                         });
 
                         $("#income_search").click(function(){
-                            var ajaxOpts={
+
+							var ajaxreport={
+								 type: "post",
+                                dataType: "json",
+                                url:  "income_report/get_report",
+                                data: {company:$("#company").val(),
+                                        product:$("#product").val(),
+                                        start: $("#start_date").val(),
+                                        end: $("#end_date").val(),
+                                        income_type: $("#income_type").val(),
+                                        payment_method: $("#payment_method").val()},
+								success:function(){
+									alert('success');
+								}
+							};
+							$.ajax(ajaxreport);
+                          	var ajaxOpts={
                                 type: "post",
                                 dataType: "json",
                                 url:  "income_report/get_income",
@@ -137,10 +153,9 @@
                                         income_type: $("#income_type").val(),
                                         payment_method: $("#payment_method").val()},
                                 success: function(data){
-                                    $("#income_table tbody").empty()
+                                    $("#income_table tbody").empty();
                                     var income_list = data[0];
                                     var total_amount = data[1];
-
                                     if (income_list.length>0){
                                         $("#export").removeClass("disabled");
                                     }
@@ -164,9 +179,7 @@
                             };
                             $.ajax(ajaxOpts);
                         });
-                        $("#export").click(function(){
-                            
-                        });
+						
                     });
                 </script>
             </div>
