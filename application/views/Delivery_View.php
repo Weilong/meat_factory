@@ -200,10 +200,10 @@
                    });
                 });
 
-                $(function() {
-                    var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
-                    calender.datepicker("setDate", new Date());
-                })
+                 $(function() {
+                        var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
+                        calender.datepicker("setDate", new Date());
+                    })
 
                 $(".print_btn").click(function(){
                     var order_id = $(this).closest("tr").children().eq(0).text();
