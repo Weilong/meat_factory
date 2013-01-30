@@ -48,10 +48,18 @@
                     </form>
                     <!-- delivery detail in current date -->
                     <table class='table table-striped table-hover'>
-                    	<tr><th>OrderID</th><th>CompanyName</th><th>ContactName</th>
-                        	<th>DeliveryDate</th><th>Driver</th><th>Suburb</th><th>Area</th>
-                        	<th>Print</th><th>Complete</th>
-                        </tr>
+                    	<thead>
+                            <th>OrderID</th>
+                            <th>CompanyName</th>
+                            <th>ContactName</th>
+                        	<th>DeliveryDate</th>
+                            <th>Driver</th><th>Suburb</th>
+                            <th>Area</th>
+                        	<th>Print</th>
+                            <th>Complete</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
                     </table>
                     <script language="javascript" type="text/javascript">
 						$(document).ready(function(e) {
