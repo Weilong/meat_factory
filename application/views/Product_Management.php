@@ -23,8 +23,8 @@
                     <li class="divider"></li>
                     <li><a href="<?php echo base_url().'page?page=product_management' ?>">商品管理</a>
                     	<ul>
+                        	<li><a href="#" id="addnewproduct">添加新商品</a></li>
                         	<li><a href="#" id="intoproduct">入库商品管理</a></li>
-                            <li><a href="#" id="addnewproduct">添加新商品</a></li>
                             <li><a href="#" id="productmanagement">管理商品</a></li>
                         </ul>
                     </li>
@@ -38,7 +38,65 @@
               </div>
             </div>
             <div class = "main-content">
-            	<div class="intoproduct">
+                <div class="addnewproduct">
+                	<p><h3>添加新商品</h3></p>
+                    <form method="post" id="newproduct" action="add_new_product/add_product">
+                        <fieldset>
+                            <label>产品名称</label>
+                            <input type="text" id="productname" name="productname" />
+                            <label>产品描述</label>
+                            <input type="text" id="productintro" name="productintro" />
+                            <label>库存</label>
+                            <input type="number" id="qty" name="qty" />
+                            <label>单位</label>
+                            <input type="text" id="unit" name="unit" />
+                            <label>单价</label>
+                            <input type="text" id="price" name="price" />
+                            <label>分类</label>
+                            <select name="category" id="category">
+                                <option value="Beef">Beef</option>
+                                <option value="Chicken">Chicken</option>
+                                <option value="Lamb">Lamb</option>
+                                <option value="Duck">Duck</option>
+                                <option value="Pork">Pork</option>
+                                <option value="Stock">Stock</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <br />
+                            <button type="button" id="add_new_product" class="btn btn-primary">添加</button>
+                            <button type="reset" class="btn">清空</button>
+                        </fieldset>
+                    </form>
+                </div>
+                <script language="javascript" type="text/javascript">
+					//new product entry 
+					
+				    $(document).ready(function(e) {
+                        $('#category').change(function(e) {
+							var category = $('#category').val();
+                        });
+						$('#add_new_product').click(function(e) {
+                            var productname = document.getElementById('productname').value;
+							var productintro = document.getElementById('productintro').value;
+							var qty = document.getElementById('qty').value;
+							var units=document.getElementById('unit').value;
+							var price=document.getElementById('price').value;
+							if(productname==""||productintro==""||qty==""||units==""||price=="")
+							{
+								alert('请填写完整产品信息（产品名，产品描述，产品数量，单位重量，产品单价）');
+							}
+							else
+							{
+								var confirmation = confirm('Add new product?')
+								if(confirmation==true)
+								{
+									$('form#newproduct').submit();
+								}
+							}
+                        });
+                    });
+				</script>
+                <div class="intoproduct">
                 	<p><h3>入库商品管理</h3></p>
                 	<div>
                           <fieldset>
@@ -212,60 +270,6 @@
 						);
 					});
 				</script>
-                <div class="addnewproduct">
-                	<p><h3>添加新商品</h3></p>
-                    <form method="post" id="newproduct" action="add_new_product/add_product">
-                        <fieldset>
-                            <label>产品名称</label>
-                            <input type="text" id="productname" name="productname" />
-                            <label>产品描述</label>
-                            <input type="text" id="productintro" name="productintro" />
-                            <label>库存</label>
-                            <input type="number" id="qty" name="qty" />
-                            <label>单位</label>
-                            <input type="text" id="unit" name="unit" />
-                            <label>单价</label>
-                            <input type="text" id="price" name="price" />
-                            <label>分类</label>
-                            <select name="category" id="category">
-                                <option value="Beef">Beef</option>
-                                <option value="Chicken">Chicken</option>
-                                <option value="Lamb">Lamb</option>
-                                <option value="Duck">Duck</option>
-                                <option value="Pork">Pork</option>
-                                <option value="Stock">Stock</option>
-                                <option value="Other">Other</option>
-                            </select>
-                            <br />
-                            <button type="button" id="add_new_product" class="btn btn-primary">添加</button>
-                            <button type="reset" class="btn">清空</button>
-                        </fieldset>
-                    </form>
-                </div>
-                <script language="javascript" type="text/javascript">
-					//new product entry 
-					
-				    $(document).ready(function(e) {
-                        $('#category').change(function(e) {
-							var category = $('#category').val();
-                        });
-						$('#add_new_product').click(function(e) {
-                            var productname = document.getElementById('productname').value;
-							var productintro = document.getElementById('productintro').value;
-							var qty = document.getElementById('qty').value;
-							var units=document.getElementById('unit').value;
-							var price=document.getElementById('price').value;
-							if(productname==""||productintro==""||qty==""||units==""||price=="")
-							{
-								alert('请填写完整产品信息（产品名，产品描述，产品数量，单位重量，产品单价）');
-							}
-							else
-							{
-								$('form#newproduct').submit();
-							}
-                        });
-                    });
-				</script>
                 <div class="productmanagement">
                 	<p><h3>商品管理</h3></p>
                     <div>
@@ -305,15 +309,15 @@
             </div>
             <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
-                        $('#intoproduct').click(function(e) {
-							$('.addnewproduct').animate({height:'0px'},"fast");
-							$('.productmanagement').animate({height:'0px'},"fast");
-                            $('.intoproduct').animate({height:'100%'},"slow");					
-                        });
 						$('#addnewproduct').click(function(e) {
                             $('.intoproduct').animate({height:'0px'},"fast");
 							$('.productmanagement').animate({height:'0px'},"fast");
                             $('.addnewproduct').animate({height:'100%'},"slow");	
+                        });
+						$('#intoproduct').click(function(e) {
+							$('.addnewproduct').animate({height:'0px'},"fast");
+							$('.productmanagement').animate({height:'0px'},"fast");
+                            $('.intoproduct').animate({height:'100%'},"slow");					
                         });
 						$('#productmanagement').click(function(e) {
 						    $('.intoproduct').animate({height:'0px'},"fast");

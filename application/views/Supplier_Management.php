@@ -39,16 +39,16 @@
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" name="short_name"></td></tr>
-                                <tr><td>手机：<input type="text" name="mobile"></td><td>客户类型：<input type="text" name="member_type" readonly value="Supplier"></td></tr>
-                                <tr><td>传真：<input type="text" name="fax_number"></td><td>座机：<input type="text" name="phone"></td></tr>
-                                <tr><td colspan="3">电子邮箱：<input type="text" name="email_address"></td>
+                                <tr><td>手机：<input type="number" name="mobile"></td><td>客户类型：<input type="text" name="member_type" readonly value="Supplier"></td></tr>
+                                <tr><td>传真：<input type="number" name="fax_number"></td><td>座机：<input type="number" name="phone"></td></tr>
+                                <tr><td colspan="3">电子邮箱：<input type="email" name="email_address"></td>
                             </table>
                         </div>
                         <p><h5>供应商地址</h5></p>
                         <div class="address">
                         		地址：<input type="text" id="client_place" name="client_place" size="100px"><br/>
                                 地区：<input type="text" id="client_region" name="client_region" size="25px" ><br/>
-                                邮编：<input type="text" id="client_code" name="client_code" size="10px"><br/>
+                                邮编：<input type="number" id="client_code" name="client_code" size="10px"><br/>
                                 城市：<input type="text" id="client_city" name="client_city" size="50px"><br/>
                                 州： <select id="client_states" name="client_states">
                                 		<option value="NSW">NSW</option>
@@ -117,7 +117,11 @@
 										}
 										else
 										{
-											$('form#newsupplier').submit();//submit
+											var confirmation =confirm('Add new Supplier?');
+											if(confirmation==true)
+											{
+												$('form#newsupplier').submit();//submit
+											}
 										}
 									}
 								}
@@ -172,7 +176,6 @@
                             <tbody>
                             </tbody>
                         </table>
-                        	<button  id="delete_select" class="btn btn-danger">删除</button>
                     </div>
                 </div>
                 <script language="javascript" type="text/javascript">
@@ -216,11 +219,11 @@
                         <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
                         <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
                         <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
-                        <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
-                        <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
-                        <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
-                        <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
-                        <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
+                        <tr><td>邮编：</td><td><input type="number" name='company_postcode' id="company_postcode"/></td></tr>
+                        <tr><td>电话：</td><td><input type="number" name='company_phone'id="company_phone" /></td></tr>
+                        <tr><td>手机：</td><td><input type="number" name='company_mobile'id="company_mobile" /></td></tr>
+                        <tr><td>传真号：</td><td><input type="number" name='company_fax'id="company_fax" /></td></tr>
+                        <tr><td>邮箱：</td><td><input type="email" name='company_email' id="company_email"/></td></tr>
                     </tbody>
                 </table>
             </div>
@@ -348,9 +351,6 @@
 										success:function(){
 											//change succeed and close
 											alert('Change Succeed');
-											$('.client_supplier').animate({
-								   					width:'0px',height:'0px',opacity:'0'},'slow'
-											);
 										}
 									};
 									$.ajax(ajaxobj);

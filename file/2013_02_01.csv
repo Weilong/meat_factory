@@ -1,1 +1,5 @@
 ProductName," CompanyName"," PayMethod"," Date"," Credit"," Debit"," Comment"
+,test,Cash,2013-02-01,200.00,,
+,Retail,Cash,2013-02-01,100.00,,
+,Retail,Cash,2013-02-01,100.00,,
+" "," "," "," "," ","Amount "," 400"

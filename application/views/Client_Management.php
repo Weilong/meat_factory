@@ -39,16 +39,16 @@
                     	<div class="connect_detail">
                         	<table>
                             	<tr><td>公司全称：<input type="text" id="current_name" name="current_name"></td><td rowspan="3" width="20"></td><td>公司简称：<input type="text" id="short_name" name="short_name"></td></tr>
-                                <tr><td>手机：<input type="text" id="mobile" name="mobile"></td><td>客户类型：<input type="text" name="member_type" id="member_type" readonly value="Client"></td></tr>
-                                <tr><td>传真：<input type="text" id="fax_number" name="fax_number"></td><td>座机：<input type="text"id="phone" name="phone"></td></tr>
-                                <tr><td colspan="3">电子邮箱：<input type="text" id="email_address" name="email_address"></td></tr>
+                                <tr><td>手机：<input type="number" id="mobile" name="mobile"></td><td>客户类型：<input type="text" name="member_type" id="member_type" readonly value="Client"></td></tr>
+                                <tr><td>传真：<input type="number" id="fax_number" name="fax_number"></td><td>座机：<input type="number"id="phone" name="phone"></td></tr>
+                                <tr><td colspan="3">电子邮箱：<input type="email" id="email_address" name="email_address"></td></tr>
                             </table>
                         </div>
                         <p><h5>客户地址</h5></p>
                         <div class="address">
                         		地址：<input type="text" id="client_place" name="client_place" size="100px"><br/>
                                 地区：<input type="text" id="client_region" name="client_region" size="25px" ><br/>
-                                邮编：<input type="text" id="client_code" name="client_code" size="10px"><br/>
+                                邮编：<input type="number" id="client_code" name="client_code" size="10px"><br/>
                                 城市：<input type="text" id="client_city" name="client_city" size="50px"><br/>
                                 州： <select id="client_states" name="client_states">
                                 		<option value="NSW">NSW</option>
@@ -81,7 +81,7 @@
                              
                             	地址：<input type="text" id="delivery_place" name="delivery_place" size="100px"><br/>
                                 地区：<input type="text" id="delivery_region" name="delivery_region" size="25px" ><br/>
-                                邮编：<input type="text" id="delivery_code" name="delivery_code" size="10px"><br/>
+                                邮编：<input type="number" id="delivery_code" name="delivery_code" size="10px"><br/>
                                 城市：<input type="text" id="delivery_city" name="delivery_city" size="50px"><br/>
                                 州： <select id="delivery_states" name="delivery_states">
                                 		<option value="NSW">NSW</option>
@@ -162,7 +162,11 @@
 											}
 											else
 											{
-												$('form#newclient').submit();//submit
+												var confirmation =confirm('Add new Client?');
+												if(confirmation==true)
+												{
+													$('form#newclient').submit();//submit
+												}
 											}
 										}
 									}
@@ -217,8 +221,6 @@
                         <tbody>
                         </tbody>
                         </table>
-                            <button id="delete_select" class="btn btn-danger">删除</button>
-                            <button id="save_change" class="btn btn-primary">保存更改</button>
                     </div>
                     <script language="javascript" type="text/javascript">
 						/*
@@ -261,7 +263,7 @@
                          });
 					</script>
                 </div>
-                <div class="client_payment_detail">
+                <!-- <div class="client_payment_detail">
                 	<p><h3>客户付款/欠费情况</h3></p>
                     	<select name="client_name">
                         </select>
@@ -276,23 +278,23 @@
                             <th>总计</th>
                         </tr>
                     </table>
-                </div>
+                </div> -->
                 <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
                         $('#add_new_client').click(function(e) {
 							$('.client_detail').animate({height:'0px'},"fast");
-						    $('.client_payment_detail').animate({height:'0px'},"fast");
+						    //$('.client_payment_detail').animate({height:'0px'},"fast");
 							$('.add_new_client').animate({height:'100%'},"slow");					
                         });
 						$('#client_detail').click(function(e) {
                             $('.add_new_client').animate({height:'0px'},"fast");
-							$('.client_payment_detail').animate({height:'0px'},"fast");
+							//$('.client_payment_detail').animate({height:'0px'},"fast");
 							$('.client_detail').animate({height:'100%'},"slow");
                         });
 						$('#client_payment_detail').click(function(e) {
 						    $('.add_new_client').animate({height:'0px'},"fast");
 							$('.client_detail').animate({height:'0px'},"fast");
-                            $('.client_payment_detail').animate({height:'100%'},"slow");
+                           // $('.client_payment_detail').animate({height:'100%'},"slow");
                         });
 						$('#check_delivery_address').click(function(e) {
                             if($('#check_delivery_address').attr('checked'))
@@ -332,18 +334,18 @@
                         <tr><td>城市：</td><td><input type="text" name='company_city' id="company_city"/></td></tr>
                         <tr><td>洲：</td><td><input type="text" name='company_state'id="company_state" /></td></tr>
                         <tr><td>国家：</td><td><input type="text" name='company_country'id="company_country" /></td></tr>
-                        <tr><td>邮编：</td><td><input type="text" name='company_postcode' id="company_postcode"/></td></tr>
-                        <tr><td>电话：</td><td><input type="text" name='company_phone'id="company_phone" /></td></tr>
-                        <tr><td>手机：</td><td><input type="text" name='company_mobile'id="company_mobile" /></td></tr>
-                        <tr><td>传真号：</td><td><input type="text" name='company_fax'id="company_fax" /></td></tr>
-                        <tr><td>邮箱：</td><td><input type="text" name='company_email' id="company_email"/></td></tr>
+                        <tr><td>邮编：</td><td><input type="number" name='company_postcode' id="company_postcode"/></td></tr>
+                        <tr><td>电话：</td><td><input type="number" name='company_phone'id="company_phone" /></td></tr>
+                        <tr><td>手机：</td><td><input type="number" name='company_mobile'id="company_mobile" /></td></tr>
+                        <tr><td>传真号：</td><td><input type="number" name='company_fax'id="company_fax" /></td></tr>
+                        <tr><td>邮箱：</td><td><input type="email" name='company_email' id="company_email"/></td></tr>
                         <tr><td colspan="2"><h4>送货地址</h4></td></tr>
                         <tr><td>地址：</td><td><input type="text" name='delivery_address'id="delivery_address" /></td></tr>
                         <tr><td>地区：</td><td><input type="text" name='delivery_suburb' id="delivery_suburb"/></td></tr>
                         <tr><td>城市：</td><td><input type="text" name='express_city' id="express_city" /></td></tr>
                         <tr><td>洲：</td><td><input type="text" name='delivery_state'id="delivery_state" /></td></tr>
                         <tr><td>国家：</td><td><input type="text" name='delivery_country'id="delivery_country" /></td></tr>
-                        <tr><td>邮编：</td><td><input type="text" name='delivery_postcode' id="delivery_postcode"/></td></tr>
+                        <tr><td>邮编：</td><td><input type="number" name='delivery_postcode' id="delivery_postcode"/></td></tr>
                         <tr><td>区域：</td><td><select name="delivery_area" id="delivery_area">
                                                     <option value="area1">Area1</option>
                                                     <option value="area2">Area2</option>
@@ -471,9 +473,6 @@
 										success:function(){
 											//change succeed and close
 											alert('Change Succeed');
-											$('.client_supplier').animate({
-								   					width:'0px',height:'0px',opacity:'0'},'slow'
-											);
 										}
 									};
 									$.ajax(ajaxobj);
