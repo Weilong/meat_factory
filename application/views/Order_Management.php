@@ -573,6 +573,7 @@
 
             $("#order_detail_add").click(function(){
                 $("#orderModal").modal('hide');
+                load_product_list()
                 $("#order_detail_add_Modal").modal('show');
             });
             

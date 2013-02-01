@@ -97,6 +97,17 @@
 				$new_order_detail = json_decode($this->input->post("order_detail"),true);
 				$this->customers->update_order_detail($new_order_detail);
 			}
+
+			public function get_product_list(){
+				$products = $this->customers->read_product();
+				$response = json_encode($products);
+				echo $response;
+			}
+
+			public function add_order_detail(){
+				$new_order_detail = json_decode($this->input->post("order_detail"),true);
+				$this->customers->add_order_detail($new_order_detail);
+			}
 		}
 
 ?>
