@@ -52,8 +52,8 @@
                     	<div class="companypayment">
                         	<table>
                             	<tr><td><label>公司: <select id="company_name"></select></label></td></tr>
-                                <tr><td><label>账户余额: <input id="balance" type='text' readonly="readonly" /></label></td></tr>
-                                <tr><td><label>支付金额: <input id="payment_amount" type='text' /></label></td></tr>
+                                <tr><td><label>账户余额: <input id="balance" type='number' readonly="readonly" /></label></td></tr>
+                                <tr><td><label>支付金额: <input id="payment_amount" type='number' /></label></td></tr>
                                 <tr><td><label>支付方式: 
                                     <select id="payment_method">
                                         <option>Cash</option>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="retailpayment">
                         	<table>
-                            	<tr><td><label>零售金额：<input id="retail_amount" type="text"/></label></td></tr>
+                            	<tr><td><label>零售金额：<input id="retail_amount" type="number"/></label></td></tr>
                                 <tr><td><button id="retail_submit"  class="btn btn-primary">入账</button></td></tr>
                             </table>
                         </div>
