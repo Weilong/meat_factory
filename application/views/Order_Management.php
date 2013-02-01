@@ -378,7 +378,9 @@
             function change_qty(){
                 //need validation: cant be negative, alphabet or other symbols
                 if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                    alert("数目格式不正确！");
                     $(this).val(0);
+                    return;
                 }
                 
                 var total_qty=0,total_price=0;
@@ -593,7 +595,7 @@
                 $("#orderModal").modal('hide');
                 $("#order_detail_add_Modal").modal('show');
             });
-            /**
+            
             $("#order_detail_add_confirm").click(function(){
                 var order_detail = {}, products = {};
                 order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
@@ -624,7 +626,7 @@
                 };
                 $.ajax(ajaxOpts);
             });
-            **/
+            
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
                 order["company_name"] = $("#company_name").val();
@@ -700,7 +702,7 @@
                                 $("<td>").text(data[x].Price).appendTo(tr);
                                 $("<td>").text(data[x].Unit).appendTo(tr);
                                 $("<td>").text(data[x].Category).appendTo(tr);
-                                $("<td>").append($("<input type='text'>").val(data[x].Qty).addClass("input-small")).appendTo(tr);
+                                $("<td>").append($("<input type='text'>").val(data[x].Qty).change(qtyValidation).addClass("input-small")).appendTo(tr);
                             }
                         }
                 };
@@ -709,6 +711,14 @@
 
             function isValidDate(date){
                 return date.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
+            }
+
+            function qtyValidation(){
+                //need validation: cant be negative, alphabet or other symbols
+                if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                    alert("数目格式不正确！");
+                    $(this).val(0);
+                }
             }
 		</script>
     </div>

@@ -295,11 +295,19 @@
                                     $("<td>").text(data[x].Price).appendTo(tr);
                                     $("<td>").text(data[x].Unit).appendTo(tr);
                                     $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<td>").append($("<input type='text'>").val(data[x].Qty).addClass("input-small")).appendTo(tr);
+                                    $("<td>").append($("<input type='text'>").val(data[x].Qty).change(qtyValidation).addClass("input-small")).appendTo(tr);
                                 }
                             }
                     };
                     $.ajax(ajaxOpts);
+                }
+
+                function qtyValidation(){
+                    //need validation: cant be negative, alphabet or other symbols
+                    if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                        alert("数目格式不正确！");
+                        $(this).val(0);
+                    }
                 }
             </script>
         </div>
