@@ -203,7 +203,7 @@
                  $(function() {
                         var calender = $(".datepicker").datepicker({dateFormat:"yy-mm-dd"});
                         calender.datepicker("setDate", new Date());
-                    })
+                    });
 
                 $(".print_btn").click(function(){
                     var order_id = $(this).closest("tr").children().eq(0).text();
@@ -212,11 +212,11 @@
                     $("#order_detail_update").attr("disabled",false);
                     $("#order_detail_delete").attr("disabled",false);
                     $("#order_detail_add").attr("disabled",false);
-                    <?if ( $row->status =="Dispatching" || $row->status =="Completed") :?>
+                    <? if ( $row->status =="Dispatching" || $row->status =="Completed") :?>
                         $("#order_detail_update").attr("disabled",true);
                         $("#order_detail_delete").attr("disabled",true);
                         $("#order_detail_add").attr("disabled",true);
-                    <?endif; ?>
+                    <? endif; ?>
                     $("#orderModal").modal({show:true});               
                 });
 
