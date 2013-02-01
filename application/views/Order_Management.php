@@ -275,27 +275,7 @@
                     $("#company_name").get(0).selectedIndex = -1;
                 });
 
-                var ajaxOpts={
-                            type: "post",
-                            dataType: "json",
-                            url: "manage_order/get_product_list",
-                            data: {},
-                            success: function(data){
-                                $("#modal_product_table tbody").empty();
-                                for (var x = 0;x<data.length;x++){
-
-                                    var tr = $("<tr>").appendTo($("#modal_product_table tbody"));
-
-                                    $("<td>").text(data[x].ProductName).appendTo(tr);
-                                    $("<td>").text(data[x].Description).appendTo(tr);
-                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
-                                    $("<td>").text(data[x].Unit).appendTo(tr);
-                                    $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(0).change(change_qty).appendTo($("<td>").appendTo(tr));
-                                }
-                            }
-                        };
-                $.ajax(ajaxOpts);
+                load_product_list();
             });
             
 
@@ -617,11 +597,12 @@
                 var ajaxOpts={
                         type: "post",
                         dataType: "json",
-                        url: "manage_order/update_order_detail",
+                        url: "manage_order/add_order_detail",
                         data: {order_detail: JSON.stringify(order_detail)},
                         success: function(data){
                             alert("追加成功！");
                             search_order();
+                            load_product_list();
                         }
                 };
                 $.ajax(ajaxOpts);
@@ -719,6 +700,30 @@
                     alert("数目格式不正确！");
                     $(this).val(0);
                 }
+            }
+
+            function load_product_list(){
+                var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/get_product_list",
+                            data: {},
+                            success: function(data){
+                                $("#modal_product_table tbody").empty();
+                                for (var x = 0;x<data.length;x++){
+
+                                    var tr = $("<tr>").appendTo($("#modal_product_table tbody"));
+
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
+                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(0).change(qtyValidation).appendTo($("<td>").appendTo(tr));
+                                }
+                            }
+                        };
+                $.ajax(ajaxOpts);
             }
 		</script>
     </div>
