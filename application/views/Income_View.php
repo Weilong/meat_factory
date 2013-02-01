@@ -73,7 +73,8 @@
                     </form>
                     <div>
                         <button id="income_search" class="btn btn-primary">查询</button>
-                        <a href='<?=base_url().'file/incomereport.csv'?>'>导出报表</a>
+                        <? $currentdate = date('Y_m_d');?>
+                        <a href='./file/incomereport<?=$currentdate?>.csv'>导出报表</a>
                     </div>
                 </div> 
                 <hr />
