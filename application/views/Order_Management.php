@@ -218,6 +218,32 @@
                 <button id="order_detail_add" class="btn btn-primary">订单追加</button>
               </div>
             </div>
+            <!-- Modal -->
+            <div id="order_detail_add_Modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="order_detail_add_ModalLabel">追加产品</h3>
+              </div>
+              <div class="modal-body">
+                <table  id="modal_product_table" class='table table-striped table-hover'>
+                    <thead>
+                        <tr>
+                            <th>产品名</th><!-- click to view detail and edit -->
+                            <th>描述</th>
+                            <th>单价</th>
+                            <th>单位</th>
+                            <th>种类</th>
+                            <th>数量</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+              </div>
+              <div class="modal-footer">
+                <button id="order_detail_add_confirm" class="btn btn-danger">确认追加</button>
+              </div>
+            </div>
         </div>
          <script language="javascript" type="text/javascript">
 			$(document).ready(function(e) {
@@ -248,6 +274,28 @@
                     //set the selected item to blank
                     $("#company_name").get(0).selectedIndex = -1;
                 });
+
+                var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/get_product_list",
+                            data: {},
+                            success: function(data){
+                                $("#modal_product_table tbody").empty();
+                                for (var x = 0;x<data.length;x++){
+
+                                    var tr = $("<tr>").appendTo($("#modal_product_table tbody"));
+
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
+                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(0).change(change_qty).appendTo($("<td>").appendTo(tr));
+                                }
+                            }
+                        };
+                $.ajax(ajaxOpts);
             });
             
 
@@ -541,6 +589,42 @@
                     window.open("<?=base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
             });
 
+            $("#order_detail_add").click(function(){
+                $("#orderModal").modal('hide');
+                $("#order_detail_add_Modal").modal('show');
+            });
+            /**
+            $("#order_detail_add_confirm").click(function(){
+                var order_detail = {}, products = {};
+                order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
+
+                $("#modal_product_table tbody tr").each(function(){
+                    var childrens = $(this).children();
+                    var product = {};
+                    if (childrens.eq(5).find("input").val()!=0){
+                        product["product_name"] = childrens.eq(0).text();
+                        product["description"] = childrens.eq(1).text();
+                        product["price"] = parseFloat(childrens.eq(2).text());
+                        product["unit"] = childrens.eq(3).text();
+                        //children.eq(4) is category
+                        product["qty"] = parseFloat(childrens.eq(5).find("input").val());
+                        products[childrens.eq(0).text()] = product;
+                    } 
+                });
+                order_detail["products"] = products;
+                var ajaxOpts={
+                        type: "post",
+                        dataType: "json",
+                        url: "manage_order/update_order_detail",
+                        data: {order_detail: JSON.stringify(order_detail)},
+                        success: function(data){
+                            alert("追加成功！");
+                            search_order();
+                        }
+                };
+                $.ajax(ajaxOpts);
+            });
+            **/
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
                 order["company_name"] = $("#company_name").val();

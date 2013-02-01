@@ -32,6 +32,12 @@ class Manage_order extends CI_Controller {
 		echo $response;
 	}
 
+	public function get_product_list(){
+		$products = $this->customers->read_product();
+		$response = json_encode($products);
+		echo $response;
+	}
+
 	public function submit_order(){
 		$order = json_decode($this->input->post("order"),true);
 		$this->customers->insert_order($order);
