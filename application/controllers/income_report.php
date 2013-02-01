@@ -65,10 +65,13 @@ class Income_report extends CI_Controller {
 				
 			}
 			$arraylist = $productname.','.$companyname.','.$paymethod.','.$date.','.$credit.','.$debit.','.$comment;
+			
 			array_push($reporttocsv,$arraylist);
 		}
+		$totalprice = " , , , , ,Amount , ".$incomes[1];
+		array_push($reporttocsv,$totalprice);
 		$issuedate = date('Y_m_d');
-		$path ="file/incomereported".$issuedate.".csv";
+		$path ="file/".$issuedate.".csv";
 		$file = fopen($path,"w");
 		foreach ($reporttocsv as $line)
 		{
