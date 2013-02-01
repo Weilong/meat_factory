@@ -74,7 +74,7 @@
                     <div>
                         <button id="income_search" class="btn btn-primary">查询</button>
                         <? $currentdate = date('Y_m_d');?>
-                        <a href='./file/incomereport<?=$currentdate?>.csv'>导出报表</a>
+                        <a href='<?="downloadfiles/download?currenttime=".$currentdate?>'>导出报表</a>
                     </div>
                 </div> 
                 <hr />
@@ -138,9 +138,6 @@
                                         end: $("#end_date").val(),
                                         income_type: $("#income_type").val(),
                                         payment_method: $("#payment_method").val()},
-								success:function(){
-									alert('success');
-								}
 							};
 							$.ajax(ajaxreport);
                           	var ajaxOpts={
