@@ -60,6 +60,21 @@ class Customers extends CI_Model {
 		return $orders;
 	}
 
+	public function read_product(){
+		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product";
+		$query =  $this->db->query($sql);
+		$products = array();
+
+		if ($query->num_rows()>0)
+		{
+			for($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++)
+			{
+				$products[$i] = $query->row($i);
+			}
+		}
+		return $products;
+	}
+
 	public function save_to_order_template($order){
 		$company_name = $order["company_name"];
 		$products = $order["products"];
@@ -268,19 +283,26 @@ class Customers extends CI_Model {
 			$qty = $product["qty"];
 			$sql = "SELECT Qty, Price FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
 			$query = $this->db->query($sql);
-			$sub_qty += ($qty-$query->row(0)->Qty);
-			$sub_price += ($qty*$query->row(0)->Price - $query->row(0)->Qty*$query->row(0)->Price);
-			if ($qty==0){
-				$sql = "DELETE FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
-				$this->db->query($sql);
+			if ($query->num_rows()==0){
+				
 			}
 			else
 			{
-				$sql = "UPDATE orderdetail 
-					SET Qty='$qty' 
-					WHERE OrderID='$order_id' AND ProductName='$product_name'";
-				$this->db->query($sql);
-			}	
+				$sub_qty += ($qty-$query->row(0)->Qty);
+				$sub_price += ($qty*$query->row(0)->Price - $query->row(0)->Qty*$query->row(0)->Price);
+				if ($qty==0){
+					$sql = "DELETE FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
+					$this->db->query($sql);
+				}
+				else
+				{
+					$sql = "UPDATE orderdetail 
+						SET Qty='$qty' 
+						WHERE OrderID='$order_id' AND ProductName='$product_name'";
+					$this->db->query($sql);
+				}	
+			}
+			
 		}
 		/*
 			update record in table orderinfo, table payment and companyname
