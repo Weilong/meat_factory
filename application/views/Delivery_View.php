@@ -65,7 +65,7 @@
 							{
 								foreach($result as $row)
 								{
-									$status = "completed";
+									$status = "Completed";
 						?>
 									<tr>
                                         <td id='driver<?=$row->id ?>'><? echo $row->id ?></td>
@@ -99,13 +99,10 @@
                                         <td><?=$row->suburb ?></td>
                                         <td><?=$row->area ?></td>
                                         <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></button><!--</a>--></td>
-                                        <td>
-                                        	<?
+                                        <td><?
                                             	if($row->status==$status)
 												{
-											?>
-                                            	Completed
-											<?
+                                            	   echo "Completed";
 												}
 												else
 												{
@@ -113,8 +110,7 @@
                                             <button id='<?=$row->id ?>' class="btn complete_btn">Complete</button>
                                             <?
 												}
-											?>
-                                        </td>
+											?></td>
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
@@ -186,7 +182,7 @@
                     });
                     $('.complete_btn').click(function() {
                                         var order_id = $(this).attr('id');
-                                        var status = "completed";
+                                        var status = "Completed";
                                         var obj_status = {
                                             type: "post",
                                             url: "change_delivery_status",
@@ -208,15 +204,15 @@
                 $(".print_btn").click(function(){
                     var order_id = $(this).closest("tr").children().eq(0).text();
                     view_order_detail(order_id);
-                    //var status = $(this).closest("tr").children().eq(5).text()
-                    $("#order_detail_update").attr("disabled",false);
-                    $("#order_detail_delete").attr("disabled",false);
-                    $("#order_detail_add").attr("disabled",false);
-                    <?if ( $row->status =="Dispatching" || $row->status =="Completed") :?>
-                        $("#order_detail_update").attr("disabled",true);
-                        $("#order_detail_delete").attr("disabled",true);
-                        $("#order_detail_add").attr("disabled",true);
-                    <?endif; ?>
+                    
+                    $("#order_detail_update").attr("disabled",true);
+                    $("#order_detail_delete").attr("disabled",true);
+                    $("#order_detail_add").attr("disabled",true);
+                    if ($(this).closest("tr").children().eq(8).text()!="Completed"){
+                        $("#order_detail_update").attr("disabled",false);
+                        $("#order_detail_delete").attr("disabled",false);
+                        $("#order_detail_add").attr("disabled",false);
+                    }
                     $("#orderModal").modal({show:true});               
                 });
 
