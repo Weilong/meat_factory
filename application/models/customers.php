@@ -61,7 +61,7 @@ class Customers extends CI_Model {
 	}
 
 	public function read_product(){
-		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product";
+		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product ORDER BY ProductName ASC";
 		$query =  $this->db->query($sql);
 		$products = array();
 
@@ -116,8 +116,8 @@ class Customers extends CI_Model {
 			$query = $this->db->query($sql);
 			$product_id = $query->row(0)->ProductID;
 			
-			$sql = "INSERT INTO orderdetail (OrderID, CompanyName, ProductID, ProductName, Description, Unit, Price, Qty, OrderDate) 
-					VALUES ('$order_id', '$order[company_name]','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]', '$order_date')";
+			$sql = "INSERT INTO orderdetail (OrderID, CompanyName, ProductID, ProductName, Description, Unit, Price, Qty, Total, OrderDate) 
+					VALUES ('$order_id', '$order[company_name]','$product_id','$product[product_name]','$product[description]','$product[unit]','$product[price]','$product[qty]',$product[price]*$product[qty], '$order_date')";
 			$this->db->query($sql);
 		}
 		/*
@@ -155,7 +155,7 @@ class Customers extends CI_Model {
 		if ($status!="All"){
 			$sql.= " AND Status='$status'";
 		}
-		$sql.=" ORDER BY OrderID";
+		$sql.=" ORDER BY OrderID DESC";
 		$query = $this->db->query($sql);
 		$orders = array();
 		if ($query->num_rows()>0){
@@ -275,21 +275,35 @@ class Customers extends CI_Model {
 		$products = $new_order_detail["products"];
 		$sub_qty = 0;
 		$sub_price = 0;
+		$date = date('y-m-d');
 		/*
 			update corresponding records in table orderdetail
 		*/
 		foreach($products as $product){
 			$product_name = $product["product_name"];
+			$description = $product["description"];
+			$price = $product["price"];
+			$unit = $product["unit"];
 			$qty = $product["qty"];
-			$sql = "SELECT Qty, Price FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
+
+			$sql = "SELECT Qty FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
 			$query = $this->db->query($sql);
 			if ($query->num_rows()==0){
-				
+				$sql = "SELECT ProductID FROM product WHERE ProductName='$product_name'";
+				$query = $this->db->query($sql);
+				$product_id = $query->row(0)->ProductID;
+				$sql = "SELECT CompanyName FROM orderinfo WHERE OrderID='$order_id'";
+				$query = $this->db->query($sql);
+				$company_name = $query->row(0)->CompanyName;
+				$sql = "INSERT INTO orderdetail (OrderID, CompanyName, ProductID, ProductName, Description, Unit, Price, Qty, Total, OrderDate) 
+						VALUES ('$order_id', '$company_name', '$product_id', '$product_name', '$description', '$unit', '$price', '$qty', $price*$qty, '$date')";
+				$this->db->query($sql);
+				$sub_qty += $qty;
+				$sub_price += $price*$qty;
 			}
 			else
 			{
-				$sub_qty += ($qty-$query->row(0)->Qty);
-				$sub_price += ($qty*$query->row(0)->Price - $query->row(0)->Qty*$query->row(0)->Price);
+				
 				if ($qty==0){
 					$sql = "DELETE FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
 					$this->db->query($sql);
@@ -300,7 +314,93 @@ class Customers extends CI_Model {
 						SET Qty='$qty' 
 						WHERE OrderID='$order_id' AND ProductName='$product_name'";
 					$this->db->query($sql);
-				}	
+				}
+				$sub_qty += ($qty-$query->row(0)->Qty);
+				$sub_price += ($sub_qty*$price);
+			}
+			
+		}
+		/*
+			update record in table orderinfo, table payment and companyname
+		*/
+		$sql = "SELECT CompanyName, TotalQty, TotalPrice FROM orderinfo WHERE OrderID='$order_id'";
+		$query = $this->db->query($sql);
+
+		$new_qty = $query->row(0)->TotalQty + $sub_qty;
+		$new_price = $query->row(0)->TotalPrice + $sub_price;
+
+		if ($new_price==0){
+			$sql = "DELETE FROM orderinfo WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+			$sql = "DELETE FROM payment WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+		}
+		else
+		{
+			$sql = "UPDATE orderinfo 
+					SET TotalQty='$new_qty', TotalPrice='$new_price' 
+					WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+			$sql = "UPDATE payment 
+					SET Debit='$new_price' 
+					WHERE OrderID='$order_id'";
+			$this->db->query($sql);
+		}
+		
+
+		/*
+			update record in table companyname
+		*/
+		$company_name = $query->row(0)->CompanyName;
+		$sql = "SELECT Balance FROM companyname WHERE CompanyName='$company_name'";
+		$query = $this->db->query($sql);
+		$new_balance = $query->row(0)->Balance + $sub_price;
+		$sql = "UPDATE companyname 
+				SET Balance='$new_balance' 
+				WHERE CompanyName='$company_name'";
+		$this->db->query($sql);
+	}
+
+		public function add_order_detail($new_order_detail){
+		$order_id = $new_order_detail["order_id"];
+		$products = $new_order_detail["products"];
+		$sub_qty = 0;
+		$sub_price = 0;
+		$date = date('y-m-d');
+		/*
+			update corresponding records in table orderdetail
+		*/
+		foreach($products as $product){
+			$product_name = $product["product_name"];
+			$description = $product["description"];
+			$price = $product["price"];
+			$unit = $product["unit"];
+			$qty = $product["qty"];
+
+			$sql = "SELECT Qty FROM orderdetail WHERE OrderID='$order_id' AND ProductName='$product_name'";
+			$query = $this->db->query($sql);
+			if ($query->num_rows()==0){
+				$sql = "SELECT ProductID FROM product WHERE ProductName='$product_name'";
+				$query = $this->db->query($sql);
+				$product_id = $query->row(0)->ProductID;
+				$sql = "SELECT CompanyName FROM orderinfo WHERE OrderID='$order_id'";
+				$query = $this->db->query($sql);
+				$company_name = $query->row(0)->CompanyName;
+				$sql = "INSERT INTO orderdetail (OrderID, CompanyName, ProductID, ProductName, Description, Unit, Price, Qty, Total, OrderDate) 
+						VALUES ('$order_id', '$company_name', '$product_id', '$product_name', '$description', '$unit', '$price', '$qty', $price*$qty, '$date')";
+				$this->db->query($sql);
+				$sub_qty += $qty;
+				$sub_price += $price*$qty;
+			}
+			else
+			{
+				$new_qty = $qty+$query->row(0)->Qty;
+				$sql = "UPDATE orderdetail 
+					SET Qty= $new_qty
+					WHERE OrderID='$order_id' AND ProductName='$product_name'";
+				$this->db->query($sql);
+				$sub_qty += $qty;
+				$sub_price += ($qty*$price);
 			}
 			
 		}

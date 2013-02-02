@@ -79,9 +79,7 @@ class Income_report extends CI_Controller {
 		  }
 		
 		fclose($file);
-		echo $reporttocsv;
+		echo json_encode($reporttocsv);
 	}
-
-	
 }
 ?>

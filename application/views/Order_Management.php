@@ -275,27 +275,7 @@
                     $("#company_name").get(0).selectedIndex = -1;
                 });
 
-                var ajaxOpts={
-                            type: "post",
-                            dataType: "json",
-                            url: "manage_order/get_product_list",
-                            data: {},
-                            success: function(data){
-                                $("#modal_product_table tbody").empty();
-                                for (var x = 0;x<data.length;x++){
-
-                                    var tr = $("<tr>").appendTo($("#modal_product_table tbody"));
-
-                                    $("<td>").text(data[x].ProductName).appendTo(tr);
-                                    $("<td>").text(data[x].Description).appendTo(tr);
-                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
-                                    $("<td>").text(data[x].Unit).appendTo(tr);
-                                    $("<td>").text(data[x].Category).appendTo(tr);
-                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(0).change(change_qty).appendTo($("<td>").appendTo(tr));
-                                }
-                            }
-                        };
-                $.ajax(ajaxOpts);
+                load_product_list();
             });
             
 
@@ -378,7 +358,9 @@
             function change_qty(){
                 //need validation: cant be negative, alphabet or other symbols
                 if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                    alert("数目格式不正确！");
                     $(this).val(0);
+                    return;
                 }
                 
                 var total_qty=0,total_price=0;
@@ -591,9 +573,10 @@
 
             $("#order_detail_add").click(function(){
                 $("#orderModal").modal('hide');
+                load_product_list()
                 $("#order_detail_add_Modal").modal('show');
             });
-            /**
+            
             $("#order_detail_add_confirm").click(function(){
                 var order_detail = {}, products = {};
                 order_detail["order_id"] = $("#modal_order_table tbody").attr("id");
@@ -615,16 +598,17 @@
                 var ajaxOpts={
                         type: "post",
                         dataType: "json",
-                        url: "manage_order/update_order_detail",
+                        url: "manage_order/add_order_detail",
                         data: {order_detail: JSON.stringify(order_detail)},
                         success: function(data){
                             alert("追加成功！");
                             search_order();
+                            load_product_list();
                         }
                 };
                 $.ajax(ajaxOpts);
             });
-            **/
+            
             function prepare_order(button){
                 var order = {},products = {};  //make it an object instead of array
                 order["company_name"] = $("#company_name").val();
@@ -700,7 +684,7 @@
                                 $("<td>").text(data[x].Price).appendTo(tr);
                                 $("<td>").text(data[x].Unit).appendTo(tr);
                                 $("<td>").text(data[x].Category).appendTo(tr);
-                                $("<td>").append($("<input type='text'>").val(data[x].Qty).addClass("input-small")).appendTo(tr);
+                                $("<td>").append($("<input type='text'>").val(data[x].Qty).change(qtyValidation).addClass("input-small")).appendTo(tr);
                             }
                         }
                 };
@@ -709,6 +693,38 @@
 
             function isValidDate(date){
                 return date.match(/^[0-9]{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])/)
+            }
+
+            function qtyValidation(){
+                //need validation: cant be negative, alphabet or other symbols
+                if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                    alert("数目格式不正确！");
+                    $(this).val(0);
+                }
+            }
+
+            function load_product_list(){
+                var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "manage_order/get_product_list",
+                            data: {},
+                            success: function(data){
+                                $("#modal_product_table tbody").empty();
+                                for (var x = 0;x<data.length;x++){
+
+                                    var tr = $("<tr>").appendTo($("#modal_product_table tbody"));
+
+                                    $("<td>").text(data[x].ProductName).appendTo(tr);
+                                    $("<td>").text(data[x].Description).appendTo(tr);
+                                    $("<td>").addClass("price").text(data[x].Price).appendTo(tr);
+                                    $("<td>").text(data[x].Unit).appendTo(tr);
+                                    $("<td>").text(data[x].Category).appendTo(tr);
+                                    $("<input type=text>").addClass("qty_input").addClass("input-small").val(0).change(qtyValidation).appendTo($("<td>").appendTo(tr));
+                                }
+                            }
+                        };
+                $.ajax(ajaxOpts);
             }
 		</script>
     </div>

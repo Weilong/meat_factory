@@ -125,10 +125,10 @@
                                 opt.text(data[x].ProductName);
                             }
                         });
-
+                       
                         $("#income_search").click(function(){
 
-							var ajaxreport={
+						var ajaxreport={
 								 type: "post",
                                 dataType: "json",
                                 url:  "income_report/get_report",
@@ -138,9 +138,9 @@
                                         end: $("#end_date").val(),
                                         income_type: $("#income_type").val(),
                                         payment_method: $("#payment_method").val()},
-							};
+							}; 
 							$.ajax(ajaxreport);
-                          	var ajaxOpts={
+                         	var ajaxOpts={
                                 type: "post",
                                 dataType: "json",
                                 url:  "income_report/get_income",
@@ -177,11 +177,14 @@
 									{
 										$('a#downloadreportfile').attr('hidden',true);
 									}
+									else
+									{
+										$('a#downloadreportfile').attr('hidden',false);
+									}
                                 }
                             };
-                            $.ajax(ajaxOpts);
+                            $.ajax(ajaxOpts); 
                         });
-						
                     });
                 </script>
             </div>

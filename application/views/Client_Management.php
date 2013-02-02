@@ -15,7 +15,7 @@
                     	<ul>
                         	<li><a href="#" id="add_new_client">添加新客户</a></li>
                             <li><a href="#" id="client_detail">客户详细信息</a></li>
-                            <li><a href="#" id="client_payment_detail">欠费预览</a></li>
+                            <!--<li><a href="#" id="client_payment_detail">欠费预览</a></li>-->
                         </ul>
                     </li>
                     <li class="divider"></li>

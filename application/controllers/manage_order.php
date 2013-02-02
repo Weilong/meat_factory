@@ -79,6 +79,11 @@ class Manage_order extends CI_Controller {
 		$new_order_detail = json_decode($this->input->post("order_detail"),true);
 		$this->customers->update_order_detail($new_order_detail);
 	}
+
+	public function add_order_detail(){
+		$new_order_detail = json_decode($this->input->post("order_detail"),true);
+		$this->customers->add_order_detail($new_order_detail);
+	}
 }
 
 /* End of file manage_order.php */
