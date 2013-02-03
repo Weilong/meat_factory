@@ -75,7 +75,7 @@ class Income_report extends CI_Controller {
 		$file = fopen($path,"w");
 		foreach ($reporttocsv as $line)
 		{
-		  fputcsv($file,split(",",$line));
+		  fputcsv($file,preg_split(",",$line));
 		  }
 		
 		fclose($file);
