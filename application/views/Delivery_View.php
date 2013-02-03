@@ -72,6 +72,7 @@
                                         <td><?php echo $row->companyname; ?></td>
                                         <td><?php echo $row->contactname; ?></td>
                                         <td><?php echo $row->deliverydate; ?></td>
+
                                         <td><?php if($row->status==$status)
 												{
 													echo $row->driver;
@@ -79,8 +80,10 @@
 												else
 												{
 											?>
+
                                             		<select name='selectdriver' class="driver<?php echo $row->id; ?>">
                                         			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
+
                                         	<?php 
 													foreach($drivers as $rows)
 												  	{
@@ -246,7 +249,11 @@
 
                 $("#order_detail_print").click(function(){
                     var order_id = $("#modal_order_table tbody").attr("id");
+<<<<<<< HEAD
                     window.open("<?php echo base_url().'delivery_view/print_order_detail?orderid='; ?>"+order_id,'_blank');
+=======
+                    window.open("<?php echo base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
+>>>>>>> c12f8746bcaed508dabeb370d587d07865cc1611
                 });
 
                 $("#order_detail_delete").click(function(){
