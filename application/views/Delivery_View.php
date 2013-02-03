@@ -38,7 +38,7 @@
             <div class = "main-content">
             	<div class="delivery_view">
                 	<p><h3>送货情况预览</h3></p>
-                    <form class="form-inline" method="post" action="<?=base_url().'delivery_view/load_delivery_detail'; ?>">
+                    <form class="form-inline" method="post" action="<?php echo base_url().'delivery_view/load_delivery_detail'; ?>">
                     	<table>
                         	<tr>
                                 <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?=date('Y-m-d'); ?>' /></td>
@@ -68,38 +68,38 @@
 									$status = "Completed";
 						?>
 									<tr>
-                                        <td id='driver<?=$row->id ?>'><? echo $row->id ?></td>
-                                        <td><?=$row->companyname ?></td>
-                                        <td><?=$row->contactname ?></td>
-                                        <td><?=$row->deliverydate ?></td>
-                                        <td><? if($row->status==$status)
+                                        <td id='driver<?php echo $row->id ?>'><? echo $row->id ?></td>
+                                        <td><?php echo $row->companyname ?></td>
+                                        <td><?php echo $row->contactname ?></td>
+                                        <td><?php echo $row->deliverydate ?></td>
+                                        <td><?php if($row->status==$status)
 												{
 													echo $row->driver;
 												}
 												else
 												{
 											?>
-                                            		<select name='selectdriver' class="driver<?=$row->id ?>">
-                                        			<option value='<?=$row->driver; ?>'><?=$row->driver; ?></option>
-                                        	<? 
+                                            		<select name='selectdriver' class="driver<?php echo $row->id ?>">
+                                        			<option value='<?=$row->driver; ?>'><?php echo $row->driver; ?></option>
+                                        	<?php 
 													foreach($drivers as $rows)
 												  	{
 														$delivery_drivers = $rows->driver;
 														if($delivery_drivers!=$row->driver)
 														{
 											?>
-                                                			<option value='<?=$delivery_drivers; ?>'><?=$delivery_drivers; ?></option>
-                                            <?
+                                                			<option value='<?php echo $delivery_drivers; ?>'><?=$delivery_drivers; ?></option>
+                                            <?php
 														}
 													}
 												}
 											?>
                                             </select>
                                         </td>
-                                        <td><?=$row->suburb ?></td>
-                                        <td><?=$row->area ?></td>
-                                        <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?=$row->id ?>" title='print'></i></button><!--</a>--></td>
-                                        <td><?
+                                        <td><?php echo $row->suburb ?></td>
+                                        <td><?php echo $row->area ?></td>
+                                        <td><!--<a href='<?php echo base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?php echo $row->id ?>" title='print'></i></button><!--</a>--></td>
+                                        <td><?php
                                             	if($row->status==$status)
 												{
                                             	   echo "Completed";
@@ -107,16 +107,16 @@
 												else
 												{
                                             ?>
-                                            <button id='<?=$row->id ?>' class="btn complete_btn">Complete</button>
+                                            <button id='<?php echo $row->id ?>' class="btn complete_btn">Complete</button>
                                             <?
 												}
 											?></td>
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
-                                            $('.driver<?=$row->id ?>').change(function(){
-                                              	var newdriver = $(".driver<?=$row->id ?>").val();
-												var order_id = <?=$row->id ?>;
+                                            $('.driver<?php echo $row->id ?>').change(function(){
+                                              	var newdriver = $(".driver<?php echo $row->id ?>").val();
+												var order_id = <?php echo $row->id ?>;
 												var ajaxobj = 
 												{
 													type: "post",
@@ -131,14 +131,14 @@
                                             });
                                         });
 									</script>
-                        <?
+                        <?php
 								}
 							}
 							else
 							{
 						?>
                         	<tr><td colspan="9"> 本日没有送货 </td></tr>
-                        <?
+                        <?php
 							}
 						?>
                     </tbody>
@@ -246,7 +246,7 @@
 
                 $("#order_detail_print").click(function(){
                     var order_id = $("#modal_order_table tbody").attr("id");
-                    window.open("<?=base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
+                    window.open("<?php echo base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
                 });
 
                 $("#order_detail_delete").click(function(){

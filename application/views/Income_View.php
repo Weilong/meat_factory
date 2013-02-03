@@ -73,8 +73,8 @@
                     </form>
                     <div>
                         <button id="income_search" class="btn btn-primary">查询</button>
-                        <? $currentdate = date('Y_m_d');?>
-                        <a href='<?="downloadfiles/download?currenttime=".$currentdate?>' id="downloadreportfile">导出报表</a>
+                        <?php $currentdate = date('Y_m_d');?>
+                        <a href='<?php echo "downloadfiles/download?currenttime=".$currentdate ?>' id="downloadreportfile">导出报表</a>
                     </div>
                 </div> 
                 <hr />
