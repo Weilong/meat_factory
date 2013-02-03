@@ -49,15 +49,15 @@
                     <!-- delivery detail in current date -->
                     <table class='table table-striped table-hover'>
                     	<thead>
-                            <th>OrderID</th>
-                            <th>CompanyName</th>
-                            <th>ContactName</th>
-                        	<th>DeliveryDate</th>
-                            <th>Driver</th>
-                            <th>Suburb</th>
-                            <th>Area</th>
-                        	<th>Print</th>
-                            <th>Complete</th>
+                            <th>订单ID</th>
+                            <th>公司名</th>
+                            <th>描述</th>
+                            <th>送货日期</th>
+                            <th>司机</th>
+                            <th>市区</th>
+                            <th>区域</th>
+                            <th>打印</th>
+                            <th>状态</th>
                         </thead>
                         <tbody>
                         <?php 
