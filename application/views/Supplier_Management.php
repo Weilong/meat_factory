@@ -390,6 +390,7 @@
                             });
 							*/
 							//close the company detail screen
+							/* 
 							$('button.close').click(function(e) {
                                $('.client_supplier').animate({
 								   	width:'0px',height:'0px',opacity:'0'},'slow');
@@ -398,5 +399,6 @@
                                 $('.client_supplier').animate({
 									width:'0px',height:'0px',opacity:'0'},'slow');
                             });
+							*/
                         });
 					</script>

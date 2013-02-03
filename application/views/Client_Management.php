@@ -508,7 +508,7 @@
 									$('input').attr('checked',false);
 								}
                             });
-							$('button.close').click(function(e) {
+							/* $('button.close').click(function(e) {
                                $('.client_supplier').animate({
 								   	width:'0px',height:'0px',opacity:'0'},'slow');
                             });
@@ -516,5 +516,6 @@
                                 $('.client_supplier').animate({
 									width:'0px',height:'0px',opacity:'0'},'slow');
                             });
+							*/
 	});
 </script>

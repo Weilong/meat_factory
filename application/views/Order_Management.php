@@ -568,7 +568,7 @@
 
             $("#order_detail_print").click(function(){
                     var order_id = $("#modal_order_table tbody").attr("id");
-                    window.open("<?=base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
+                    window.open("<?php echo base_url().'delivery_view/print_order_detail?orderid='?>"+order_id,'_blank');
             });
 
             $("#order_detail_add").click(function(){
