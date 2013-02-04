@@ -76,7 +76,7 @@ class Income_report extends CI_Controller {
 		foreach ($reporttocsv as $line)
 		{
 		  fputcsv($file,explode(",",$line));
-		  }
+		}
 		
 		fclose($file);
 		echo json_encode($reporttocsv);
