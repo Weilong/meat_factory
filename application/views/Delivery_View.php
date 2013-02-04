@@ -103,15 +103,8 @@
 												else
 												{
 											?>
-<<<<<<< HEAD
                                             		<select name='selectdriver' class="driver<?php echo $row->id ?>">
                                         			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
-=======
-
-                                            		<select name='selectdriver' class="driver<?php echo $row->id; ?>">
-                                        			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
-
->>>>>>> 48bddf0e7baa6b2d08ed811880d2f6b4d256b4a0
                                         	<?php 
 													foreach($drivers as $rows)
 												  	{
