@@ -56,7 +56,12 @@ body{
 {
 	width:100%;
 }
-
+	/*today delivery area form print */
+						.today_delivery_print
+						{
+							width:auto;
+							height:auto;
+						}
 /* add new client form, client detail form, client payment detail form */
 .add_new_client, .client_detail, .client_payment_detail
 {

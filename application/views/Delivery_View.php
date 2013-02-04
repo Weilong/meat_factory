@@ -46,6 +46,29 @@
                             </tr>
                         </table>
                     </form>
+                    <div class="today_delivery_print">
+                    	<table>
+                        	<tr><td><button id="todayform1" type="submit">送货表单1（Area1)</button></td>
+                            	
+                            	<td><button id="todayform2">送货表单2（Area2)</button></td>
+                               
+                                <td><button id="todayform3">送货表单3（Area3)</button></td>
+                                
+                                <td><button id="todayform4">送货表单4（Area4)</button></td>
+                                
+                                <td><button id="todayform5">送货表单5（Area5)</button></td>
+                              
+                                <td><button id="todayform6">送货表单6（Area6)</button></td>
+                                
+                                <td><button id="todayform7">送货表单7（Area7)</button></td>
+                                
+                                <td><button id="todayform8">送货表单8（Area8)</button></td>
+                                
+                                <td><button id="todayform9">送货表单9（Area9)</button></td>
+                                
+                                <td><button id="todayform10">送货表单10（Area10)</button></td></tr>
+                        </table>
+                    </div>
                     <!-- delivery detail in current date -->
                     <table class='table table-striped table-hover'>
                     	<thead>
@@ -80,7 +103,7 @@
 												{
 											?>
                                             		<select name='selectdriver' class="driver<?php echo $row->id ?>">
-                                        			<option value='<?=$row->driver; ?>'><?php echo $row->driver; ?></option>
+                                        			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
                                         	<?php 
 													foreach($drivers as $rows)
 												  	{
@@ -143,6 +166,61 @@
 						?>
                     </tbody>
                     </table>
+                    <script language="javascript" type="text/javascript">
+						$(document).ready(function(e) {
+							var controllerurl = 'today_delivery_area_print';
+											$('button#todayform1').click(function(e) {
+												var deliveryarea = 'Area1';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform2').click(function(e) {
+												var deliveryarea = 'Area2';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform3').click(function(e) {
+												var deliveryarea = 'Area3';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform4').click(function(e) {
+												var deliveryarea = 'Area4';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform5').click(function(e) {
+												var deliveryarea = 'Area5';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform6').click(function(e) {
+												var deliveryarea = 'Area6';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform7').click(function(e) {
+												var deliveryarea = 'Area7';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform8').click(function(e) {
+												var deliveryarea = 'Area8';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform9').click(function(e) {
+												var deliveryarea = 'Area9';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+											$('button#todayform10').click(function(e) {
+												var deliveryarea = 'Area10';
+												var deliverydate = '<?php echo $row->deliverydate?>';
+												window.open('<?php echo base_url().'delivery_view/today_delivery_area_print?area=';?>'+deliveryarea+'&currentdatetime='+deliverydate);
+											});
+                        });
+					</script>
                     <!-- Modal -->
                     <div id="orderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-header">
@@ -220,8 +298,7 @@
                                         };
                                         $.ajax(obj_status);
                    });
-
-                    load_product_list();
+				   load_product_list();
                 });
 
                  $(function() {

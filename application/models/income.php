@@ -78,7 +78,7 @@ class Income extends CI_Model {
 					$income["Credit"]="";
 					$income["Debit"]=$debits->row($i)->TotalPric;
 					$income["Comment"]=$debits->row($i)->Comment;
-					$income_list[$i+count($income_list)-1]=$income;
+					$income_list[$i+count($income_list)/*-1*/]=$income;
 					$total_amount-=$income["Debit"];
 				}
 			}

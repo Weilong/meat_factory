@@ -6,6 +6,7 @@
 		   {
 				parent::__construct();
 				$this->load->model("delivery");
+				$this->load->model("todaydelivery");
 				$this->load->model("invoice");
 				$this->load->model("customers");
 		   }
@@ -80,33 +81,42 @@
 				$data['accountdetail']=json_encode($accountdetail);
 				$this->load->view('delivery_print',$data);
 			}
-
 			public function search_order_detail(){
 				$order_id = $this->input->post("order_id");
 				$order_detail = $this->customers->fetch_order_detail($order_id);
 				$response = json_encode($order_detail);
 				echo $response;
 			}
-
 			public function remove_order_detail(){
 				$order_detail = json_decode($this->input->post("order_detail"),true);
 				$this->customers->delete_order_detail($order_detail);
 			}
-
 			public function update_order_detail(){
 				$new_order_detail = json_decode($this->input->post("order_detail"),true);
 				$this->customers->update_order_detail($new_order_detail);
 			}
-
 			public function get_product_list(){
 				$products = $this->customers->read_product();
 				$response = json_encode($products);
 				echo $response;
 			}
-
 			public function add_order_detail(){
 				$new_order_detail = json_decode($this->input->post("order_detail"),true);
 				$this->customers->add_order_detail($new_order_detail);
+			}
+			public function today_delivery_area_print()
+			{
+				if($_GET)
+				{
+					$deliveryarea = $_GET['area'];
+					$tdt = $_GET['currentdatetime'];
+					$gettoprint = $this->todaydelivery->deliverydetail($deliveryarea,$tdt);
+					$data['title'] = $deliveryarea;
+					$data['currentdate'] = $tdt;
+					$data['gettoprint'] = $gettoprint;
+					echo json_encode($gettoprint);
+					$this->load->view('current_date_delivery',$data);
+				}
 			}
 		}
 
