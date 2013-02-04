@@ -32,6 +32,7 @@ class Income extends CI_Model {
 		$incomes = array();
 		$income_list = array();
 		$total_amount = 0;
+		$start_pos = 0;
 		if ($income_type!="Debit" && $product_name=="All"){
 			$sql = "SELECT CompanyName, PayMethod, Date, Credit FROM profit WHERE Date BETWEEN '$start_date' AND '$end_date'";
 			
@@ -44,7 +45,7 @@ class Income extends CI_Model {
 			$sql.= " ORDER BY Date";
 			$credits = $this->db->query($sql);
 			if ($credits->num_rows()>0){
-				for ($i=0,$num_rows=$credits->num_rows();$i<$num_rows;$i++){
+				for ($i=0,$num_rows=$credits->num_rows();$i<$num_rows;$i++,$start_pos++){
 					$income = array();
 					$income["ProductName"]="";
 					$income["CompanyName"]=$credits->row($i)->CompanyName;
@@ -78,7 +79,7 @@ class Income extends CI_Model {
 					$income["Credit"]="";
 					$income["Debit"]=$debits->row($i)->TotalPric;
 					$income["Comment"]=$debits->row($i)->Comment;
-					$income_list[$i+count($income_list)-1]=$income;
+					$income_list[$i+$start_pos]=$income;
 					$total_amount-=$income["Debit"];
 				}
 			}
