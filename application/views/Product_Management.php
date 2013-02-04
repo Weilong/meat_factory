@@ -283,7 +283,10 @@
                                 <option value="Pork">Pork</option>
                                 <option value="Stock">Stock</option>
                                 <option value="Other">Other</option>
-                            </select><br />
+                            </select>
+                            <label>商品名称</label>
+                            <input type="text" id="product_name">
+                            <br />
                             <button id="search_category" class="btn btn-primary"/>查询</button>
                     </div>
                     <hr />
@@ -329,7 +332,7 @@
 							var obj = {
 								type:"post",
 								url:"productlist/categorysearch",
-								data:{product_category:category},
+								data:{product_category:category,product_name: $("#product_name").val()},
 								success:function(result_data)
 								{
 									if(result_data.length==0)
@@ -365,6 +368,21 @@
 							};
 							$.ajax(obj);
                         });
+
+                        var ajaxOpts={
+                            type: "post",
+                            dataType: "json",
+                            url: "productlist/get_products",
+                            data: {},
+                            success: function(data){
+                                var products = [];
+                                for (var x = 0;x<data.length;x++){
+                                    products[x] = data[x].ProductName;
+                                }
+                                $("#product_name").typeahead({source:products,items:6});
+                            }
+                        };
+                        $.ajax(ajaxOpts);
                     });
 					$('button.product_edit_btn').live(
 						'click',function(e) {
@@ -374,8 +392,6 @@
 										url : 'productlist/info_product',
 										data:{product:productid},
 										success:function(data){
-											//$('.product_edit').animate({width:'50%',height:'50%',opacity:'1'},'slow');
-											//$('.product_edit').css('visibility','visible');
 											if(data.length==0)
 											{
 												$('#mymodal').modal({show:true});

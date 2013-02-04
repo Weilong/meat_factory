@@ -163,8 +163,8 @@
                             <thead>
                                 <tr>
                                     <!-- <th><input title="select all" id="all" type="checkbox"></th> --> 
-                                    <th>公司全称</th><!-- click to view detail and edit -->
-                                    <th>公司简称</th>
+                                    <th>公司名</th><!-- click to view detail and edit -->
+                                    <th>描述</th>
                                     <th>公司地址</th>
                                     <th>地区</th>
                                     <th>电话</th>

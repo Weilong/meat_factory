@@ -62,7 +62,7 @@
 		{
 			if($_POST)
 			{
-				$result = $this->product_list->category($_POST['product_category']);
+				$result = $this->product_list->category($_POST['product_category'],$_POST['product_name']);
 				if($result->num_rows()>0)
 				{
 					$product=array();
@@ -140,6 +140,12 @@
 				$result = $this->product_list->edit_save($_POST['product']);
 				echo $result; 
 			}
+		}
+
+		public function get_products(){
+			$products = $this->product_list->fetch_all_products();
+			$response = json_encode($products);
+			echo $response;
 		}
 	}
 ?>

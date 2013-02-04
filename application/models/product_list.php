@@ -58,8 +58,18 @@
 			return $query;
 		}
 		//category found
-		public function category($category)
+		public function category($category, $product_name)
 		{
+			$sql="SELECT * From product WHERE (1=1)";
+			if ($category!="All"){
+				$sql.=" AND Category='$category'";
+			}
+			if ($product_name!=""){
+				$sql.=" AND ProductName='$product_name'";
+			}
+			$query = $this->db->query($sql);
+			return $query;
+			/*
 			if($category=="All")
 			{
 				$sql="SELECT * From product";
@@ -71,7 +81,7 @@
 				$sql = "SELECT * From product WHERE `Category`='$category'";
 				$query = $this->db->query($sql);
 				return $query;
-			}
+			}*/
 		}
 		public function remove_product($product)
 		{
@@ -99,6 +109,21 @@
 			$query=$this->db->query($sql);
 			$warning = 'Change Done';
 			return $warning;
+		}
+
+		public function fetch_all_products(){
+			$sql = "SELECT ProductName FROM product ORDER BY ProductName ASC";
+			$query = $this->db->query($sql);
+			$products = array();
+
+			if ($query->num_rows()>0)
+			{
+				for($i=0, $num_rows = $query->num_rows();$i<$num_rows;$i++)
+				{
+					$products[$i] = $query->row($i);
+				}
+			}
+			return $products;
 		}
 	}
 ?>

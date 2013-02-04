@@ -4,31 +4,31 @@
               <div class="navbar">
                 <div class="navbar-inner" style="width:120px;">
                   <ul class="nav nav-stacked">
-                    <li><a href="<?php echo base_url().'page?page=order_management' ?>">订单管理</a>
+                    <li><a href="<?php echo base_url().'page?page=order_management'; ?>">订单管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=delivery_view_search' ?>">送货管理</a>
+                    <li><a href="<?php echo base_url().'page?page=delivery_view_search'; ?>">送货管理</a>
                     	<ul>
                         	<li>送货信息查询</li>
                         </ul>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=accountant_login' ?>">账目管理</a>
+                    <li><a href="<?php echo base_url().'page?page=accountant_login'; ?>">账目管理</a>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=client_management' ?>">客户管理</a>
-                    </li>
-                    </li>
-                    <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=supplier_management' ?>">供应商管理</a>
+                    <li><a href="<?php echo base_url().'page?page=client_management'; ?>">客户管理</a>
                     </li>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=product_management' ?>">商品管理</a>
+                    <li><a href="<?php echo base_url().'page?page=supplier_management'; ?>">供应商管理</a>
                     </li>
                     </li>
                     <li class="divider"></li>
-                    <li><a href="<?php echo base_url().'page?page=income_view' ?>">报表查看</a>
+                    <li><a href="<?php echo base_url().'page?page=product_management'; ?>">商品管理</a>
+                    </li>
+                    </li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo base_url().'page?page=income_view'; ?>">报表查看</a>
                     </li>
                     </li>
                   </ul>
@@ -41,7 +41,7 @@
                     <form class="form-inline" method="post" action="<?php echo base_url().'delivery_view/load_delivery_detail'; ?>">
                     	<table>
                         	<tr>
-                                <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?=date('Y-m-d'); ?>' /></td>
+                                <td>送货日期  <input class="datepicker" type="text" name="delivery_date" value='<?php echo date('Y-m-d'); ?>' /></td>
                             	<td width="10"></td><td><input type="button" class="btn btn-primary" id="searching" value="查询" /></td>
                             </tr>
                         </table>
@@ -72,15 +72,15 @@
                     <!-- delivery detail in current date -->
                     <table class='table table-striped table-hover'>
                     	<thead>
-                            <th>OrderID</th>
-                            <th>CompanyName</th>
-                            <th>ContactName</th>
-                        	<th>DeliveryDate</th>
-                            <th>Driver</th>
-                            <th>Suburb</th>
-                            <th>Area</th>
-                        	<th>Print</th>
-                            <th>Complete</th>
+                            <th>订单ID</th>
+                            <th>公司名</th>
+                            <th>描述</th>
+                            <th>送货日期</th>
+                            <th>司机</th>
+                            <th>市区</th>
+                            <th>区域</th>
+                            <th>打印</th>
+                            <th>状态</th>
                         </thead>
                         <tbody>
                         <?php 
@@ -91,10 +91,11 @@
 									$status = "Completed";
 						?>
 									<tr>
-                                        <td id='driver<?php echo $row->id ?>'><? echo $row->id ?></td>
-                                        <td><?php echo $row->companyname ?></td>
-                                        <td><?php echo $row->contactname ?></td>
-                                        <td><?php echo $row->deliverydate ?></td>
+                                        <td id='driver<?php echo $row->id; ?>'><?php echo $row->id; ?></td>
+                                        <td><?php echo $row->companyname; ?></td>
+                                        <td><?php echo $row->contactname; ?></td>
+                                        <td><?php echo $row->deliverydate; ?></td>
+
                                         <td><?php if($row->status==$status)
 												{
 													echo $row->driver;
@@ -102,8 +103,15 @@
 												else
 												{
 											?>
+<<<<<<< HEAD
                                             		<select name='selectdriver' class="driver<?php echo $row->id ?>">
                                         			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
+=======
+
+                                            		<select name='selectdriver' class="driver<?php echo $row->id; ?>">
+                                        			<option value='<?php echo $row->driver; ?>'><?php echo $row->driver; ?></option>
+
+>>>>>>> 48bddf0e7baa6b2d08ed811880d2f6b4d256b4a0
                                         	<?php 
 													foreach($drivers as $rows)
 												  	{
@@ -111,7 +119,7 @@
 														if($delivery_drivers!=$row->driver)
 														{
 											?>
-                                                			<option value='<?php echo $delivery_drivers; ?>'><?=$delivery_drivers; ?></option>
+                                                			<option value='<?php echo $delivery_drivers; ?>'><?php echo$delivery_drivers; ?></option>
                                             <?php
 														}
 													}
@@ -119,9 +127,9 @@
 											?>
                                             </select>
                                         </td>
-                                        <td><?php echo $row->suburb ?></td>
-                                        <td><?php echo $row->area ?></td>
-                                        <td><!--<a href='<?php echo base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?php echo $row->id ?>" title='print'></i></button><!--</a>--></td>
+                                        <td><?php echo $row->suburb; ?></td>
+                                        <td><?php echo $row->area; ?></td>
+                                        <td><!--<a href='<?=base_url().'delivery_view/print_order_detail?accountname='.$row->companyname.'&orderid='.$row->id; ?>' target="_blank">--><button class="btn print_btn"><i class='icon-print' id="<?php echo $row->id; ?>" title='print'></i></button><!--</a>--></td>
                                         <td><?php
                                             	if($row->status==$status)
 												{
@@ -130,16 +138,16 @@
 												else
 												{
                                             ?>
-                                            <button id='<?php echo $row->id ?>' class="btn complete_btn">Complete</button>
-                                            <?
+                                            <button id='<?php echo $row->id; ?>' class="btn complete_btn">Complete</button>
+                                            <?php
 												}
 											?></td>
 									</tr>
                                     <script language="javascript" type="text/javascript">
 										$(document).ready(function(e) {
-                                            $('.driver<?php echo $row->id ?>').change(function(){
-                                              	var newdriver = $(".driver<?php echo $row->id ?>").val();
-												var order_id = <?php echo $row->id ?>;
+                                            $('.driver<?php echo $row->id; ?>').change(function(){
+                                              	var newdriver = $(".driver<?php echo $row->id; ?>").val();
+												var order_id = <?php echo $row->id; ?>;
 												var ajaxobj = 
 												{
 													type: "post",

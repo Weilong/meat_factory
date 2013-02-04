@@ -1,6 +1,6 @@
-<?
-class downloadfiles extends CI_Controller{
-	public function download()
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed'); 
+class Downloadfiles extends CI_Controller{
+	public function index()
 	{
 		$currentdate = $_GET['currenttime'];
 		header("Content-type:application/csv");

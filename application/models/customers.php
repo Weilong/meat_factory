@@ -61,7 +61,7 @@ class Customers extends CI_Model {
 	}
 
 	public function read_product(){
-		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product ORDER BY ProductName ASC";
+		$sql = "SELECT ProductName, Description, Price, Unit, Category FROM product ORDER BY Category ASC, ProductName ASC";
 		$query =  $this->db->query($sql);
 		$products = array();
 
