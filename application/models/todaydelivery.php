@@ -5,6 +5,26 @@ class todaydelivery extends CI_Model {
     {
          parent::__construct();
     }
+	public function companylist($deliveryarea,$tdt)
+	{
+		$sql = "SELECT * FROM orderinfo WHERE `Area`='$deliveryarea' AND `DeliveryDate`='$tdt'";
+		$query = $this->db->query($sql);
+		if($query->num_rows()>0)
+		{
+			$deliverycompany = array();	
+			foreach($query->result() as $row)
+			{
+				$orderid = $row->OrderID;
+				$companyname = $row->CompanyName;
+				$companylist = compact(
+					'orderid',
+					'companyname'
+				);
+				array_push($deliverycompany,$companylist);
+			}
+			return $deliverycompany;
+		}
+	}
 	public function deliverydetail($deliveryarea,$tdt)
 	{
 		/*get company from orderinfo*/
@@ -38,6 +58,34 @@ class todaydelivery extends CI_Model {
 			}
 		}
 		return $deliverycompany;
+	}
+	public function productlist($deliveryarea,$tdt)
+	{
+		$sql = "SELECT * FROM orderinfo WHERE `Area`='$deliveryarea' AND `DeliveryDate`='$tdt' ";
+		$query = $this->db->query($sql);
+		if($query->num_rows()>0)
+		{
+			$productlist = array();
+			foreach($query->result() as $row)
+			{
+				$orderid = $row->OrderID;
+				$companyname = $row->CompanyName;
+				$sqlview = "SELECT `ProductName` FROM orderdetail WHERE `OrderID`='$orderid' AND `CompanyName`='$companyname'  Group By `ProductName`";
+				//$sqlview .= "SELECT `ProductName` FROM productlist Group By `ProductName`";
+				//$sql3 = "SELECT `productlist` FROM temptable Group By `productlist`";
+				$query2 = $this->db->query($sqlview);
+				foreach ($query2->result() as $row2)
+				{
+					$product = $row2->ProductName;
+					$list = compact(
+						'product'
+					);
+					array_push($productlist,$list);
+				}
+				
+			}
+		}
+		return $productlist;
 	}
 }
 ?>

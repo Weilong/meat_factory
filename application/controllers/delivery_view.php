@@ -110,12 +110,18 @@
 				{
 					$deliveryarea = $_GET['area'];
 					$tdt = $_GET['currentdatetime'];
+					$getcompanylist = $this->todaydelivery->companylist($deliveryarea,$tdt);
 					$gettoprint = $this->todaydelivery->deliverydetail($deliveryarea,$tdt);
+					$getproductlist = $this->todaydelivery->productlist($deliveryarea,$tdt);
 					$data['title'] = $deliveryarea;
 					$data['currentdate'] = $tdt;
+					$data['getcompanylist']=$getcompanylist;
 					$data['gettoprint'] = $gettoprint;
-					echo json_encode($gettoprint);
+					$data['getproductlist']=$getproductlist;
 					$this->load->view('current_date_delivery',$data);
+					echo json_encode($getproductlist);
+					//echo json_encode($getcompanylist);
+					//echo json_encode($gettoprint);
 				}
 			}
 		}
