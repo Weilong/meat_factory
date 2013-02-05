@@ -83,7 +83,7 @@ class Income extends CI_Model {
 					$total_amount-=$income["Debit"];
 				}
 			}
-		}
+		} 
 		
 		$incomes[0]=$income_list;
 		$incomes[1]=$total_amount;
