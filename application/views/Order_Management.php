@@ -357,25 +357,33 @@
 
             function change_qty(){
                 //need validation: cant be negative, alphabet or other symbols
-                if ($(this).val()=="" || $(this).val()<0 || isNaN($(this).val())){
+                if ($(this).val()<0 || isNaN($(this).val())){
                     alert("数目格式不正确！");
                     $(this).val(0);
-                    return;
                 }
+                if ($(this).val()==""){
+                    $(this).val(0);
+                }
+                var changed_input = $(this);
+                var total_qty = parseFloat($("#total_qty").val()), total_price = parseFloat($("#total_price").val());
                 
-                var total_qty=0,total_price=0;
-                $("#modal_table tbody").empty();
-                $("#results_table tbody tr").each(function(){
-                    if ($(this).find("input").val()!=0){
-                        var tr = $(this).clone();
-                        var qty = parseFloat(tr.find("input").val());
-                        var price = parseFloat(tr.find(".price").text());
-                        total_qty += qty;
-                        total_price += (price*qty);
-                        tr.find("input").parent().text(qty);    //replace input by plain text
-                        tr.appendTo($("#modal_table tbody"));
-                    }
+                $("#modal_table tbody tr").each(function(){
+                    if ($(this).children().eq(0).text()==changed_input.closest("tr").children().eq(0).text()){
+                        total_qty -= parseFloat($(this).children().eq(5).text());
+                        total_price -= parseFloat($(this).children().eq(2).text()) * parseFloat($(this).children().eq(5).text());
+                        $(this).remove();
+                    }   
                 });
+
+                if (changed_input.val()!=0){
+                    var tr = changed_input.closest("tr").clone();
+                    var qty = parseFloat(tr.find("input").val());
+                    var price = parseFloat(tr.find(".price").text());
+                    total_qty += qty;
+                    total_price += (price*qty);
+                    tr.find("input").parent().text(qty);    //replace input by plain text
+                    tr.appendTo($("#modal_table tbody"));
+                }
 
                 $("#total_qty").val(total_qty);
                 $("#total_price").val(total_price);
