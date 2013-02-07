@@ -14,13 +14,8 @@ class todaydelivery extends CI_Model {
 			$deliverycompany = array();	
 			foreach($query->result() as $row)
 			{
-				$orderid = $row->OrderID;
 				$companyname = $row->CompanyName;
-				$companylist = compact(
-					'orderid',
-					'companyname'
-				);
-				array_push($deliverycompany,$companylist);
+				array_push($deliverycompany,$companyname);
 			}
 			return $deliverycompany;
 		}
@@ -65,24 +60,20 @@ class todaydelivery extends CI_Model {
 		$query = $this->db->query($sql);
 		if($query->num_rows()>0)
 		{
-			$productlist = array();
+			$productlist=array();
 			foreach($query->result() as $row)
 			{
 				$orderid = $row->OrderID;
 				$companyname = $row->CompanyName;
-				$sqlview = "SELECT `ProductName` FROM orderdetail WHERE `OrderID`='$orderid' AND `CompanyName`='$companyname'  Group By `ProductName`";
+				$sqlview = "SELECT `ProductName` FROM orderdetail WHERE `OrderID`='$orderid' AND `CompanyName`='$companyname' Group By `ProductName`";
 				//$sqlview .= "SELECT `ProductName` FROM productlist Group By `ProductName`";
 				//$sql3 = "SELECT `productlist` FROM temptable Group By `productlist`";
 				$query2 = $this->db->query($sqlview);
 				foreach ($query2->result() as $row2)
 				{
 					$product = $row2->ProductName;
-					$list = compact(
-						'product'
-					);
-					array_push($productlist,$list);
+					array_push($productlist,$product);
 				}
-				
 			}
 		}
 		return $productlist;

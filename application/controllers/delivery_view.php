@@ -113,13 +113,43 @@
 					$getcompanylist = $this->todaydelivery->companylist($deliveryarea,$tdt);
 					$gettoprint = $this->todaydelivery->deliverydetail($deliveryarea,$tdt);
 					$getproductlist = $this->todaydelivery->productlist($deliveryarea,$tdt);
+					
+					$rownum = count($getproductlist);
+					$list = array();
+					$i=0;
+					$k=0;
+					for($i=0;$i<$rownum;$i++)
+					{
+						$line1 = $getproductlist[$i];
+						if($list==""||$list==NULL)
+						{
+							array_push($list,$line1);
+						}
+						$rowsnum = count($list);
+						$j = 0;
+						for($j=0;$j<$rowsnum;$j++)
+						{
+							if($line1==$list[$j])
+							{
+								$k=$j;
+								break;
+							}
+							else
+							{
+								$k=$j;
+							}
+						}	
+						if($line1!=$list[$k])
+						{
+							array_push($list,$line1);
+						}					
+					}
 					$data['title'] = $deliveryarea;
 					$data['currentdate'] = $tdt;
 					$data['getcompanylist']=$getcompanylist;
 					$data['gettoprint'] = $gettoprint;
-					$data['getproductlist']=$getproductlist;
+					$data['getproductlist']=$list;
 					$this->load->view('current_date_delivery',$data);
-					echo json_encode($getproductlist);
 					//echo json_encode($getcompanylist);
 					//echo json_encode($gettoprint);
 				}
