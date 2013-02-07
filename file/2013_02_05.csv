@@ -1,0 +1,23 @@
+ProductName," CompanyName"," PayMethod"," Date"," Credit"," Debit"," Comment"
+," 6/60",Cash,2012-01-17,50.00,,
+,Retail,Cash,2012-01-17,888.00,,
+,Retail,Cash,2013-01-06,66.00,,
+," 6/60",Cash,2013-01-06,43.00,,
+," 6/60",Cash,2013-01-06,50.00,,
+,Retail,Cash,2013-01-06,6000.00,,
+,105,Cash,2013-01-06,44.00,,
+,Retail,Cash,2013-01-25,5.00,,
+,"1/125 Metang",Cash,2013-01-25,1.00,,
+,"1/125 Metang",Cash,2013-01-25,1.00,,
+,"1/125 Metang",Cash,2013-01-25,1.00,,
+,"1/125 Metang",Cash,2013-01-25,1.00,,
+,"1/125 Metang",Cash,2013-01-25,1.00,,
+,test,Cash,2013-02-01,200.00,,
+,Retail,Cash,2013-02-01,100.00,,
+,Retail,Cash,2013-02-01,100.00,,
+"BEEF BIBKE",,,2012-01-17,,400.00,"bibke slide"
+Others,,,2012-01-17,,100.00,rent
+Salary,,,2013-01-06,,4444.00,"give to eddi"
+"FULL BREAS",,,2013-01-06,,30.00,cxsa
+salary,,,2013-02-02,,100.00,test
+" "," "," "," "," ","Amount "," 2477"
