@@ -51,8 +51,9 @@ class todaydelivery extends CI_Model {
 				);
 				array_push($deliverycompany,$company);
 			}
+			return $deliverycompany;
 		}
-		return $deliverycompany;
+		
 	}
 	public function productlist($deliveryarea,$tdt)
 	{
@@ -75,8 +76,9 @@ class todaydelivery extends CI_Model {
 					array_push($productlist,$product);
 				}
 			}
+			return $productlist;
 		}
-		return $productlist;
+		
 	}
 }
 ?>
