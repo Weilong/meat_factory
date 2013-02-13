@@ -146,6 +146,10 @@ class Customers extends CI_Model {
 	}
 
 	public function fetch_orders($start_date,$end_date,$company,$status){
+		if($start_date==$end_date)
+		{
+			$start_date = $end_date;
+		}
 		$sql = "SELECT OrderID, OrderDate, CompanyName, DeliveryDate, Status, TotalPrice, Comment 
 				FROM orderinfo 
 				WHERE OrderDate BETWEEN '$start_date' AND '$end_date'";

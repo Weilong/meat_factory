@@ -123,7 +123,7 @@
                         </select><br />
                         <label>金额</label>
                         <!-- the type of input needs to be validated at back-end or using ajax -->
-                        <input type="number" name="balance" id="balance"></input><br />
+                        <input type="number" name="balance" id="costmoney"></input><br />
                         <label>描述</label>
                         <textarea rows="5" name="comments" id="comments"></textarea><br />
                         <button type="button" id="confirm" class="btn btn-primary">确认</button>
@@ -135,7 +135,7 @@
 					$(document).ready(function(e) {
                       	$('#confirm').click(function(e) {
                         	var costtype = $('#costtype').val();
-							var balance = $('#balance').val();
+							var balance = $('#costmoney').val();
 							var comments = $('#comments').val();
 							if(balance=="")
 							{
