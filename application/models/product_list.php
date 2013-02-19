@@ -125,5 +125,27 @@
 			}
 			return $products;
 		}
+		public function getproductreport()
+		{
+			  $sql = "SELECT * FROM `product`";
+			  $query = $this->db->query($sql);
+			  if($query->num_rows()>0)
+			  {
+				  $productarray = array('ID,ProductName,Description,Stock,Unit,Price,Category');
+				  foreach($query->result() as $row)
+				  {
+				 		$id = $row->ProductID;
+						$name=$row->ProductName;
+						$description=$row->Description;
+						$stock=$row->Stock;
+						$unit=$row->Unit;
+						$price=$row->Price;
+						$category=$row->Category; 
+						$temparraylist = $id.','.$name.','.$description.','.$stock.','.$unit.','.$price.','.$category;
+						array_push($productarray,$temparraylist);
+				  }
+				  return $productarray;
+			  }
+		}
 	}
 ?>

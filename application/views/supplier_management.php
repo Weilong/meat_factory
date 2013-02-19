@@ -137,6 +137,8 @@
                             	<option value="all">ALL</option>
                                 
                             </select>
+                             <a href="<?php echo base_url(); ?>downloadfiles/supplierreportdownloading?currenttime=<?php echo date('Y_m_d'); ?>" id="getsupplierreport">下载最新供应商信息</a>
+                            <br/>
                             <button id="check_list" class="btn btn-primary">查询</button>
                     </div>
                     <script language="javascript" type="text/javascript">
@@ -156,6 +158,14 @@
 												//$("#company_name").get(0).selectedIndex = -1;
 											}
 										);
+										var reportobj = {
+												type:'post',
+												url:'supplierreport/download_supplier_report',
+												success:function(data){
+													var reportresult = data;
+												}
+											};
+											$.ajax(reportobj);
                                     });
 								</script>
                     <div>

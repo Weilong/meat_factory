@@ -287,7 +287,8 @@
                             <label>商品名称</label>
                             <input type="text" id="product_name">
                             <br />
-                            <button id="search_category" class="btn btn-primary"/>查询</button>
+                            <button id="search_category" class="btn btn-primary"/>查询</button>&nbsp;&nbsp;
+                            <a href="<?php echo base_url(); ?>downloadfiles/productreportdownloading?currenttime=<?php echo date('Y_m_d'); ?>" id="getproductreport">下载最新商品信息</a>
                     </div>
                     <hr />
                     <div>
@@ -312,6 +313,14 @@
             </div>
             <script language="javascript" type="text/javascript">
 					$(document).ready(function(e) {
+						var productobj = {
+							type:'post',
+							url:'productreport/download_product_report',
+							success:function(data){
+								var reportresult = data;
+							}
+						};
+						$.ajax(productobj);
 						$('#addnewproduct').click(function(e) {
                             $('.intoproduct').animate({height:'0px'},"fast");
 							$('.productmanagement').animate({height:'0px'},"fast");

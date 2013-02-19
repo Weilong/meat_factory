@@ -150,6 +150,41 @@
 			  $query = $this->db->query($sql);
 			  return $client;
 		  }
+		  public function getclientreport()
+		  {
+			  $sql = "SELECT * FROM `customer` WHERE `CustomerType`='Client'";
+			  $query = $this->db->query($sql);
+			  if($query->num_rows()>0)
+			  {
+				  $clientarray = array('ID,Name,Contact,Address,Suburb,City,State,Country,Postcode,DeliveryAddress, DeliverySuburb,DeliveryCity,DeliveryState,DeliveryCountry,DeliveryPostCode,Telephone,Fax,Mobile,Email,Area');
+				  foreach($query->result() as $row)
+				  {
+				 		 $id = $row->CustomerID;
+						 $companyname=$row->CompanyName;
+						 $contactname=$row->ContactName;
+						 $address = $row->Address1;
+						 $deliveryaddress = $row->Address2;
+						 $suburb = $row->Suburb1;
+						 $deliverysuburb = $row->Suburb2;
+						 $city = $row->City1;
+						 $expresscity = $row->City2;
+						 $state = $row->State1;
+						 $deliverystate = $row->State2;
+						 $country = $row->Country1;
+						 $deliverycountry = $row->Country2;
+						 $postcode = $row->Postcode1;
+						 $deliverypostcode=$row->Postcode2;
+						 $telephone = $row->Telephone;
+						 $fax = $row->Fax;
+						 $mobile = $row->Mobile;
+						 $email = $row->Email;
+						 $area = $row->Area;
+						 $temparraylist = $id.','.$companyname.','.$contactname.','.$address.','.$suburb.','.$city.','.$state.','.$country.','.$postcode.','.$deliveryaddress.','.$deliverysuburb.','.$expresscity.','.$deliverystate.','.$deliverycountry.','.$deliverypostcode.','.$telephone.','.$fax.','.$mobile.','.$email.','.$area;
+						 array_push($clientarray,$temparraylist);
+				  }
+				  return $clientarray;
+			  }
+		  }
 		 
 	}
 

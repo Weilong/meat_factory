@@ -180,9 +180,14 @@
                     <div>
                         	<label>所属地区</label>
                             <select name="client_region" id="customer_region">
-                            </select><br />
+                            </select>
+                            <a href="<?php echo base_url(); ?>downloadfiles/clientreportdownloading?currenttime=<?php echo date('Y_m_d'); ?>" id="getclientreport">下载最新客户信息</a>
+                            <br />
                             <button id="check_list" class="btn btn-primary">查询</button>
+                            
                     </div>
+                    
+                    
                      <script language="javascript" type="text/javascript">
 									$(document).ready(function(e) {
                                         $.getJSON('client_edit/read_client_region',
@@ -200,6 +205,14 @@
 												//$("#company_name").get(0).selectedIndex = -1;
 											}
 										);
+										var reportobj = {
+												type:'post',
+												url:'clientreport/download_client_report',
+												success:function(data){
+													var reportresult = data;
+												}
+											};
+											$.ajax(reportobj);
                                     });
 								</script>
                     <div>
